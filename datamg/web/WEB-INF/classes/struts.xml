@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- sturts2默认采用的编码 -->
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<!-- 配置Action由Spring管理 -->
+	<constant name="struts.objectFactory" value="spring"></constant>
+	<!-- 配置struts2的请求方式以什么结尾 -->
+	<constant name="struts.action.extension" value="do"></constant>
+	<!-- 配置文件上传模式 -->
+	<constant name="struts.multipart.parser" value="jakarta"></constant>
+	<!-- 上传文件最大30M 单位B-->
+	<constant name="struts.multipart.maxSize" value="31457280"></constant>
+	<!-- 是否启用开发模式 -->
+	<constant name="struts.devMode" value="false" />
+	<!-- struts配置文件改动后，是否重新加载 -->
+	<constant name="struts.configuration.xml.reload" value="false" />
+	<!-- 设置浏览器是否缓存静态内容 -->
+	<constant name="struts.serve.static.browserCache" value="true" />
+	<!-- 每次HTTP请求系统都重新加载资源文件，有助于开发 -->
+	<constant name="struts.i18n.reload" value="false" />
+	<!-- 让struts2支持动态方法调用 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	
+    <package name="defaultPackage" extends="struts-default">
+    	<interceptors>
+    		<interceptor name="privilegeInterceptor" class="net.zz.utils.interceptor.PrivilegeInterceptor" /><!-- 权限拦截器 -->
+    		<interceptor-stack name="defaultinterceptor">
+    			<interceptor-ref name="privilegeInterceptor">
+    				<param name="excludeMethods">doNotSecurity*</param><!-- doNotSecurity开头的方法不拦截 -->
+    			</interceptor-ref>
+    			<interceptor-ref name="fileUpload"></interceptor-ref>
+    			<interceptor-ref name="defaultStack"></interceptor-ref>
+    		</interceptor-stack>
+    	</interceptors>
+    	<default-interceptor-ref name="defaultinterceptor"></default-interceptor-ref>
+    	<global-results>
+    		<!-- 没有权限 -->
+    		<result name="noPrivilege">/jsp/error/noPrivilege.jsp</result>
+			<!-- struts抛异常 -->
+			<result name="strutsException">/jsp/error/strutsException.jsp</result>
+		</global-results>
+    	<global-exception-mappings>
+			<exception-mapping result="strutsException" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+    </package>
+</struts>
