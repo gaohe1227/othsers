@@ -1,0 +1,240 @@
+#set($ctx = $request.getContextPath())
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
+	<head>
+		
+		<!-- META -->
+		<title>$!case.title -多维矩阵网络科技-网络信息化咨询服务</title>
+		<meta charset="utf-8" />	
+		<meta name="description" content=" $!case.title -多维矩阵网络科技致力于为中小型企业打造专业,稳定,易用的服务应用型软件产品,以依托互联网为终端帮客户迅速实现信息互联化... " />
+		<meta name="keywords"    content=" UI设计/制作 Android定制 App开发 网站建设  网站开发 JavaCMS系统 多维矩阵网络科技... " />	
+	
+		
+		<!-- FAVICON  -->
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />					
+			
+		<!-- STYLESHEETS -->
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/style.css" />
+		
+		<!-- SCRIPTS -->
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/lightbox.css" />
+		<link rel="stylesheet" type="text/css" href="${ctx}/thirdparty/highslide/highslide.css" />
+		<script type="text/javascript" src="${ctx}/thirdparty/highslide/highslide-with-gallery.js"></script>
+		<script type="text/javascript">
+		hs.graphicsDir = '${ctx}/thirdparty/highslide/graphics/';
+		hs.align = 'center';
+		hs.transitions = ['expand', 'crossfade'];
+		hs.fadeInOut = true;
+		hs.dimmingOpacity = 0.8;
+		hs.outlineType = 'rounded-white';
+		hs.captionEval = 'this.thumb.alt';
+		hs.marginBottom = 105; // make room for the thumbstrip and the controls
+		
+	
+		// Add the slideshow providing the controlbar and the thumbstrip
+		hs.addSlideshow({
+			//slideshowGroup: 'group1',
+			interval: 5000,
+			repeat: false,
+			useControls: true,
+			overlayOptions: {
+				className: 'text-controls',
+				position: 'bottom center',
+				relativeTo: 'viewport',
+				offsetY: -60
+			},
+			thumbstrip: {
+				position: 'bottom center',
+				mode: 'horizontal',
+				relativeTo: 'viewport'
+			}
+		});
+		</script>	
+	
+
+			
+	</head>
+	<body>
+	<!-- HEADER -->
+${httpInclude.include("top.vm")}
+	<!-- end HEADER -->	
+		
+		<!-- MAIN -->			
+		<div id="main" class="container">
+			<!-- Content -->				
+			<div id="content">
+				<h1 class="title">$!case.title</h1>
+				<img alt="$!case.title"  style="width:635px;height:500px;"  src="${ctx}$!case.pictureList[0].imgPath">
+				<h5 class="caption">简介:</h5>
+				<p>$!case.txt</p>
+							
+				<h5 class="caption">设计/制作稿:<a href="$!case.originUrl">$!case.origin</a></h5>
+	<div id="gallery">
+			<ul>
+			#foreach( $pic in $!case.pictureList )
+				<li>
+					<a href="${ctx}$!pic.imgPath" title="$!pic.description"
+						onclick="return hs.expand(this)"><span></span><em>$!pic.description</em><u><img
+								src="${ctx}$!pic.imgPath" alt="$!pic.description">
+						</u>
+					</a>
+				</li>
+			#end	
+			</ul>
+			<div class="cl"></div>
+		</div>
+		
+				<div class="post-meta">
+					<div class="fixed">
+						<span class="post-date">$!date.format('yyyy-MM-dd HH:mm:ss',$!case.releaseDate)</span>
+						<span class="post-author">$!case.author</span>
+						<ul class="tags"  >
+						<li>标签:</li>
+						#foreach( $!tag in $!case.tagStr.split(";") )
+							<li><a href="#">$!tag</a></li>
+						#end	
+						<li
+							style="text-align: right; display: block; float: right; list-style: none; position: relative;"><iframe
+								src="http://follow.v.t.qq.com/index.php?c=follow&a=quick&appkey=801547122&sign=89b6e4e7&v=2&name=doadway&style=5&t=1413541138254&f=1"
+								frameborder="0" scrolling="auto" width="178" height="24"
+								marginwidth="0" marginheight="0" allowtransparency="true"></iframe></li>
+					
+						</ul>
+					</div>
+				</div>
+				
+				<!-- 
+				<div class="author-info">
+					<img class="avatar" src="images/img-32-90x90.jpg">
+					<div class="box" align="center">
+						<iframe src="http://follow.v.t.qq.com/index.php?c=follow&a=quick&appkey=801547122&sign=89b6e4e7&v=2&name=doadway&style=1&t=1413537116121&f=1" frameborder="0" scrolling="auto" width="227" height="75" marginwidth="0" marginheight="0" allowtransparency="true"></iframe>
+						<p>多维矩阵</p>						
+						</div>
+				</div>
+				 -->
+				
+				<!-- 
+				<div class="delimiter"></div>
+				< h2>Discussion</h2>
+				<ul class="comments">
+					<li>
+						<div class="comment">
+							<img class="avatar" src="images/img-33-90x90.jpg">
+							<div class="box">
+								<span class="comment-author">Jim</span>
+								<p class="comment-date">31.03.2011 at 11:06</p>
+								<p>Dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+							</div>
+							<a class="comment-reply">Reply</a>
+						</div>
+						<ul class="comments">
+							<li>
+								<div class="comment author-comment">
+									<img class="avatar" src="images/img-32-90x90.jpg">
+									<div class="box">
+										<span class="comment-author">John</span>
+										<p class="comment-date">31.03.2011 at 11:06</p>
+										<p>Dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+									</div>
+									<a class="comment-reply">Reply</a>
+								</div>
+							</li>
+							<li>
+								<div class="comment">
+									<img class="avatar" src="images/img-34-90x90.jpg">
+									<div class="box">
+										<span class="comment-author">Jane</span>
+										<p class="comment-date">31.03.2011 at 11:06</p>
+										<p>Dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+									</div>
+									<a class="comment-reply">Reply</a>
+								</div>
+								<ul class="comments">
+									<li>
+										<div class="comment">
+											<img class="avatar" src="images/img-33-90x90.jpg">
+											<div class="box">
+												<span class="comment-author">Jack</span>
+												<p class="comment-date">31.03.2011 at 11:06</p>
+												<p>Dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+											</div>
+											<a class="comment-reply">Reply</a>
+										</div>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div class="comment author-comment">
+							<img class="avatar" src="images/img-32-90x90.jpg">
+							<div class="box">
+								<span class="comment-author">John</span>
+								<p class="comment-date">31.03.2011 at 11:06</p>
+								<p>Dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+							</div>
+							<a class="comment-reply">Reply</a>
+						</div>
+					</li>					
+				</ul>
+				
+				
+				<ul class="pagenav">
+					<li><a href="#">&laquo;</a></li>
+					<li><a href="#">&lsaquo;</a></li>
+					<li><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li class="current">3</li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+					<li class="extend">...</li>
+					<li><a href="#">&rsaquo;</a></li>
+					<li><a href="#">&raquo;</a></li>
+				</ul>
+				<div class="delimiter"></div>
+				
+				<h2>Leave a comment</h2>
+				<form action="#" id="commentform">
+					<p>
+						<label for="name"><span class="required">*</span>Your Name:</label><br>
+						<input type="text" id="name">
+					</p>
+					<p>
+						<label for="email"><span class="required">*</span>E-mail: <small>(will not be published)</small></label><br>
+						<input type="text" id="email">
+					</p>
+					<p>
+						<label for="website">Website:</label><br>
+						<input type="text" id="website">
+					</p>
+					<p>
+						<label for="your_message"><span class="required">*</span>Your Message:</label><br>
+						<textarea id="your_message" cols="15" rows="7"></textarea>
+					</p>
+					<p>
+						<input class="submit" type="submit" value="Submit Comment">
+					</p>
+				</form>				
+			-->	
+			<div id="qqwb_comment__" data-appkey="801524423" data-width="100%" data-height="300" data-colors="#CCCCCC_#000000_#FF6600_#CCCCCC"></div>
+			<script src="http://mat1.gtimg.com/app/openjs/openjs.js#debug=yes&autoboot=no"></script>
+			        
+			</div>
+			<!-- end Content -->	
+		
+			<!-- Sidebar -->
+				${httpInclude.include("v_cases_sidebar.vm")}
+			<!-- end Sidebar -->	
+		
+		</div>
+		<!-- end MAIN -->		
+
+		<!-- FOOTER -->
+${httpInclude.include("footer.vm")}
+		<!-- end FOOTER -->
+	</body>
+</html>		

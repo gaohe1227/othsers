@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="dwcms-1.0.3-SNAPSHOT"
+  id="myeclipse.1387170945843"
+  context-root="/dwcms"
+  j2ee-spec="5.0"
+  archive="dwcms-1.0.3-SNAPSHOT.war">
+  <attributes>
+    <attribute name="webrootdir" value="/WebRoot" />
+  </attributes>
+</project-module>
+

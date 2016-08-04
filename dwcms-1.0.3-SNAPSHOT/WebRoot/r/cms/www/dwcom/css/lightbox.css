@@ -1,0 +1,96 @@
+#gallery {
+	padding: 8px;
+	overflow: hidden;
+	width: 586px;
+	margin: 0 auto 15px;
+	border-radius: 3px;
+	border: 1px solid #333;
+}
+
+#gallery ul {
+	list-style: none;
+	width: 600px;
+	padding: 0px;
+	margin: 0px;
+}
+
+#gallery ul li {
+	display: inline;
+	float: left;
+	margin: 8px 11px 8px 12px;
+}
+
+#gallery ul li a {
+	display: block;
+	overflow: hidden;
+	position: relative;
+	border-radius: 3px;
+	box-shadow: rgba(0, 0, 0, 0.15) 0 0 8px;
+	background: #fff;
+	border: 1px solid #ddd;
+	padding: 5px;
+}
+
+#gallery ul li a:hover {
+	border: 1px solid #F90;
+	background: #ffc;
+	box-shadow: rgba(224, 194, 0, 0.9) 0 0 8px;
+}
+
+#gallery ul li a span {
+	background: #000;
+	display: block;
+	text-align: center;
+	height: 22px;
+	color: #fff;
+	line-height: 22px;
+	bottom: 5px;
+	position: absolute;
+	filter: alpha(opacity =   60);
+	opacity: .6;
+}
+
+#gallery ul li a em {
+	text-align: center;
+	padding: 0 5px;
+	height: 22px;
+	line-height: 22px;
+	font-style: normal;
+	position: absolute;
+	color: #fff;
+	bottom: 5px;
+	font-family: "ËÎÌו";
+}
+
+#gallery ul li a u {
+	display: block;
+	height: 120px;
+	overflow: hidden;
+}
+
+#gallery ul img {
+	margin: 0;
+	padding: 0;
+	border: none;
+	border-radius: 0;
+}
+
+#gallery ul a:hover {
+	text-decoration: none;
+	color: #ccc;
+}
+
+#gallery ul li,#gallery ul li a u,#gallery ul li a em,#gallery ul li a span
+	{
+	cursor: url(/img/lb/zoomin.cur), auto;
+	cursor: pointer;
+}
+
+#gallery ul li a,#gallery ul li a span,#gallery ul li a u,#gallery ul img
+	{
+	width: 112px;
+}
+
+#gallery ul li a em {
+	width: 118px;
+}

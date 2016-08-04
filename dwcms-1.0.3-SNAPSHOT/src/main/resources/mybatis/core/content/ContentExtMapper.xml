@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.content.dao.ContentExtMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.content.pojo.ContentExt" >
+    <id column="content_id" property="contentId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="short_title" property="shortTitle" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="origin" property="origin" jdbcType="VARCHAR" />
+    <result column="origin_url" property="originUrl" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="release_date" property="releaseDate" jdbcType="TIMESTAMP" />
+    <result column="media_path" property="mediaPath" jdbcType="VARCHAR" />
+    <result column="media_type" property="mediaType" jdbcType="VARCHAR" />
+    <result column="title_color" property="titleColor" jdbcType="VARCHAR" />
+    <result column="is_bold" property="isBold" jdbcType="BIT" />
+    <result column="title_img" property="titleImg" jdbcType="VARCHAR" />
+    <result column="content_img" property="contentImg" jdbcType="VARCHAR" />
+    <result column="type_img" property="typeImg" jdbcType="VARCHAR" />
+    <result column="link" property="link" jdbcType="VARCHAR" />
+    <result column="tpl_content" property="tplContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    content_id, title, short_title, author, origin, origin_url, description, release_date, 
+    media_path, media_type, title_color, is_bold, title_img, content_img, type_img, link, 
+    tpl_content
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.content.pojo.ContentExtExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_content_ext
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_content_ext
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_content_ext
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.core.content.pojo.ContentExtExample" >
+    delete from dc_content_ext
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.content.pojo.ContentExt" >
+    insert into dc_content_ext (content_id, title, short_title, 
+      author, origin, origin_url, 
+      description, release_date, media_path, 
+      media_type, title_color, is_bold, 
+      title_img, content_img, type_img, 
+      link, tpl_content)
+    values (#{contentId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{shortTitle,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{origin,jdbcType=VARCHAR}, #{originUrl,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{releaseDate,jdbcType=TIMESTAMP}, #{mediaPath,jdbcType=VARCHAR}, 
+      #{mediaType,jdbcType=VARCHAR}, #{titleColor,jdbcType=VARCHAR}, #{isBold,jdbcType=BIT}, 
+      #{titleImg,jdbcType=VARCHAR}, #{contentImg,jdbcType=VARCHAR}, #{typeImg,jdbcType=VARCHAR}, 
+      #{link,jdbcType=VARCHAR}, #{tplContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.content.pojo.ContentExt" >
+    insert into dc_content_ext
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contentId != null" >
+        content_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="shortTitle != null" >
+        short_title,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="origin != null" >
+        origin,
+      </if>
+      <if test="originUrl != null" >
+        origin_url,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="releaseDate != null" >
+        release_date,
+      </if>
+      <if test="mediaPath != null" >
+        media_path,
+      </if>
+      <if test="mediaType != null" >
+        media_type,
+      </if>
+      <if test="titleColor != null" >
+        title_color,
+      </if>
+      <if test="isBold != null" >
+        is_bold,
+      </if>
+      <if test="titleImg != null" >
+        title_img,
+      </if>
+      <if test="contentImg != null" >
+        content_img,
+      </if>
+      <if test="typeImg != null" >
+        type_img,
+      </if>
+      <if test="link != null" >
+        link,
+      </if>
+      <if test="tplContent != null" >
+        tpl_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contentId != null" >
+        #{contentId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="shortTitle != null" >
+        #{shortTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="origin != null" >
+        #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="originUrl != null" >
+        #{originUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseDate != null" >
+        #{releaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mediaPath != null" >
+        #{mediaPath,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaType != null" >
+        #{mediaType,jdbcType=VARCHAR},
+      </if>
+      <if test="titleColor != null" >
+        #{titleColor,jdbcType=VARCHAR},
+      </if>
+      <if test="isBold != null" >
+        #{isBold,jdbcType=BIT},
+      </if>
+      <if test="titleImg != null" >
+        #{titleImg,jdbcType=VARCHAR},
+      </if>
+      <if test="contentImg != null" >
+        #{contentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="typeImg != null" >
+        #{typeImg,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null" >
+        #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="tplContent != null" >
+        #{tplContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.core.content.pojo.ContentExtExample" resultType="java.lang.Integer" >
+    select count(*) from dc_content_ext
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_content_ext
+    <set >
+      <if test="record.contentId != null" >
+        content_id = #{record.contentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shortTitle != null" >
+        short_title = #{record.shortTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null" >
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.origin != null" >
+        origin = #{record.origin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originUrl != null" >
+        origin_url = #{record.originUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.releaseDate != null" >
+        release_date = #{record.releaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mediaPath != null" >
+        media_path = #{record.mediaPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mediaType != null" >
+        media_type = #{record.mediaType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleColor != null" >
+        title_color = #{record.titleColor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isBold != null" >
+        is_bold = #{record.isBold,jdbcType=BIT},
+      </if>
+      <if test="record.titleImg != null" >
+        title_img = #{record.titleImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentImg != null" >
+        content_img = #{record.contentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeImg != null" >
+        type_img = #{record.typeImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.link != null" >
+        link = #{record.link,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tplContent != null" >
+        tpl_content = #{record.tplContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_content_ext
+    set content_id = #{record.contentId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      short_title = #{record.shortTitle,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      origin = #{record.origin,jdbcType=VARCHAR},
+      origin_url = #{record.originUrl,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      release_date = #{record.releaseDate,jdbcType=TIMESTAMP},
+      media_path = #{record.mediaPath,jdbcType=VARCHAR},
+      media_type = #{record.mediaType,jdbcType=VARCHAR},
+      title_color = #{record.titleColor,jdbcType=VARCHAR},
+      is_bold = #{record.isBold,jdbcType=BIT},
+      title_img = #{record.titleImg,jdbcType=VARCHAR},
+      content_img = #{record.contentImg,jdbcType=VARCHAR},
+      type_img = #{record.typeImg,jdbcType=VARCHAR},
+      link = #{record.link,jdbcType=VARCHAR},
+      tpl_content = #{record.tplContent,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.content.pojo.ContentExt" >
+    update dc_content_ext
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="shortTitle != null" >
+        short_title = #{shortTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="origin != null" >
+        origin = #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="originUrl != null" >
+        origin_url = #{originUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseDate != null" >
+        release_date = #{releaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mediaPath != null" >
+        media_path = #{mediaPath,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaType != null" >
+        media_type = #{mediaType,jdbcType=VARCHAR},
+      </if>
+      <if test="titleColor != null" >
+        title_color = #{titleColor,jdbcType=VARCHAR},
+      </if>
+      <if test="isBold != null" >
+        is_bold = #{isBold,jdbcType=BIT},
+      </if>
+      <if test="titleImg != null" >
+        title_img = #{titleImg,jdbcType=VARCHAR},
+      </if>
+      <if test="contentImg != null" >
+        content_img = #{contentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="typeImg != null" >
+        type_img = #{typeImg,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null" >
+        link = #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="tplContent != null" >
+        tpl_content = #{tplContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.content.pojo.ContentExt" >
+    update dc_content_ext
+    set title = #{title,jdbcType=VARCHAR},
+      short_title = #{shortTitle,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      origin = #{origin,jdbcType=VARCHAR},
+      origin_url = #{originUrl,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      release_date = #{releaseDate,jdbcType=TIMESTAMP},
+      media_path = #{mediaPath,jdbcType=VARCHAR},
+      media_type = #{mediaType,jdbcType=VARCHAR},
+      title_color = #{titleColor,jdbcType=VARCHAR},
+      is_bold = #{isBold,jdbcType=BIT},
+      title_img = #{titleImg,jdbcType=VARCHAR},
+      content_img = #{contentImg,jdbcType=VARCHAR},
+      type_img = #{typeImg,jdbcType=VARCHAR},
+      link = #{link,jdbcType=VARCHAR},
+      tpl_content = #{tplContent,jdbcType=VARCHAR}
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </update>
+</mapper>

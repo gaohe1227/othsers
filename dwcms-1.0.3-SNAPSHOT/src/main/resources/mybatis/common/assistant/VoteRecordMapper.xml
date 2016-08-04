@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.assistant.dao.VoteRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.assistant.pojo.VoteRecord" >
+    <id column="voterecored_id" property="voterecoredId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="votetopic_id" property="votetopicId" jdbcType="INTEGER" />
+    <result column="vote_time" property="voteTime" jdbcType="TIMESTAMP" />
+    <result column="vote_ip" property="voteIp" jdbcType="VARCHAR" />
+    <result column="vote_cookie" property="voteCookie" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    voterecored_id, user_id, votetopic_id, vote_time, vote_ip, vote_cookie
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.assistant.pojo.VoteRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_vote_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_vote_record
+    where voterecored_id = #{voterecoredId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_vote_record
+    where voterecored_id = #{voterecoredId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.assistant.pojo.VoteRecordExample" >
+    delete from dc_vote_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.assistant.pojo.VoteRecord" >
+    insert into dc_vote_record (voterecored_id, user_id, votetopic_id, 
+      vote_time, vote_ip, vote_cookie
+      )
+    values (#{voterecoredId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{votetopicId,jdbcType=INTEGER}, 
+      #{voteTime,jdbcType=TIMESTAMP}, #{voteIp,jdbcType=VARCHAR}, #{voteCookie,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.assistant.pojo.VoteRecord" >
+    insert into dc_vote_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="voterecoredId != null" >
+        voterecored_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="votetopicId != null" >
+        votetopic_id,
+      </if>
+      <if test="voteTime != null" >
+        vote_time,
+      </if>
+      <if test="voteIp != null" >
+        vote_ip,
+      </if>
+      <if test="voteCookie != null" >
+        vote_cookie,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="voterecoredId != null" >
+        #{voterecoredId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="votetopicId != null" >
+        #{votetopicId,jdbcType=INTEGER},
+      </if>
+      <if test="voteTime != null" >
+        #{voteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="voteIp != null" >
+        #{voteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="voteCookie != null" >
+        #{voteCookie,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.assistant.pojo.VoteRecordExample" resultType="java.lang.Integer" >
+    select count(*) from dc_vote_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_vote_record
+    <set >
+      <if test="record.voterecoredId != null" >
+        voterecored_id = #{record.voterecoredId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.votetopicId != null" >
+        votetopic_id = #{record.votetopicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.voteTime != null" >
+        vote_time = #{record.voteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.voteIp != null" >
+        vote_ip = #{record.voteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.voteCookie != null" >
+        vote_cookie = #{record.voteCookie,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_vote_record
+    set voterecored_id = #{record.voterecoredId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      votetopic_id = #{record.votetopicId,jdbcType=INTEGER},
+      vote_time = #{record.voteTime,jdbcType=TIMESTAMP},
+      vote_ip = #{record.voteIp,jdbcType=VARCHAR},
+      vote_cookie = #{record.voteCookie,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.assistant.pojo.VoteRecord" >
+    update dc_vote_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="votetopicId != null" >
+        votetopic_id = #{votetopicId,jdbcType=INTEGER},
+      </if>
+      <if test="voteTime != null" >
+        vote_time = #{voteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="voteIp != null" >
+        vote_ip = #{voteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="voteCookie != null" >
+        vote_cookie = #{voteCookie,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where voterecored_id = #{voterecoredId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.assistant.pojo.VoteRecord" >
+    update dc_vote_record
+    set user_id = #{userId,jdbcType=INTEGER},
+      votetopic_id = #{votetopicId,jdbcType=INTEGER},
+      vote_time = #{voteTime,jdbcType=TIMESTAMP},
+      vote_ip = #{voteIp,jdbcType=VARCHAR},
+      vote_cookie = #{voteCookie,jdbcType=VARCHAR}
+    where voterecored_id = #{voterecoredId,jdbcType=INTEGER}
+  </update>
+</mapper>

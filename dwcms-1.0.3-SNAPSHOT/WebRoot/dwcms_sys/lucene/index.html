@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<link href="v_index.do_files/admin.css" rel="stylesheet" type="text/css">
+<link href="v_index.do_files/theme.css" rel="stylesheet" type="text/css">
+<link href="v_index.do_files/jquery_002.css" rel="stylesheet" type="text/css">
+<link href="v_index.do_files/jquery_003.css" rel="stylesheet" type="text/css">
+<link href="v_index.do_files/jquery.css" rel="stylesheet" type="text/css">
+
+<script src="v_index.do_files/fckeditor.js" type="text/javascript"></script>
+<script src="v_index.do_files/WdatePicker.js" type="text/javascript"></script><link type="text/css" rel="stylesheet" href="v_index.do_files/WdatePicker.css">
+<script src="v_index.do_files/jquery_002.js" type="text/javascript"></script>
+<script src="v_index.do_files/jquery.js" type="text/javascript"></script>
+<script src="v_index.do_files/pony.js" type="text/javascript"></script>
+<script src="v_index.do_files/admin.js" type="text/javascript"></script>
+<script type="text/javascript">
+function luceneSubmit() {
+	$.post("o_create.do", {
+		"startDate" : $("#startDate").val(),
+		"endDate" : $("#endDate").val(),
+		"max" : $("#max").val(),
+		"siteId" : $("#siteId").val(),
+		"channelId" : $("#channelId").val(),
+		"startId" : $("#startId").val()
+	}, function(data) {
+		if(data.success) {
+			if(data.lastId && $("#stop").val()=="") {
+				$("#startId").val(data.lastId);
+				luceneSubmit();
+			} else {
+				$("#startId").val("");
+				alert("操作成功");
+				$("#submitButton").removeAttr("disabled");
+				$("#cancelButton").attr("disabled","disabled");
+				$("#stop").val("");
+			}
+		} else {
+			alert(data.msg);
+			$("#submitButton").removeAttr("disabled");
+			$("#cancelButton").attr("disabled","disabled");
+			$("#stop").val("");
+		}
+	}, "json");
+}
+
+$(function() {
+	$("#jvForm").validate( {
+		submitHandler : function(form) {
+			$("#submitButton").attr("disabled","disabled");
+			$("#cancelButton").removeAttr("disabled");
+			$("#stop").val("");		
+			luceneSubmit();
+		}
+	});
+});
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="v_index.do_files/My97DatePicker.html" border="0" scrolling="no" frameborder="0"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置: 全文检索</div>
+	<form class="ropt">
+	</form>
+	<div class="clear"></div>
+</div>
+<form method="post" action="o_create.do" id="jvForm">
+<table class="pn-ftable" width="100%" border="0" cellpadding="2" cellspacing="1">
+<tbody><tr>
+<td class="pn-flabel pn-flabel-h" width="20%">栏目:</td><td class="pn-fcontent" width="80%"><select id="channelId" name="channelId"><option value="" selected="selected">--所有栏目--</option><option value="1">新闻资讯</option><option value="11">&nbsp;&nbsp;&gt;国内新闻</option><option value="12">&nbsp;&nbsp;&gt;国际新闻</option><option value="13">&nbsp;&nbsp;&gt;社会热点</option><option value="14">&nbsp;&nbsp;&gt;时事评论</option><option value="15">&nbsp;&nbsp;&gt;图片新闻</option><option value="2">影视娱乐</option><option value="16">&nbsp;&nbsp;&gt;电视前沿</option><option value="17">&nbsp;&nbsp;&gt;电影快报</option><option value="18">&nbsp;&nbsp;&gt;影视明星</option><option value="3">财经报道</option><option value="19">&nbsp;&nbsp;&gt;股市行情</option><option value="20">&nbsp;&nbsp;&gt;理财之道</option><option value="21">&nbsp;&nbsp;&gt;基金视点</option><option value="22">&nbsp;&nbsp;&gt;创业板</option><option value="4">房产资讯</option><option value="23">&nbsp;&nbsp;&gt;房产政策</option><option value="24">&nbsp;&nbsp;&gt;楼市参考</option><option value="25">&nbsp;&nbsp;&gt;生活家居</option><option value="26">&nbsp;&nbsp;&gt;二手房</option><option value="5">体育世界</option><option value="27">&nbsp;&nbsp;&gt;篮球世界</option><option value="28">&nbsp;&nbsp;&gt;足球世界</option><option value="29">&nbsp;&nbsp;&gt;体育彩票</option><option value="6">科技创新</option><option value="30">&nbsp;&nbsp;&gt;互联网</option><option value="31">&nbsp;&nbsp;&gt;科学探索</option><option value="32">&nbsp;&nbsp;&gt;数码世界</option><option value="7">时尚汽车</option><option value="33">&nbsp;&nbsp;&gt;新车上市</option><option value="34">&nbsp;&nbsp;&gt;爱车保养</option><option value="35">&nbsp;&nbsp;&gt;自驾游</option><option value="9">下载中心</option><option value="37">&nbsp;&nbsp;&gt;系统软件</option><option value="38">&nbsp;&nbsp;&gt;网络工具</option><option value="39">&nbsp;&nbsp;&gt;媒体工具</option></select>
+</td></tr><tr><td class="pn-flabel pn-flabel-h" width="20%">开始日期:</td><td class="pn-fcontent" width="80%"><input id="startDate" name="startDate" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text"></td></tr><tr><td class="pn-flabel pn-flabel-h" width="20%">结束日期:</td><td class="pn-fcontent" width="80%"><input id="endDate" name="endDate" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text"></td></tr><tr><td class="pn-flabel pn-flabel-h" width="20%"><span class="pn-frequired">*</span>每次生成数量:</td><td class="pn-fcontent" width="80%"><input id="max" min="10" value="1000" name="max" class="required digits" type="text"></td></tr><tr><td colspan="2" class="pn-fbutton">
+	<input id="siteId" name="siteId" value="1" type="hidden">
+	<input id="startId" name="startId" type="hidden">
+	<input id="stop" value="" type="hidden">
+	<input id="submitButton" value="生成索引" type="submit">
+&nbsp; <input id="cancelButton" value="取消" disabled="disabled" onclick="$('#stop').val('1')" type="button">
+</td></tr></tbody></table>
+</form>
+</div>
+
+</body></html>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.maintain.dao.SensitivityMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.maintain.pojo.Sensitivity" >
+    <id column="sensitivity_id" property="sensitivityId" jdbcType="INTEGER" />
+    <result column="search" property="search" jdbcType="VARCHAR" />
+    <result column="replacement" property="replacement" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sensitivity_id, search, replacement
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.maintain.pojo.SensitivityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_sensitivity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_sensitivity
+    where sensitivity_id = #{sensitivityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_sensitivity
+    where sensitivity_id = #{sensitivityId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.maintain.pojo.SensitivityExample" >
+    delete from dc_sensitivity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.maintain.pojo.Sensitivity" >
+    insert into dc_sensitivity (sensitivity_id, search, replacement
+      )
+    values (#{sensitivityId,jdbcType=INTEGER}, #{search,jdbcType=VARCHAR}, #{replacement,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.maintain.pojo.Sensitivity" >
+    insert into dc_sensitivity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sensitivityId != null" >
+        sensitivity_id,
+      </if>
+      <if test="search != null" >
+        search,
+      </if>
+      <if test="replacement != null" >
+        replacement,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sensitivityId != null" >
+        #{sensitivityId,jdbcType=INTEGER},
+      </if>
+      <if test="search != null" >
+        #{search,jdbcType=VARCHAR},
+      </if>
+      <if test="replacement != null" >
+        #{replacement,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.maintain.pojo.SensitivityExample" resultType="java.lang.Integer" >
+    select count(*) from dc_sensitivity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_sensitivity
+    <set >
+      <if test="record.sensitivityId != null" >
+        sensitivity_id = #{record.sensitivityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.search != null" >
+        search = #{record.search,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replacement != null" >
+        replacement = #{record.replacement,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_sensitivity
+    set sensitivity_id = #{record.sensitivityId,jdbcType=INTEGER},
+      search = #{record.search,jdbcType=VARCHAR},
+      replacement = #{record.replacement,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.maintain.pojo.Sensitivity" >
+    update dc_sensitivity
+    <set >
+      <if test="search != null" >
+        search = #{search,jdbcType=VARCHAR},
+      </if>
+      <if test="replacement != null" >
+        replacement = #{replacement,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sensitivity_id = #{sensitivityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.maintain.pojo.Sensitivity" >
+    update dc_sensitivity
+    set search = #{search,jdbcType=VARCHAR},
+      replacement = #{replacement,jdbcType=VARCHAR}
+    where sensitivity_id = #{sensitivityId,jdbcType=INTEGER}
+  </update>
+</mapper>

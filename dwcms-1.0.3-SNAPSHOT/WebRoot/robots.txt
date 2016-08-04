@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin/*
+Disallow: /personnel/*
+Disallow: /v_personnel.vm
+Disallow: /lucene/v_index.do
+Allow: /
+
+Sitemap: http://www.doadway.com/sitemap.xml

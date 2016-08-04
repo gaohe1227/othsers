@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("请选择您要操作的数据");
+		return;
+	}
+	if(!confirm("您确定删除吗？")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+function optPriority() {
+	getTableForm().action="o_priority.do";
+}
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="friendly_link_list_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置: 友情链接管理 - 列表</div>
+	<form class="ropt">
+		<input value="添加" onclick="this.form.action='v_add.do';" type="submit">
+	</form>
+	<div class="clear"></div>
+</div>
+<form action="v_list.do" method="post" style="padding-top:5px;">
+网站类别: <select name="queryCtgId"><option value="" selected="selected">--所有类别--</option><option value="1">文字链接</option></select>
+
+<input value="查询" type="submit">
+</form>
+<form id="tableForm" method="post">
+<table class="pn-ltable" style="" border="0" cellpadding="0" cellspacing="1" width="100%">
+<thead class="pn-lthead"><tr>
+	<th width="20"><input onclick='Pn.checkbox("ids",this.checked)' type="checkbox"></th>
+	<th>ID</th>
+	<th>网站名称</th>
+	<th>网站LOGO</th>
+	<th>点击次数</th>
+	<th>排列顺序</th>
+	<th>显示</th>
+	<th>操作选项</th></tr></thead>
+<tbody class="pn-ltbody"><tr>
+	<td><input name="ids" value="1" type="checkbox"></td>
+	<td>1<input name="wids" value="1" type="hidden"></td>
+	<td>JEECMS官网</td>
+	<td align="center">无图标</td>
+	<td align="right">3</td>
+	<td align="center"><input name="priority" value="1" style="width: 70px;" type="text"></td>
+	<td align="center">是</td>
+	<td align="center">		<input name="queryCtgId" value="" type="hidden">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/friendlink/v_edit.do?id=1&amp;pageNo=" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/friendlink/o_delete.do?ids=1&amp;pageNo=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="2" type="checkbox"></td>
+	<td>2<input name="wids" value="2" type="hidden"></td>
+	<td>JEEBBS论坛</td>
+	<td align="center">无图标</td>
+	<td align="right">1</td>
+	<td align="center"><input name="priority" value="10" style="width: 70px;" type="text"></td>
+	<td align="center">是</td>
+	<td align="center">		<input name="queryCtgId" value="" type="hidden">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/friendlink/v_edit.do?id=2&amp;pageNo=" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/friendlink/o_delete.do?ids=2&amp;pageNo=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr></tbody>
+</table>
+<div>
+	<input value="删除" onclick="optDelete();" type="button">
+&nbsp; <input value="保存排列顺序" onclick="optPriority();" type="submit">
+</div>
+</form>
+</div>
+
+</body></html>

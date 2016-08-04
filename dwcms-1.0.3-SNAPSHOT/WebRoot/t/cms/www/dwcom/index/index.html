@@ -1,0 +1,416 @@
+#set($ctx = $request.getContextPath())
+#macro( limitStr $text $limitLength )
+	#if($text.length()>$limitLength)
+		#set($text=$text.substring(0,$limitLength))
+		$!text ...
+	#else
+		$!text
+	#end	
+#end
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
+	<head>
+		
+		<!-- META -->
+		<title>多维矩阵网络科技-网络信息化咨询服务</title>
+		<meta charset="utf-8" />	
+		<meta name="description" content=" 多维矩阵网络科技致力于为中小型企业打造专业,稳定,易用的服务应用型软件产品,以依托互联网为终端帮客户迅速实现信息互联化... " />
+		<meta name="keywords"    content=" UI设计/制作 Android定制 App开发 网站建设  网站开发 JavaCMS系统 多维矩阵网络科技... " />	
+		<meta property="wb:webmaster" content="21a3483859fc134d" />
+		
+		<!-- FAVICON  -->
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />					
+			
+		<!-- STYLESHEETS -->
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/style.css" />
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/nivo-slider.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/prettyPhoto.css" />
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/jquery.validity.css" />
+		
+		<!-- SCRIPTS -->
+		<script src="${ctx}/r/cms/www/dwcom/js/jquery-1.5.1.min.js" type="text/javascript"></script>
+		<script src="${ctx}/r/cms/www/dwcom/js/jquery.nivo.slider.pack.js" type="text/javascript"></script>
+		<script src="${ctx}/r/cms/www/dwcom/js/jquery.prettyPhoto.js" type="text/javascript"></script>
+		<script src="${ctx}/r/cms/www/dwcom/js/jquery.validity.js" type="text/javascript"></script>
+		
+		<script type="text/javascript">
+		//invoke();
+			$(window).load(function() {
+				$('#slider').nivoSlider();
+				
+			});
+			function invoke() {
+				$.ajax({
+					url: "${ctx}/header.vm",
+					type: "post",
+					data: { name: "ajax" },//如果请求的自身页面，为了在后台判断是不是ajax请求
+					error: function(xhr, textStatus, errorThown) {
+						alert(errorThown);
+					},
+					success: function(data) {
+						$('body').prepend(data);
+					}
+				});
+		    }			
+		</script>   		
+	
+				
+	</head>
+	<body onload="">
+<!-- HEADER -->
+<script type="text/javascript">
+//invoke();
+</script>
+${httpInclude.include("top.vm")}
+<!-- end HEADER --> 	
+		
+		<!-- MAIN -->
+		<div id="main" class="container">
+			<!-- Content -->
+			<div id="content" class="fullwidth">
+				<!-- Slideshow -->
+				<div id="slideshow">
+					<div id="slider">
+						#foreach( $ad in $indexAds )
+						<img src="${ctx}$ad.imageUrl" title="#slide-caption-$!{velocityCount}"  width="$!ad.imageWidth" height="$!ad.imageHeight"/>
+						#end							
+						<!-- img src="${ctx}/r/cms/www/dwcom/images/slide-2.jpg" title="#slide-caption-1" /> 
+						<img src="${ctx}/r/cms/www/dwcom/images/slide-1.jpg" title="#slide-caption-2" />
+						<img src="${ctx}/r/cms/www/dwcom/images/slide-3.jpg" title="#slide-caption-3" />
+						<img src="${ctx}/r/cms/www/dwcom/images/slide-2.jpg" title="#slide-caption-4" /> 
+						<img src="${ctx}/r/cms/www/dwcom/images/slide-1.jpg" title="#slide-caption-5" />
+						<img src="${ctx}/r/cms/www/dwcom/images/slide-3.jpg" title="#slide-caption-6" /-->						   						
+					</div>
+					#foreach( $ad in $indexAds )					
+					<div id="slide-caption-$!{velocityCount}" class="nivo-html-caption">
+						<h1>$ad.adName</h1>
+						<ul class="star">
+								$ad.imageTitle
+						</ul>	
+						<p class="readmore bigbutton"><a href="$ad.imageLink">查看更多 &rarr;</a></p>
+					</div>
+					#end	
+					<!--  div id="slide-caption-2" class="nivo-html-caption">
+						<h1>产品-服务</h1>
+						<ul class="star">
+							<li>网络信息化</li>
+							<li>尊重每个人的潜力</li>
+							<li>合作共赢</li>
+							<li>启迪智慧</li>
+							<li>创造价值</li>
+						</ul>	
+						<p class="readmore bigbutton"><a href="#">查看更多 &rarr;</a></p>
+					</div>
+					<div id="slide-caption-3" class="nivo-html-caption">
+						<h1>组织-机构</h1>
+						<ul class="star">
+							<li>网络信息化</li>
+							<li>尊重每个人的潜力</li>
+							<li>合作共赢</li>
+							<li>启迪智慧</li>
+							<li>创造价值</li>
+						</ul>	
+						<p class="readmore bigbutton"><a href="#">查看更多 &rarr;</a></p>
+					</div>
+					<div id="slide-caption-4" class="nivo-html-caption">
+						<h1>技术-研究</h1>
+						<ul class="star">
+							<li>网络信息化</li>
+							<li>尊重每个人的潜力</li>
+							<li>合作共赢</li>
+							<li>启迪智慧</li>
+							<li>创造价值</li>
+						</ul>	
+						<p class="readmore bigbutton"><a href="#">查看更多 &rarr;</a></p>						
+					</div>
+					<div id="slide-caption-5" class="nivo-html-caption">
+						<h1>案例-展示</h1>
+						<ul class="star">
+							<li>网络信息化</li>
+							<li>尊重每个人的潜力</li>
+							<li>合作共赢</li>
+							<li>启迪智慧</li>
+							<li>创造价值</li>
+						</ul>	
+						<p class="readmore bigbutton"><a href="#">查看更多 &rarr;</a></p>						
+					</div>
+					<div id="slide-caption-6" class="nivo-html-caption">
+						<h1>未来-发展</h1>
+						<ul class="star">
+							<li>网络信息化</li>
+							<li>尊重每个人的潜力</li>
+							<li>合作共赢</li>
+							<li>启迪智慧</li>
+							<li>创造价值</li>
+						</ul>	
+						<p class="readmore bigbutton"><a href="#">查看更多 &rarr;</a></p>						
+					</div-->                                                                                                                      
+				</div>
+				<!-- end Slideshow -->
+				
+				<div class="fixed">
+					<div class="col-4">
+						<h2>多维服务项目</h2>	
+						<img class="left" src="${ctx}/r/cms/www/dwcom/images/checkmark-icon2.png">
+						<div class="box">
+							<h6>$!design.channelName</h6>
+							<p class="text-shadow ">
+							#foreach( $currentDesign in $designChild )
+							<a href="${ctx}/v_design.vm">$currentDesign.channelName</a><br/>
+							#end							
+                            <!-- a href="#">WEB UI设计</a><br/>
+                            <a href="#">网页设计</a><br/>
+                            <a href="#">平面设计</a><br/>
+                            <a href="#">广告制作</a><br/-->
+ 							<a href="#">more &rarr;</a></p>
+						</div>
+						<img class="left" src="${ctx}/r/cms/www/dwcom/images/gears-icon2.png">
+						<div class="box">
+							<h6>$!app.channelName</h6>
+							<p class="text-shadow">
+                              <a href="${ctx}/v_design.vm#android">android 定制</a><br/>
+                              <a href="${ctx}/games/FruitAttack/index.html">在线游戏</a><br/>
+                              <a href="#">游戏下载</a><br/>
+                             <a href="#">more &rarr;</a></p>
+						</div>
+					</div>	
+					<div class="col-4">
+						<h2>多维软件产品</h2>
+						<img class="left" src="${ctx}/r/cms/www/dwcom/images/clock-icon2.png">
+					  <div class="box">
+							<h6>$!{cmsProduct.channelName}</h6>
+							<p class="text-shadow">
+                             <a href="${ctx}/v_cms.vm">产品介绍</a><br/>
+                             
+                             <a href="${ctx}/v_cms.vm">下载专区</a><br/>
+                           
+                             <a href="#">more &rarr;</a></p>
+						</div>
+
+						<img class="left" src="${ctx}/r/cms/www/dwcom/images/chart-icon2.png">
+						<div class="box">
+							<h6>${technologyStudy.channelName}</h6>
+							<p class="text-shadow">
+							#foreach( $currentTechnologyStudy in $technologyStudyChild )
+							<a href="${ctx}/v_research_list.vm?channelId=$currentTechnologyStudy.channelId">$currentTechnologyStudy.channelName</a><br/>
+							#end	
+							<!--
+                            <a href=”#“>网站策划</a><br/>
+                            <a href="#">网站开发</a><br/>
+                            <a href="#">维护运营</a><br/>
+                            -->
+                             <a href="#">more &rarr;</a></p>
+						</div>						
+					</div>								
+					<div class="col-4 last">
+						<h2>$!companyProfile.channelName</h2>
+						<blockquote> 
+						   #limitStr($!companyProfile.txt  75)
+					</blockquote>
+						<p class="author text-shadow">&mdash;多维矩阵 / <a href="${ctx}/profile.vm">more &rarr;</a></p>						
+						<p><img src="${ctx}/r/cms/www/dwcom/images/product-icons.png"></p>
+                         
+					</div>
+				</div>				
+				<div class="delimiter"></div>	
+				
+				<h2>最新案例</h2>
+				<div class="fixed">					
+					
+                    <div id="cases" style="height:440px; overflow:hidden;" >
+	<script type="text/javascript">
+		function noFind(){
+			var img=event.srcElement;
+			img.src="${ctx}/r/cms/www/dwcom/images/case/case.png";
+			img.onerror=null; //控制不要一直跳动			
+		}
+	</script>
+		<ul>
+		#foreach( $case in $cases )
+			<li>
+				<img src="${ctx}$!case.typeImg" data-original="" width="240" height="152"  onerror="noFind();"  alt="$!case.title">
+				<p>
+					<strong>#limitStr($!case.shortTitle  12)</strong>
+					#limitStr($!case.description  50)<br>
+					<a href="$!{ctx}/v_case.vm?contentId=$!{case.contentId}" class="btn_blue">查看品牌故事</a>
+					<a href="$!case.link"  target="_blank" class="openurl">访问品牌网站</a>
+				</p>
+			</li>
+		#end	
+		<!-- 
+		<li>
+			<img src="${ctx}/r/cms/www/dwcom/images/case/case.png" data-original="" width="240" height="152" alt="噶陀仲巴">
+			<p>
+				<strong>噶陀仲巴</strong>
+				噶陀 仲巴<br>
+				<a href="#" class="btn_blue">查看品牌故事</a>
+				<a href="#" target="_blank" class="openurl">访问品牌网站</a>
+			</p>
+		</li>
+			<li>
+			<img src="${ctx}/r/cms/www/dwcom/images/case/20120831064438303.png" data-original="" width="240" height="152" alt="通威食品" style="display: block; ">
+			<p>
+				<strong>通威食品</strong>
+				通威食品网站是由成都锐狐网络建设，是大型科技型上市公司通...<br>
+				<a href="#" class="btn_blue">查看品牌故事</a>
+				<a href="#" target="_blank" class="openurl">访问品牌网站</a>
+			</p>
+		</li>
+			<li>
+			<img src="${ctx}/r/cms/www/dwcom/images/case/20120829042316464.png" data-original="images/case/20120829042316464.png" width="240" height="152" alt="四川天源油橄榄" style="display: block; ">
+			<p>
+				<strong>四川天源油橄榄</strong>
+				四川天源油橄榄有限公司<br>
+				<a href="#" class="btn_blue">查看品牌故事</a>
+				<a href="#" target="_blank" class="openurl">访问品牌网站</a>
+			</p>
+		</li>
+		
+		
+			<li>
+			<img src="${ctx}/r/cms/www/dwcom/images/case/20120829024355417.png" data-original="images/case/20120829024355417.png" width="240" height="152" alt="思来泰可生物" style="display: block; ">
+			<p>
+				<strong>思来泰可生物</strong>
+				传统中医药瑰宝绽放在现代畜牧业的绚丽之花——成都思来泰可...<br>
+				<a href="#" class="btn_blue">查看品牌故事</a>
+				<a href="#" target="_blank" class="openurl">访问品牌网站</a>
+			</p>
+		</li>
+			<li>
+			<img src="${ctx}/r/cms/www/dwcom/images/case/20120831064123674.png" data-original="20120831064123674.png" width="240" height="152" alt="广元国际会展中心网站设计" style="display: block; ">
+			<p>
+				<strong>广元国际会展中心网站设计</strong>
+				四川每日投资集团有限公司是一家多元化发展的民营企业，公司...<br>
+				<a href="#" class="btn_blue">查看品牌故事</a>
+				<a href="#" target="_blank" class="openurl">访问品牌网站</a>
+			</p>
+		</li>
+			<li>
+			<img src="${ctx}/r/cms/www/dwcom/images/case/20120831055738352.png" data-original="20120831055738352.png" width="240" height="152" alt="川音成都美术学院" style="display: block; ">
+			<p>
+				<strong>川音成都美术学院</strong>
+				四川音乐学院历史悠久，建校70余年，目前已发展成为一所以音...<br>
+				<a href="#" class="btn_blue">查看品牌故事</a>
+				<a href="#" target="_blank" class="openurl">访问品牌网站</a>
+			</p>
+		</li>
+		
+			<li>
+			<img src="${ctx}/r/cms/www/dwcom/images/case/20120830031657862.png" data-original="20120830031657862.png" width="240" height="152" alt="宁玛之源" style="display: block; ">
+			<p>
+				<strong>宁玛之源</strong>
+				我们了解了印、藏两地佛教总史，现分说具六大殊胜特点（翻译...<br>
+				<a href="#" class="btn_blue">查看品牌故事</a>
+				<a href="#" target="_blank" class="openurl">访问品牌网站</a>
+			</p>
+		</li>
+			<li>
+			<img src="${ctx}/r/cms/www/dwcom/images/case/case.png" data-original="20120901023746407.png" width="240" height="152" alt="新象集团官方网站">
+			<p>
+				<strong>新象集团官方网站</strong>
+				新象建材有限公司是一家集木地板、室内装饰木门等系列装饰材...<br>
+				<a href="#" class="btn_blue">查看品牌故事</a>
+				<a href="#" target="_blank" class="openurl">访问品牌网站</a>
+			</p>
+		</li>
+			<li>
+			<img src="${ctx}/r/cms/www/dwcom/images/case/case.png" data-original="20120831063751731.png" width="240" height="152" alt="置信精典汽车官方网站">
+			<p>
+				<strong>置信精典汽车官方网站</strong>
+				四川精典汽车贸易有限公司成立于2002年9月28日。精典汽车秉承...<br>
+				<a href="#" class="btn_blue">查看品牌故事</a>
+				<a href="#" target="_blank" class="openurl">访问品牌网站</a>
+			</p>
+		</li>
+			<li>
+			<img src="${ctx}/r/cms/www/dwcom/images/case/20120829100820177.png" data-original="20120829100820177.png" width="240" height="152" alt="滋味烤鱼" style="display: block; ">
+			<p>
+				<strong>滋味烤鱼</strong>
+				2005年5月，第一家滋味烤鱼餐厅在祥和里这条很普通的小巷子里...<br>
+				<a href="#" class="btn_blue">查看品牌故事</a>
+				<a href="#" target="_blank" class="openurl">访问品牌网站</a>
+			</p>
+		</li>
+			<li>
+			<img src="${ctx}/r/cms/www/dwcom/images/case/20120827020052553.png" data-original="20120827020052553.png" width="240" height="152" alt="金沙源" style="display: block; ">
+			<p>
+				<strong>金沙源</strong>
+				金沙源公司拥有20多年食品饮料研发、生产经验，一流的自动化...<br>
+				<a href="#" class="btn_blue">查看品牌故事</a>
+				<a href="#" target="_blank" class="openurl">访问品牌网站</a>
+			</p>
+		</li>
+			<li>
+			<img src="${ctx}/r/cms/www/dwcom/images/case/20120924043533395.png" data-original="20120924043533395.png" width="240" height="152" alt="高新区文化指导服务中心" style="display: block; ">
+			<p>
+				<strong>高新区文化指导服务中心</strong>
+				成都高新区文化指导服务中心（以下简称文化中心）是成都高新...<br>
+				<a href="#" class="btn_blue">查看品牌故事</a>
+				<a href="#" target="_blank" class="openurl">访问品牌网站</a>
+			</p>
+		</li>
+			 -->
+			
+		</ul>
+	</div>
+
+<script type="text/javascript">
+
+	//Cases Start
+	if($.support.transition){
+		$("#cases>ul>li").hover(function(){
+			$("img",this).stop(false,true).transition({
+				perspective: '300px',
+				rotateY: '180deg',
+				opacity: '0'
+			});
+			$("p",this).css({display:'block',opacity:'0',rotateY: '-180deg'}).stop(false,true).transition({
+				perspective: '300px',
+				rotateY: '0deg',
+				opacity: '1'
+			});
+		},function(){
+			$("img",this).show().stop(false,true).transition({
+				perspective: '300px',
+				rotateY: '0deg',
+				opacity: '1'
+			});
+			$("p",this).stop(false,true).transition({
+				perspective: '300px',
+				rotateY: '180deg',
+				opacity: '0'
+			});
+		});
+	}else{
+		$("#cases>ul>li").hover(function(){
+			$("img",this).stop(false,true).slideUp("fast");
+			$("p",this).stop(false,true).slideDown("fast");
+		},function(){
+			$("img",this).stop(false,true).slideDown("fast");
+			$("p",this).stop(false,true).slideUp("fast");
+		});
+	}
+	//$("#cases>ul>li>img").lazyload({effect:"fadeIn",failurelimit:10});
+	$("#gotop").click(function(){$('body,html').animate({scrollTop:0},500);})
+	var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F3fe5b2b119b5fc4931e9c73e7071b0c6' type='text/javascript'%3E%3C/script%3E"));
+	var bds_config = {"bdTop":203};
+	$("#bdshell_js").attr("src","http://share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours());
+//]]>
+</script>
+                    
+                    
+				</div>	
+				
+			</div>	<!-- end Content -->		
+		</div>	<!-- end MAIN -->
+
+		<!-- FOOTER -->
+${httpInclude.include("footer.vm")}
+	<!-- end FOOTER -->
+	</body>
+</html>		

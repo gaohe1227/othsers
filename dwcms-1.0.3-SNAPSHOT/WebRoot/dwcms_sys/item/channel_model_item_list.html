@@ -1,0 +1,664 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("请选择您要操作的数据");
+		return;
+	}
+	if(!confirm("您确定删除吗？")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+function optSave() {
+	var f = getTableForm();
+	f.action="o_save_list.do";
+	f.submit();
+}
+function optSaveOrder() {
+	var f = getTableForm();
+	f.action="o_priority.do";
+	f.submit();
+}
+function backToList(o) {
+	o.form.action='../model/v_list.do';
+	$('#modelId').attr('disabled','disabled');
+	$('#isChannel').attr('disabled','disabled');
+}
+function disInput(o) {
+	if(o.checked) {
+		$(o).parent().parent().find('.dis').each(function(){$(this).removeAttr('disabled');});
+	} else {	
+		$(o).parent().parent().find('.dis').each(function(){$(this).attr('disabled','disabled');});
+	}
+}
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="channel_model_item_list_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置: 栏目模型 - 列表 - <span style="color:red">新闻</span></div>
+	<form class="ropt">
+		<input id="modelId" name="modelId" value="1" type="hidden">
+		<input id="isChannel" name="isChannel" value="true" type="hidden">
+		<input value="添加" onclick="this.form.action='v_add.do';" type="submit">
+&nbsp; <input value="返回列表" onclick="backToList(this);" type="submit">
+	</form>
+	<div class="clear"></div>
+</div>
+<form id="tableForm" method="post">
+<input name="modelId" value="1" type="hidden">
+<input name="isChannel" value="true" type="hidden">
+<table class="pn-ltable" border="0" cellpadding="0" cellspacing="1" width="100%">
+<thead class="pn-lthead">
+<tr>
+	<th width="20"><input onclick='Pn.checkbox("ids",this.checked)' type="checkbox"></th>
+	<th>字段</th>
+	<th>数据类型</th>
+	<th>名称</th>
+	<th>排列顺序</th>
+	<th>独占一行</th>
+	<th>显示</th>
+	<th>操作选项</th>
+</tr>
+</thead>
+<tbody class="pn-ltbody">
+<tr>
+	<td><input name="ids" value="1" type="checkbox"></td>
+	<td align="center">name</td>
+	<td align="center">字符串文本</td>
+	<td align="center"><input name="label" value="栏目名称" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="1" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s0').val(this.checked)" type="checkbox">
+		<input id="s0" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d0').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d0" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=1" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=1&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="2" type="checkbox"></td>
+	<td align="center">path</td>
+	<td align="center">整型文本</td>
+	<td align="center"><input name="label" value="访问路径" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="2" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s1').val(this.checked)" type="checkbox">
+		<input id="s1" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d1').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d1" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=2" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=2&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="3" type="checkbox"></td>
+	<td align="center">title</td>
+	<td align="center">字符串文本</td>
+	<td align="center"><input name="label" value="meta标题" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="3" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s2').val(this.checked)" type="checkbox">
+		<input id="s2" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d2').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d2" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=3" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=3&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="4" type="checkbox"></td>
+	<td align="center">keywords</td>
+	<td align="center">字符串文本</td>
+	<td align="center"><input name="label" value="meta关键字" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="4" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s3').val(this.checked)" type="checkbox">
+		<input id="s3" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d3').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d3" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=4" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=4&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="5" type="checkbox"></td>
+	<td align="center">description</td>
+	<td align="center">文本区</td>
+	<td align="center"><input name="label" value="meta描述" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="5" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s4').val(this.checked)" checked="checked" type="checkbox">
+		<input id="s4" name="single" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d4').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d4" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=5" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=5&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="6" type="checkbox"></td>
+	<td align="center">tplChannel</td>
+	<td align="center">下拉列表</td>
+	<td align="center"><input name="label" value="栏目模板" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="6" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s5').val(this.checked)" type="checkbox">
+		<input id="s5" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d5').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d5" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=6" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=6&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="7" type="checkbox"></td>
+	<td align="center">tplContent</td>
+	<td align="center">下拉列表</td>
+	<td align="center"><input name="label" value="内容模板" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="7" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s6').val(this.checked)" type="checkbox">
+		<input id="s6" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d6').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d6" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=7" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=7&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="8" type="checkbox"></td>
+	<td align="center">channelStatic</td>
+	<td align="center">文本区</td>
+	<td align="center"><input name="label" value="栏目静态化" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="8" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s7').val(this.checked)" checked="checked" type="checkbox">
+		<input id="s7" name="single" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d7').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d7" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=8" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=8&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="9" type="checkbox"></td>
+	<td align="center">contentStatic</td>
+	<td align="center">文本区</td>
+	<td align="center"><input name="label" value="内容静态化" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="9" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s8').val(this.checked)" checked="checked" type="checkbox">
+		<input id="s8" name="single" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d8').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d8" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=9" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=9&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="10" type="checkbox"></td>
+	<td align="center">priority</td>
+	<td align="center">整型文本</td>
+	<td align="center"><input name="label" value="排列顺序" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="10" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s9').val(this.checked)" type="checkbox">
+		<input id="s9" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d9').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d9" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=10" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=10&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="11" type="checkbox"></td>
+	<td align="center">display</td>
+	<td align="center">单选框</td>
+	<td align="center"><input name="label" value="显示" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="11" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s10').val(this.checked)" type="checkbox">
+		<input id="s10" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d10').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d10" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=11" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=11&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="12" type="checkbox"></td>
+	<td align="center">docImg</td>
+	<td align="center">单选框</td>
+	<td align="center"><input name="label" value="文档图片" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="12" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s11').val(this.checked)" checked="checked" type="checkbox">
+		<input id="s11" name="single" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d11').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d11" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=12" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=12&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="13" type="checkbox"></td>
+	<td align="center">finalStep</td>
+	<td align="center">整型文本</td>
+	<td align="center"><input name="label" value="终审级别" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="13" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s12').val(this.checked)" type="checkbox">
+		<input id="s12" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d12').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d12" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=13" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=13&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="14" type="checkbox"></td>
+	<td align="center">afterCheck</td>
+	<td align="center">下拉列表</td>
+	<td align="center"><input name="label" value="审核后" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="14" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s13').val(this.checked)" type="checkbox">
+		<input id="s13" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d13').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d13" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=14" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=14&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="15" type="checkbox"></td>
+	<td align="center">commentControl</td>
+	<td align="center">单选框</td>
+	<td align="center"><input name="label" value="评论" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="15" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s14').val(this.checked)" type="checkbox">
+		<input id="s14" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d14').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d14" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=15" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=15&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="16" type="checkbox"></td>
+	<td align="center">allowUpdown</td>
+	<td align="center">单选框</td>
+	<td align="center"><input name="label" value="顶踩" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="16" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s15').val(this.checked)" type="checkbox">
+		<input id="s15" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d15').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d15" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=16" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=16&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="17" type="checkbox"></td>
+	<td align="center">viewGroupIds</td>
+	<td align="center">复选框</td>
+	<td align="center"><input name="label" value="浏览权限" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="17" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s16').val(this.checked)" type="checkbox">
+		<input id="s16" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d16').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d16" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=17" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=17&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="18" type="checkbox"></td>
+	<td align="center">contriGroupIds</td>
+	<td align="center">复选框</td>
+	<td align="center"><input name="label" value="投稿权限" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="18" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s17').val(this.checked)" type="checkbox">
+		<input id="s17" name="single" value="false" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d17').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d17" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=18" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=18&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="19" type="checkbox"></td>
+	<td align="center">userIds</td>
+	<td align="center">复选框</td>
+	<td align="center"><input name="label" value="管理权限" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="19" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s18').val(this.checked)" checked="checked" type="checkbox">
+		<input id="s18" name="single" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d18').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d18" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=19" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=19&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="20" type="checkbox"></td>
+	<td align="center">link</td>
+	<td align="center">字符串文本</td>
+	<td align="center"><input name="label" value="外部链接" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="20" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s19').val(this.checked)" checked="checked" type="checkbox">
+		<input id="s19" name="single" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d19').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d19" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=20" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=20&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr>
+	<td><input name="ids" value="21" type="checkbox"></td>
+	<td align="center">titleImg</td>
+	<td align="center">字符串文本</td>
+	<td align="center"><input name="label" value="标题图" style="width: 100px;" type="text"></td>
+	<td align="center">
+		<input name="priority" value="10" style="width: 40px;" type="text">
+		<input name="wids" value="21" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#s20').val(this.checked)" checked="checked" type="checkbox">
+		<input id="s20" name="single" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input onclick="$('#d20').val(this.checked)" checked="checked" type="checkbox">
+		<input id="d20" name="display" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/v_edit.do?id=21" class="pn-opt">修改</a> |
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/item/o_delete.do?ids=21&amp;modelId=1&amp;isChannel=true" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a>
+ 	</td>
+</tr>
+<tr id="sysDefModel" style=""><td colspan="8">系统默认字段:</td></tr>
+
+
+
+
+
+
+
+
+
+
+
+<tr>
+	<td><input onclick="disInput(this);" checked="checked" type="checkbox"></td>
+	<td class="dis" align="center">contentImg</td>
+	<td class="dis" align="center">字符串文本</td>
+	<td align="center"><input class="dis" name="labels" value="内容图" style="width: 100px;" type="text"></td>
+	<td align="center"><input class="dis" name="prioritys" value="10" style="width: 40px;" type="text"></td>
+	<td align="center">
+		<input class="dis" checked="checked" onclick="$('#singles1').val(this.checked)" type="checkbox">
+		<input class="dis" id="singles1" name="singles" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input class="dis" checked="checked" onclick="$('#displays1').val(this.checked)" type="checkbox">
+		<input class="dis" id="displays1" name="displays" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input class="dis" name="fields" value="contentImg" type="hidden">
+		<input class="dis" name="dataTypes" value="1" type="hidden">
+	</td>
+</tr>
+<tr>
+	<td><input onclick="disInput(this);" checked="checked" type="checkbox"></td>
+	<td class="dis" align="center">txt</td>
+	<td class="dis" align="center">文本区</td>
+	<td align="center"><input class="dis" name="labels" value="内容" style="width: 100px;" type="text"></td>
+	<td align="center"><input class="dis" name="prioritys" value="10" style="width: 40px;" type="text"></td>
+	<td align="center">
+		<input class="dis" checked="checked" onclick="$('#singles2').val(this.checked)" type="checkbox">
+		<input class="dis" id="singles2" name="singles" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input class="dis" checked="checked" onclick="$('#displays2').val(this.checked)" type="checkbox">
+		<input class="dis" id="displays2" name="displays" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input class="dis" name="fields" value="txt" type="hidden">
+		<input class="dis" name="dataTypes" value="4" type="hidden">
+	</td>
+</tr>
+<tr>
+	<td><input onclick="disInput(this);" checked="checked" type="checkbox"></td>
+	<td class="dis" align="center">txt1</td>
+	<td class="dis" align="center">文本区</td>
+	<td align="center"><input class="dis" name="labels" value="内容1" style="width: 100px;" type="text"></td>
+	<td align="center"><input class="dis" name="prioritys" value="10" style="width: 40px;" type="text"></td>
+	<td align="center">
+		<input class="dis" checked="checked" onclick="$('#singles3').val(this.checked)" type="checkbox">
+		<input class="dis" id="singles3" name="singles" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input class="dis" checked="checked" onclick="$('#displays3').val(this.checked)" type="checkbox">
+		<input class="dis" id="displays3" name="displays" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input class="dis" name="fields" value="txt1" type="hidden">
+		<input class="dis" name="dataTypes" value="4" type="hidden">
+	</td>
+</tr>
+<tr>
+	<td><input onclick="disInput(this);" checked="checked" type="checkbox"></td>
+	<td class="dis" align="center">txt2</td>
+	<td class="dis" align="center">文本区</td>
+	<td align="center"><input class="dis" name="labels" value="内容2" style="width: 100px;" type="text"></td>
+	<td align="center"><input class="dis" name="prioritys" value="10" style="width: 40px;" type="text"></td>
+	<td align="center">
+		<input class="dis" checked="checked" onclick="$('#singles4').val(this.checked)" type="checkbox">
+		<input class="dis" id="singles4" name="singles" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input class="dis" checked="checked" onclick="$('#displays4').val(this.checked)" type="checkbox">
+		<input class="dis" id="displays4" name="displays" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input class="dis" name="fields" value="txt2" type="hidden">
+		<input class="dis" name="dataTypes" value="4" type="hidden">
+	</td>
+</tr>
+<tr>
+	<td><input onclick="disInput(this);" checked="checked" type="checkbox"></td>
+	<td class="dis" align="center">txt3</td>
+	<td class="dis" align="center">文本区</td>
+	<td align="center"><input class="dis" name="labels" value="内容3" style="width: 100px;" type="text"></td>
+	<td align="center"><input class="dis" name="prioritys" value="10" style="width: 40px;" type="text"></td>
+	<td align="center">
+		<input class="dis" checked="checked" onclick="$('#singles5').val(this.checked)" type="checkbox">
+		<input class="dis" id="singles5" name="singles" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input class="dis" checked="checked" onclick="$('#displays5').val(this.checked)" type="checkbox">
+		<input class="dis" id="displays5" name="displays" value="true" type="hidden">
+	</td>
+	<td align="center">
+		<input class="dis" name="fields" value="txt3" type="hidden">
+		<input class="dis" name="dataTypes" value="4" type="hidden">
+	</td>
+</tr>
+
+</tbody>
+</table>
+
+<div>
+	<input value="保存系统默认字段" onclick="optSave();" type="button">
+&nbsp;<script type="text/javascript">$('#sysDefModel').show();</script>
+<input value="删除" onclick="optDelete();" type="button">
+&nbsp; <input value="保存内容" onclick="optSaveOrder();" type="button">
+</div>
+
+</form>
+</div>
+
+</body></html>

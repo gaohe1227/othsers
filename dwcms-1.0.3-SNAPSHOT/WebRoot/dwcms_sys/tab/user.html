@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>添加用户</title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.STYLE1 {font-size: 12px}
+.STYLE3 {font-size: 12px; font-weight: bold; }
+.STYLE4 {
+	color: #03515d;
+	font-size: 12px;
+}
+-->
+</style>
+
+
+
+</head>
+
+<body>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+   <tr>
+    <td height="30" background="images/tab_05.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="12" height="30"><img src="images/tab_03.gif" width="12" height="30" /></td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="5%"><div align="center"><img src="images/tb.gif" width="16" height="16" /></div></td>
+                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[用户管理]-[添加用户]</td>
+              </tr>
+            </table></td>
+            <td width="54%"><table border="0" align="right" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="60"><table width="87%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="STYLE1"><div align="center"></div></td>
+                    <td class="STYLE1"><div align="center"></div></td>
+                  </tr>
+                </table></td>
+                <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="STYLE1"><div align="center"></div></td>
+                    <td class="STYLE1"><div align="center"></div></td>
+                  </tr>
+                </table></td>
+                <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="STYLE1"><div align="center"></div></td>
+                    <td class="STYLE1"><div align="center"></div></td>
+                  </tr>
+                </table></td>
+                <td width="52"><table width="88%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="STYLE1"><div align="center"><img src="images/33.gif" alt="返回" width="14" height="14" /></div></td>
+                    <td class="STYLE1"><div align="center" onclick="window.history.go(-1)">返回</div></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+        <td width="16"><img src="images/tab_07.gif" width="16" height="30" /></td>
+      </tr>
+    </table></td>
+  </tr>
+  
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="8" background="images/tab_12.gif">&nbsp;</td>
+        <td>
+    <form id="form1" name="form1" method="post" action="control/insertuser.jsp">
+    <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
+      
+      <tr>
+   
+        <td width="10%" height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">用户名:</div></td>
+		 <td width="28%" height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">
+		   
+		     <input type="text" name="username" />
+		     
+		   </div></td>
+		  <td width="10%" height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">电子邮件:</div></td>
+        <td width="52%" height="20" bgcolor="#FFFFFF"><div align="left"><span class="STYLE21"><input type="text" name="email" /></span></div></td>
+      </tr>
+      <tr>
+   
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">密码:</div></td>
+		 <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">
+		   <input type="password" name="psw" />&nbsp;区分大小写.
+		 </div></td>
+		  <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">确认密码:</div></td>
+        <td height="20" bgcolor="#FFFFFF"><div align="left"><span class="STYLE21">
+          <input type="password" name="comfrimPwd" />
+        </span></div></td>
+      </tr>
+
+     <tr>
+   
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">会员组:</div></td>
+		 <td height="20" colspan="3" bgcolor="#FFFFFF" class="STYLE1"><span class="STYLE21">
+		   <select name="membergrpId">
+		   	<c:forEach items="${membergroup}" var="currentMembergrp">
+             <option value="${currentMembergrp.memberGroupId }">${currentMembergrp.groupName}</option>
+            </c:forEach> 
+             
+           </select>
+		 </span></td>
+      </tr>
+	  
+      <tr>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1">真实姓名:</td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><input type="text" name="realName" /></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1">性别:</td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><input name="sex" type="radio" value="男" />男<input name="sex" type="radio" value="女" />女 <input name="sex" type="radio" value="保密" checked />保密</td>
+      </tr>
+      <tr>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1">出生日期:</td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"> <input type="text" id="EntTime" name="born" onclick="return showCalendar('EntTime', 'y-mm-dd')"/> </td>
+   <td height="20" bgcolor="#FFFFFF" class="STYLE1">是否启用:</td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><input name="isUse" type="radio" value="YES" checked />启用<input name="isUse" type="radio" value="NO" />禁用</td>
+      </tr>
+      <tr>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1">QQ:</td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><input type="text" name="qq" /></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1">MSN:</td>
+        <td height="20" bgcolor="#FFFFFF"><input type="text" name="msn" /></td>
+      </tr>
+      <tr>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1">电话:</td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><input type="text" name="telphone" /></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1">手机</td>
+        <td height="20" bgcolor="#FFFFFF"><input type="text" name="mobilephone" /></td>
+      </tr>
+
+      <tr>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1">城市:</td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1" colspan="3">
+        	<select name="city">
+        		<option value="北京">北京</option>
+        		<option value="天津">天津</option>
+        		<option value="武汉">武汉</option>
+        		<option value="广州">广州</option>
+        	</select>
+        </td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"></td>
+        <td height="20" bgcolor="#FFFFFF"></td>
+      </tr>
+      
+      <tr>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1" >来自:</td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1" colspan="3"><input type="text" name="from" size="32" /></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"></td>
+      </tr>
+      
+ 
+      <tr>
+   
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">个人简介:</div></td>
+		 <td height="20" colspan="3" bgcolor="#FFFFFF" class="STYLE1"><textarea name="descript" cols="60" rows="6"></textarea></td>
+		  </tr>
+      	  	
+		  
+      <tr>
+   
+        <td height="20" colspan="4" bgcolor="#FFFFFF" class="STYLE1" style=" text-align:center;"><input name="" type="submit" value="提交" /><input name="" type="reset" value="重置" /></td>
+		  </tr>	  		    	  	  	  
+			
+    </table></form>	
+		</td>
+        <td width="8" background="images/tab_15.gif">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+  
+  <tr>
+    <td>
+</td>
+  </tr>
+ 
+
+  <tr>
+    <td height="35" background="images/tab_19.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="12" height="35"><img src="images/tab_18.gif" width="12" height="35" /></td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="STYLE4">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table></td>
+        <td width="16"><img src="images/tab_20.gif" width="16" height="35" /></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

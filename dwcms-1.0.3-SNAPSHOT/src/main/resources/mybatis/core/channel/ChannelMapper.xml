@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.channel.dao.ChannelMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.channel.pojo.Channel" >
+    <id column="channel_id" property="channelId" jdbcType="INTEGER" />
+    <result column="model_id" property="modelId" jdbcType="INTEGER" />
+    <result column="site_id" property="siteId" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="channel_path" property="channelPath" jdbcType="VARCHAR" />
+    <result column="lft" property="lft" jdbcType="INTEGER" />
+    <result column="rgt" property="rgt" jdbcType="INTEGER" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="has_content" property="hasContent" jdbcType="BIT" />
+    <result column="is_display" property="isDisplay" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    channel_id, model_id, site_id, parent_id, channel_path, lft, rgt, priority, has_content, 
+    is_display
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.channel.pojo.ChannelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_channel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_channel
+    where channel_id = #{channelId,jdbcType=INTEGER}
+  </select>
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select 
+ 	Max(channel_id)
+    from dc_channel
+  </select>   
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_channel
+    where channel_id = #{channelId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.core.channel.pojo.ChannelExample" >
+    delete from dc_channel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.channel.pojo.Channel" >
+    insert into dc_channel (channel_id, model_id, site_id, 
+      parent_id, channel_path, lft, 
+      rgt, priority, has_content, 
+      is_display)
+    values (#{channelId,jdbcType=INTEGER}, #{modelId,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, 
+      #{parentId}, #{channelPath,jdbcType=VARCHAR}, #{lft,jdbcType=INTEGER}, 
+      #{rgt,jdbcType=INTEGER}, #{priority,jdbcType=INTEGER}, #{hasContent,jdbcType=BIT}, 
+      #{isDisplay,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.channel.pojo.Channel" >
+    insert into dc_channel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="channelId != null" >
+        channel_id,
+      </if>
+      <if test="modelId != null" >
+        model_id,
+      </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="channelPath != null" >
+        channel_path,
+      </if>
+      <if test="lft != null" >
+        lft,
+      </if>
+      <if test="rgt != null" >
+        rgt,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="hasContent != null" >
+        has_content,
+      </if>
+      <if test="isDisplay != null" >
+        is_display,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="channelId != null" >
+        #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="modelId != null" >
+        #{modelId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="channelPath != null" >
+        #{channelPath,jdbcType=VARCHAR},
+      </if>
+      <if test="lft != null" >
+        #{lft,jdbcType=INTEGER},
+      </if>
+      <if test="rgt != null" >
+        #{rgt,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="hasContent != null" >
+        #{hasContent,jdbcType=BIT},
+      </if>
+      <if test="isDisplay != null" >
+        #{isDisplay,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.core.channel.pojo.ChannelExample" resultType="java.lang.Integer" >
+    select count(*) from dc_channel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_channel
+    <set >
+      <if test="record.channelId != null" >
+        channel_id = #{record.channelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.modelId != null" >
+        model_id = #{record.modelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteId != null" >
+        site_id = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.channelPath != null" >
+        channel_path = #{record.channelPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lft != null" >
+        lft = #{record.lft,jdbcType=INTEGER},
+      </if>
+      <if test="record.rgt != null" >
+        rgt = #{record.rgt,jdbcType=INTEGER},
+      </if>
+      <if test="record.priority != null" >
+        priority = #{record.priority,jdbcType=INTEGER},
+      </if>
+      <if test="record.hasContent != null" >
+        has_content = #{record.hasContent,jdbcType=BIT},
+      </if>
+      <if test="record.isDisplay != null" >
+        is_display = #{record.isDisplay,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_channel
+    set channel_id = #{record.channelId,jdbcType=INTEGER},
+      model_id = #{record.modelId,jdbcType=INTEGER},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      channel_path = #{record.channelPath,jdbcType=VARCHAR},
+      lft = #{record.lft,jdbcType=INTEGER},
+      rgt = #{record.rgt,jdbcType=INTEGER},
+      priority = #{record.priority,jdbcType=INTEGER},
+      has_content = #{record.hasContent,jdbcType=BIT},
+      is_display = #{record.isDisplay,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.channel.pojo.Channel" >
+    update dc_channel
+    <set >
+      <if test="modelId != null" >
+        model_id = #{modelId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="channelPath != null" >
+        channel_path = #{channelPath,jdbcType=VARCHAR},
+      </if>
+      <if test="lft != null" >
+        lft = #{lft,jdbcType=INTEGER},
+      </if>
+      <if test="rgt != null" >
+        rgt = #{rgt,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="hasContent != null" >
+        has_content = #{hasContent,jdbcType=BIT},
+      </if>
+      <if test="isDisplay != null" >
+        is_display = #{isDisplay,jdbcType=BIT},
+      </if>
+    </set>
+    where channel_id = #{channelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.channel.pojo.Channel" >
+    update dc_channel
+    set model_id = #{modelId,jdbcType=INTEGER},
+      site_id = #{siteId,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      channel_path = #{channelPath,jdbcType=VARCHAR},
+      lft = #{lft,jdbcType=INTEGER},
+      rgt = #{rgt,jdbcType=INTEGER},
+      priority = #{priority,jdbcType=INTEGER},
+      has_content = #{hasContent,jdbcType=BIT},
+      is_display = #{isDisplay,jdbcType=BIT}
+    where channel_id = #{channelId,jdbcType=INTEGER}
+  </update>
+</mapper>

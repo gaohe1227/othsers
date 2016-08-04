@@ -1,0 +1,116 @@
+#set($ctx = $request.getContextPath())
+#macro( limitStr $text $limitLength )
+	#if($text.length()>$limitLength)
+		#set($text=$text.substring(0,$limitLength))
+		$!text ...
+	#else
+		$!text
+	#end	
+#end
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
+	<head>
+		
+		<!-- META -->
+		<title>我们的案列-多维矩阵网络科技-网络信息化咨询服务</title>
+		<meta charset="utf-8" />	
+		<meta name="description" content=" 多维矩阵网络科技致力于为中小型企业打造专业,稳定,易用的服务应用型软件产品,以依托互联网为终端帮客户迅速实现信息互联化... " />
+		<meta name="keywords"    content=" UI设计/制作 Android定制 App开发 网站建设  网站开发 JavaCMS系统 多维矩阵网络科技... " />	
+		
+		<!-- FAVICON  -->
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />					
+			
+		<!-- STYLESHEETS -->
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/style.css" />
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/nivo-slider.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/prettyPhoto.css" />
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/jquery.validity.css" />
+		
+		<!-- SCRIPTS -->
+		<script src="${ctx}/r/cms/www/dwcom/js/jquery-1.5.1.min.js" type="text/javascript"></script>
+		<script src="${ctx}/r/cms/www/dwcom/js/jquery.nivo.slider.pack.js" type="text/javascript"></script>
+		<script src="${ctx}/r/cms/www/dwcom/js/jquery.prettyPhoto.js" type="text/javascript"></script>
+		<script src="${ctx}/r/cms/www/dwcom/js/jquery.validity.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		function noFind(){
+			var img=event.srcElement;
+			img.src="${ctx}/r/cms/www/dwcom/images/case/case.png";
+			img.onerror=null; //控制不要一直跳动			
+		}
+	</script>  		
+				
+	</head>
+	<body>
+<!-- HEADER -->
+${httpInclude.include("top.vm")}
+<!-- end HEADER -->
+		
+		<!-- MAIN -->		
+		<div id="main" class="container">
+			<!-- Content -->
+			<div id="content" class="fullwidth">
+				<div class="fixed">
+				#if($ourcasesList.size()<1)
+					<p style="text-align: center;">对不起!,该分类还没有案例!!</p>
+				#else
+					#foreach( $case in $ourcasesList )
+						<div class="col-4">
+							<h4 align="center">
+								<a href="$!{ctx}/v_case.vm?contentId=$!{case.contentId}" style="color: #fff;">#limitStr($!case.title  12)</a>
+							</h4>
+							<p>
+								<a href="$!{ctx}/v_case.vm?contentId=$!{case.contentId}" class="image-preview" title="#limitStr($!case.title  12)" rel="prettyPhoto[portfolio]"><img alt="Portfolio item" onerror="noFind();" class="shadow"  width="282" height="162" src="${ctx}$!case.typeImg"></a>
+							</p>
+							<p>
+								#limitStr($!case.description  40)
+							</p>
+							<p class="readmore">
+								<a href="$!{ctx}/v_case.vm?contentId=$!{case.contentId}">Read more &rarr;</a>
+							</p>
+						</div>
+					 #end	
+				</div>
+				<div class="delimiter"></div>
+					#set($before =$page.currentPage - 1)
+					#set($next =$page.currentPage + 1)
+					#set($remain = $page.totalPage - $page.currentPage)
+					<ul class="pagenav" >
+						<li><a href="${ctx}/v_ourcases_list.vm?channelId=${channelId}&pageNo=1" title="首页">&laquo;</a></li>
+						<li><a href="${ctx}/v_ourcases_list.vm?channelId=${channelId}&pageNo=#pageCount($!before,${page.totalPage})" title="上页">&lsaquo;</a></li>
+						#if($remain>=0)
+						<li class="current">#if($page.currentPage==0) 1 #else $page.currentPage #end</li>
+						#end
+						#if($remain>=1)
+						<li><a href="${ctx}/v_ourcases_list.vm?channelId=${channelId}&pageNo=#addIndex($page.currentPage,1)">#addIndex($page.currentPage,1)</a></li>
+						#end
+						#if($remain>=2)
+						<li><a href="${ctx}/v_ourcases_list.vm?channelId=${channelId}&pageNo=#addIndex($page.currentPage,2)">#addIndex($page.currentPage,2)</a></li>
+						#end
+						#if($remain>=3)
+						<li><a href="${ctx}/v_ourcases_list.vm?channelId=${channelId}&pageNo=#addIndex($page.currentPage,3)">#addIndex($page.currentPage,3)</a></li>
+						#end
+						#if($remain>=4)
+						<li><a href="${ctx}/v_ourcases_list.vm?channelId=${channelId}&pageNo=#addIndex($page.currentPage,4)">#addIndex($page.currentPage,4)</a></li>
+						<li class="extend">...</li>
+						#end
+						<li><a href="${ctx}/v_ourcases_list.vm?channelId=${channelId}&pageNo=#pageCount($next,${page.totalPage})" title="下页">&rsaquo;</a></li>
+						<li><a href="${ctx}/v_ourcases_list.vm?channelId=${channelId}&pageNo=${page.totalPage}" title="尾页">&raquo;</a></li>
+					</ul>	
+				#end	
+			</div>				
+			
+						
+			<!-- end Content -->	
+				
+		</div>
+		<!-- end MAIN -->		
+
+		<!-- FOOTER -->
+${httpInclude.include("footer.vm")}
+		<!-- end FOOTER -->
+	</body>
+</html>		

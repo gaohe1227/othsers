@@ -1,0 +1,184 @@
+/* header */
+.header-tab{width:920px;}
+
+/* tab */
+.cur{color:#fff;border-bottom:1px solid #fff;font-weight:bold;cursor:default;}
+dl{ position:relative;
+	float:left;
+
+	width:960px;
+	z-index:99;
+
+
+	}
+dt{ float:left;
+	height:30px;
+	margin:0 0 0 4px;
+	display:inline;
+	line-height:30px;
+	width:90px;
+	border:1px solid #ccc;
+	position:relative;
+	text-align:center;
+	cursor:pointer;}
+dd{position:absolute;
+	top:31px;
+	border-top:1px solid #ccc;
+	left: -30px;
+	width: 920px;
+	padding:10px;
+	overflow:hidden;
+	display:block;
+	z-index:99;
+}
+
+dl  ul {
+margin-top: 50px;
+}
+dl ul, ol {
+margin: 0px;
+padding: 0px;
+list-style: none;
+}
+
+
+.superiority,#requires  li {
+display: block;
+height: 100px;
+list-style: none outside none;
+}
+#tab span{
+	vertical-align: baseline;
+}
+
+#tab  li .text {
+font-size: 16px;
+font-weight: bold;
+width: 300px;
+height: 30px;
+line-height: 30px;
+display: block;
+margin-top: 20px;
+}
+#tab li span.img {
+float: left;
+margin-top: -15px;
+margin-right: 20px;
+}
+#tab dd li img {
+width: 100px;
+height: 100px;
+}
+
+/* 888*/
+.superiority  ul li {
+float: left;
+height: 100px;
+width: 370px;
+margin: 0px 90px 30px 0px;
+overflow: hidden;
+display: block;
+list-style: none outside none;
+}
+.superiority ul, ol {
+margin: 0px;
+padding: 0px;
+list-style: none;
+}
+
+#p_list .p_listing img {
+width: 500px;
+}
+.superiority .img em {
+display: block;
+width: 65px;
+height: 66px;
+background: url("../../../../.././r/cms/www/dwcom/images/background-24.png") no-repeat scroll left top transparent;
+}
+.superiority ul li .img {
+float: left;
+width: 93px;
+overflow: hidden;
+height: 100%;
+}
+.superiority li.performance .img em {
+	background-position: -3px 0px;
+	width: 65px;
+	height: 65px;
+}
+.superiority li.easy .img em {
+	background-position: -68px 0px;
+}
+.superiority li.sale .img em {
+background-position: -133px 0px;
+}
+.superiority li.seo .img em {
+background-position: -198px 0px;
+width: 65px;
+}
+.superiority li.safe .img em {
+background-position: -267px 0px;
+width: 65px;
+}
+.superiority li.opensource .img em {
+background-position: -332px 0px;
+width: 65px;
+}
+.superiority li.extend .img em {
+background-position: -397px 0px;
+width: 65px;
+}
+.superiority li.template .img em {
+background-position: -462px 0px;
+width: 65px;
+}
+.app {
+height: 510px;
+margin-top: 0px;
+}
+.app div {
+float: left;
+width: 400px;
+margin-top: 170px;
+}
+.des img {
+float: left;
+width: 500px;
+border: none;
+}
+.des H1 {
+font-size: 20px;
+letter-spacing: 5px;
+}
+.des ul, ol {
+margin: 0px;
+padding: 0px;
+list-style: none;
+}
+.des div ul li {
+font-size: 16px;
+line-height: 35px;
+list-style: none outside none;
+}
+.component {
+height: 510px;
+margin-top: 80px;
+}
+.component div {
+float: left;
+width: 400px;
+margin-top: 50px;
+margin-left: 15px;
+}
+
+.eop {
+height: 510px;
+margin-top: 50px;
+}
+.eop div {
+float: left;
+width: 385px;
+margin-top: 50px;
+margin-right: 30px;
+
+}

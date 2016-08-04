@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.user.dao.UserSiteMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.user.pojo.UserSite" >
+    <id column="usersite_id" property="usersiteId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="site_id" property="siteId" jdbcType="INTEGER" />
+    <result column="check_step" property="checkStep" jdbcType="TINYINT" />
+    <result column="is_all_channel" property="isAllChannel" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    usersite_id, user_id, site_id, check_step, is_all_channel
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.user.pojo.UserSiteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_user_site
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_user_site
+    where usersite_id = #{usersiteId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_user_site
+    where usersite_id = #{usersiteId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.core.user.pojo.UserSiteExample" >
+    delete from dc_user_site
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.user.pojo.UserSite" >
+    insert into dc_user_site (usersite_id, user_id, site_id, 
+      check_step, is_all_channel)
+    values (#{usersiteId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, 
+      #{checkStep,jdbcType=TINYINT}, #{isAllChannel,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.user.pojo.UserSite" >
+    insert into dc_user_site
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="usersiteId != null" >
+        usersite_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="checkStep != null" >
+        check_step,
+      </if>
+      <if test="isAllChannel != null" >
+        is_all_channel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="usersiteId != null" >
+        #{usersiteId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="checkStep != null" >
+        #{checkStep,jdbcType=TINYINT},
+      </if>
+      <if test="isAllChannel != null" >
+        #{isAllChannel,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.core.user.pojo.UserSiteExample" resultType="java.lang.Integer" >
+    select count(*) from dc_user_site
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_user_site
+    <set >
+      <if test="record.usersiteId != null" >
+        usersite_id = #{record.usersiteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteId != null" >
+        site_id = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkStep != null" >
+        check_step = #{record.checkStep,jdbcType=TINYINT},
+      </if>
+      <if test="record.isAllChannel != null" >
+        is_all_channel = #{record.isAllChannel,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_user_site
+    set usersite_id = #{record.usersiteId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      check_step = #{record.checkStep,jdbcType=TINYINT},
+      is_all_channel = #{record.isAllChannel,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.user.pojo.UserSite" >
+    update dc_user_site
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="checkStep != null" >
+        check_step = #{checkStep,jdbcType=TINYINT},
+      </if>
+      <if test="isAllChannel != null" >
+        is_all_channel = #{isAllChannel,jdbcType=BIT},
+      </if>
+    </set>
+    where usersite_id = #{usersiteId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.user.pojo.UserSite" >
+    update dc_user_site
+    set user_id = #{userId,jdbcType=INTEGER},
+      site_id = #{siteId,jdbcType=INTEGER},
+      check_step = #{checkStep,jdbcType=TINYINT},
+      is_all_channel = #{isAllChannel,jdbcType=BIT}
+    where usersite_id = #{usersiteId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.content.dao.ContentMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.content.pojo.Content" >
+    <id column="content_id" property="contentId" jdbcType="INTEGER" />
+    <result column="channel_id" property="channelId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="site_id" property="siteId" jdbcType="INTEGER" />
+    <result column="sort_date" property="sortDate" jdbcType="TIMESTAMP" />
+    <result column="top_level" property="topLevel" jdbcType="TINYINT" />
+    <result column="has_title_img" property="hasTitleImg" jdbcType="BIT" />
+    <result column="is_recommend" property="isRecommend" jdbcType="BIT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="views_day" property="viewsDay" jdbcType="INTEGER" />
+    <result column="comments_day" property="commentsDay" jdbcType="SMALLINT" />
+    <result column="downloads_day" property="downloadsDay" jdbcType="SMALLINT" />
+    <result column="ups_day" property="upsDay" jdbcType="SMALLINT" />
+    <association property="contentExt"  javaType="com.doadway.dwcms.core.content.pojo.ContentExt" column="content_id">
+	    <id column="content_id" property="contentId" jdbcType="INTEGER" />
+	    <result column="title" property="title" jdbcType="VARCHAR" />
+	    <result column="short_title" property="shortTitle" jdbcType="VARCHAR" />
+	    <result column="author" property="author" jdbcType="VARCHAR" />
+	    <result column="origin" property="origin" jdbcType="VARCHAR" />
+	    <result column="origin_url" property="originUrl" jdbcType="VARCHAR" />
+	    <result column="description" property="description" jdbcType="VARCHAR" />
+	    <result column="release_date" property="releaseDate" jdbcType="TIMESTAMP" />
+	    <result column="media_path" property="mediaPath" jdbcType="VARCHAR" />
+	    <result column="media_type" property="mediaType" jdbcType="VARCHAR" />
+	    <result column="title_color" property="titleColor" jdbcType="VARCHAR" />
+	    <result column="is_bold" property="isBold" jdbcType="BIT" />
+	    <result column="title_img" property="titleImg" jdbcType="VARCHAR" />
+	    <result column="content_img" property="contentImg" jdbcType="VARCHAR" />
+	    <result column="type_img" property="typeImg" jdbcType="VARCHAR" />
+	    <result column="link" property="link" jdbcType="VARCHAR" />
+	    <result column="tpl_content" property="tplContent" jdbcType="VARCHAR" />  	
+  	</association>
+    
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    content_id, channel_id, user_id, type_id, site_id, sort_date, top_level, has_title_img, 
+    is_recommend, status, views_day, comments_day, downloads_day, ups_day
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.content.pojo.ContentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_content
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" >
+    select
+    content.content_id, content.channel_id, content.user_id, content.type_id, content.site_id, content.sort_date, content.top_level, content.has_title_img, 
+    content.is_recommend, content.status, content.views_day, content.comments_day, content.downloads_day, content.ups_day,content_ext.title, content_ext.short_title,content_ext.description,  content_ext.author,
+    content_ext.release_date,content_ext.title_img,content_ext.link,content_ext.content_img,content_ext.type_img
+    from dc_content content,dc_content_ext content_ext
+ 	where content.content_id=content_ext.content_id 
+ 	<if test="params.status!=4">
+ 	 	and content.status!=4
+ 	</if>
+ 	<if test="params.channelId!=null">
+	 	and content.channel_id=#{params.channelId}
+ 	</if> 
+ 	<if test="params.topLevel!=null">
+	 	and content.top_level!=#{params.topLevel}
+ 	</if> 
+ 	<if test="params.recommend!=null">
+	 	and content.is_recommend=#{params.recommend}
+ 	</if> 
+ 	 <if test="params.typeId!=null">
+	 	and content.type_id=#{params.typeId}
+ 	</if> 
+ 	 <if test="params.status!=null">
+	 	and content.status=#{params.status}
+ 	</if>
+ 	 <if test="params.title!=null">
+	 	and content_ext.title like #{params.title} 
+ 	</if>
+ 	 <if test="params.author!=null">
+	 	and content_ext.author like #{params.author}
+ 	</if> 	 	
+ 	 order by content_id desc 
+ </select>
+ 
+  <select id="selectListForIndex" resultMap="BaseResultMap" >
+    select
+    content.content_id, content.channel_id, content.user_id, content.type_id, content.site_id, content.sort_date, content.top_level, content.has_title_img, 
+    content.is_recommend, content.status, content.views_day, content.comments_day, content.downloads_day, content.ups_day,content_ext.title, content_ext.short_title,content_ext.description,  content_ext.author,
+    content_ext.release_date,content_ext.title_img,content_ext.link,content_ext.content_img,content_ext.type_img  
+    from dc_content content,dc_content_ext content_ext
+ 	where content.content_id=content_ext.content_id   
+ 	<if test="startId!=null">
+		AND  content.content_id > #{startId}
+ 	</if>
+ 	<if test="siteId!=null">
+	 	and content.site_id=#{siteId}
+ 	</if> 
+ 	<if test="channelId!=null">
+	 	and content.channel_id =#{channelId}
+ 	</if> 
+ 	<if test="startDate!=null">
+	 		<![CDATA[
+		 		and content_ext.release_date >= 
+			 ]]> #{startDate}
+ 	</if> 
+ 	 <if test="endDate!=null">
+	 		 <![CDATA[
+		 		and content_ext.release_date <= 
+		 	  ]]> #{endDate} 
+ 	</if> 
+ 	 	order by content.content_id ASC  
+ 	 <if test="max!=null">
+	 	LIMIT 0, #{max} 
+ 	</if>
+ </select>
+ 
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select 
+ 	Max(content_id)
+    from dc_content
+  </select>      
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_content
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_content
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.core.content.pojo.ContentExample" >
+    delete from dc_content
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.content.pojo.Content" >
+    insert into dc_content (content_id, channel_id, user_id, 
+      type_id, site_id, sort_date, 
+      top_level, has_title_img, is_recommend, 
+      status, views_day, comments_day, 
+      downloads_day, ups_day)
+    values (#{contentId,jdbcType=INTEGER}, #{channelId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{typeId,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, #{sortDate,jdbcType=TIMESTAMP}, 
+      #{topLevel,jdbcType=TINYINT}, #{hasTitleImg,jdbcType=BIT}, #{isRecommend,jdbcType=BIT}, 
+      #{status,jdbcType=TINYINT}, #{viewsDay,jdbcType=INTEGER}, #{commentsDay,jdbcType=SMALLINT}, 
+      #{downloadsDay,jdbcType=SMALLINT}, #{upsDay,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.content.pojo.Content" >
+    insert into dc_content
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contentId != null" >
+        content_id,
+      </if>
+      <if test="channelId != null" >
+        channel_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="sortDate != null" >
+        sort_date,
+      </if>
+      <if test="topLevel != null" >
+        top_level,
+      </if>
+      <if test="hasTitleImg != null" >
+        has_title_img,
+      </if>
+      <if test="isRecommend != null" >
+        is_recommend,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="viewsDay != null" >
+        views_day,
+      </if>
+      <if test="commentsDay != null" >
+        comments_day,
+      </if>
+      <if test="downloadsDay != null" >
+        downloads_day,
+      </if>
+      <if test="upsDay != null" >
+        ups_day,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contentId != null" >
+        #{contentId,jdbcType=INTEGER},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="sortDate != null" >
+        #{sortDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topLevel != null" >
+        #{topLevel,jdbcType=TINYINT},
+      </if>
+      <if test="hasTitleImg != null" >
+        #{hasTitleImg,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null" >
+        #{isRecommend,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="viewsDay != null" >
+        #{viewsDay,jdbcType=INTEGER},
+      </if>
+      <if test="commentsDay != null" >
+        #{commentsDay,jdbcType=SMALLINT},
+      </if>
+      <if test="downloadsDay != null" >
+        #{downloadsDay,jdbcType=SMALLINT},
+      </if>
+      <if test="upsDay != null" >
+        #{upsDay,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.core.content.pojo.ContentExample" resultType="java.lang.Integer" >
+    select count(*) from dc_content
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_content
+    <set >
+      <if test="record.contentId != null" >
+        content_id = #{record.contentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.channelId != null" >
+        channel_id = #{record.channelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteId != null" >
+        site_id = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sortDate != null" >
+        sort_date = #{record.sortDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.topLevel != null" >
+        top_level = #{record.topLevel,jdbcType=TINYINT},
+      </if>
+      <if test="record.hasTitleImg != null" >
+        has_title_img = #{record.hasTitleImg,jdbcType=BIT},
+      </if>
+      <if test="record.isRecommend != null" >
+        is_recommend = #{record.isRecommend,jdbcType=BIT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.viewsDay != null" >
+        views_day = #{record.viewsDay,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentsDay != null" >
+        comments_day = #{record.commentsDay,jdbcType=SMALLINT},
+      </if>
+      <if test="record.downloadsDay != null" >
+        downloads_day = #{record.downloadsDay,jdbcType=SMALLINT},
+      </if>
+      <if test="record.upsDay != null" >
+        ups_day = #{record.upsDay,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_content
+    set content_id = #{record.contentId,jdbcType=INTEGER},
+      channel_id = #{record.channelId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      type_id = #{record.typeId,jdbcType=INTEGER},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      sort_date = #{record.sortDate,jdbcType=TIMESTAMP},
+      top_level = #{record.topLevel,jdbcType=TINYINT},
+      has_title_img = #{record.hasTitleImg,jdbcType=BIT},
+      is_recommend = #{record.isRecommend,jdbcType=BIT},
+      status = #{record.status,jdbcType=TINYINT},
+      views_day = #{record.viewsDay,jdbcType=INTEGER},
+      comments_day = #{record.commentsDay,jdbcType=SMALLINT},
+      downloads_day = #{record.downloadsDay,jdbcType=SMALLINT},
+      ups_day = #{record.upsDay,jdbcType=SMALLINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.content.pojo.Content" >
+    update dc_content
+    <set >
+      <if test="channelId != null" >
+        channel_id = #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="sortDate != null" >
+        sort_date = #{sortDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topLevel != null" >
+        top_level = #{topLevel,jdbcType=TINYINT},
+      </if>
+      <if test="hasTitleImg != null" >
+        has_title_img = #{hasTitleImg,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null" >
+        is_recommend = #{isRecommend,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="viewsDay != null" >
+        views_day = #{viewsDay,jdbcType=INTEGER},
+      </if>
+      <if test="commentsDay != null" >
+        comments_day = #{commentsDay,jdbcType=SMALLINT},
+      </if>
+      <if test="downloadsDay != null" >
+        downloads_day = #{downloadsDay,jdbcType=SMALLINT},
+      </if>
+      <if test="upsDay != null" >
+        ups_day = #{upsDay,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.content.pojo.Content" >
+    update dc_content
+    set channel_id = #{channelId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      site_id = #{siteId,jdbcType=INTEGER},
+      sort_date = #{sortDate,jdbcType=TIMESTAMP},
+      top_level = #{topLevel,jdbcType=TINYINT},
+      has_title_img = #{hasTitleImg,jdbcType=BIT},
+      is_recommend = #{isRecommend,jdbcType=BIT},
+      status = #{status,jdbcType=TINYINT},
+      views_day = #{viewsDay,jdbcType=INTEGER},
+      comments_day = #{commentsDay,jdbcType=SMALLINT},
+      downloads_day = #{downloadsDay,jdbcType=SMALLINT},
+      ups_day = #{upsDay,jdbcType=SMALLINT}
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </update>
+</mapper>

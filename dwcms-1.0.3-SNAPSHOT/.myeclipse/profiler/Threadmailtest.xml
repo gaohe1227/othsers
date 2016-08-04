@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="app_preset_prof_preset_name">Threadmailtest Launch Configuration</entry>
+<entry key="app_preset_prof_preset_filter_s"/>
+<entry key="app_preset_prof_preset_filter_p">com.daodway.dwcms.assistant.*,
+com.daodway.dwcms.core.config.*,
+com.daodway.dwcms.core.content.*,
+com.daodway.dwcms.core.functiontree.*,
+com.daodway.dwcms.core.user.*,
+com.daodway.dwcms.core.util.*,
+com.daodway.dwcms.web.webservice.*,
+com.doadway.common.cache.*,
+com.doadway.common.captcha.*,
+com.doadway.common.email.*,
+com.doadway.common.file.*,
+com.doadway.common.image.*,
+com.doadway.common.lucene.*,
+com.doadway.common.msg.biz.*,
+com.doadway.common.msg.box.*,
+com.doadway.common.page.*,
+com.doadway.common.quartz.*,
+com.doadway.common.shiro.*,
+com.doadway.common.upload.*,
+com.doadway.common.util.*,
+com.doadway.common.web.*,
+com.doadway.dwcms.*,
+com.doadway.dwcom.crm.biz.*,
+com.doadway.dwcom.crm.dao.*,
+com.doadway.dwcom.crm.pojo.*,
+com.doadway.dwcom.manager.biz.*,
+com.doadway.dwcom.manager.shiro.*,
+com.doadway.dwcom.manager.web.action.front.alone.*,
+com.doadway.dwcom.manager.web.action.front.cases.*,
+com.doadway.dwcom.manager.web.action.front.content.*,
+com.doadway.dwcom.manager.web.action.front.include.*,
+com.doadway.dwcom.manager.web.action.front.index.*,
+com.doadway.dwcom.manager.web.action.front.personnel.*,
+com.doadway.dwcom.manager.web.action.front.product.*,
+com.doadway.dwcom.manager.web.action.front.sidebar.*</entry>
+<entry key="app_preset_prof_preset_alloc_p">10</entry>
+<entry key="app_preset_"/>
+<entry key="app_preset_prof_preset_samplingRefreshRate_s">1000</entry>
+<entry key="app_preset_prof_preset_stacks_p">false</entry>
+<entry key="app_preset_prof_preset_roots_p">com.daodway.dwcms.assistant.**
+com.daodway.dwcms.core.config.**
+com.daodway.dwcms.core.content.**
+com.daodway.dwcms.core.functiontree.**
+com.daodway.dwcms.core.user.**
+com.daodway.dwcms.core.util.**
+com.daodway.dwcms.web.webservice.**
+com.doadway.common.cache.**
+com.doadway.common.captcha.**
+com.doadway.common.email.**
+com.doadway.common.file.**
+com.doadway.common.image.**
+com.doadway.common.lucene.**
+com.doadway.common.msg.biz.**
+com.doadway.common.msg.box.**
+com.doadway.common.page.**
+com.doadway.common.quartz.**
+com.doadway.common.shiro.**
+com.doadway.common.upload.**
+com.doadway.common.util.**
+com.doadway.common.web.**
+com.doadway.dwcms.**
+com.doadway.dwcom.crm.biz.**
+com.doadway.dwcom.crm.dao.**
+com.doadway.dwcom.crm.pojo.**
+com.doadway.dwcom.manager.biz.**
+com.doadway.dwcom.manager.shiro.**
+com.doadway.dwcom.manager.web.action.front.alone.**
+com.doadway.dwcom.manager.web.action.front.cases.**
+com.doadway.dwcom.manager.web.action.front.content.**
+com.doadway.dwcom.manager.web.action.front.include.**
+com.doadway.dwcom.manager.web.action.front.index.**
+com.doadway.dwcom.manager.web.action.front.personnel.**
+com.doadway.dwcom.manager.web.action.front.product.**
+com.doadway.dwcom.manager.web.action.front.sidebar.**
+</entry>
+<entry key="profiler.settings.instrument.empty.methods">false</entry>
+<entry key="myeclipse.profiling.mode">0</entry>
+<entry key="profiler.settings.istrument.getter.setter.methods">false</entry>
+<entry key="app_preset_prof_preset_samplingRate_s">100</entry>
+<entry key="app_preset_prof_preset_filterMode_s">true</entry>
+<entry key="app_preset_prof_preset_selector"/>
+<entry key="app_preset_prof_preset_refreshRate_s">1000</entry>
+<entry key="app_preset_prof_preset_runnables_p">true</entry>
+<entry key="app_preset_prof_preset_filterMode_p">false</entry>
+<entry key="app_preset_prof_preset_memoryMode_p">true</entry>
+</properties>

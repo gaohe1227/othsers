@@ -1,0 +1,35 @@
+#set($ctx = $request.getContextPath()) 
+<!-- Sidebar -->
+			<div id="sidebar">
+				<h3 class="title">$!cases.channelName</h3>
+				<ul class="nav">
+					#foreach( $cases in $casesChild )
+						<li><a href="${ctx}/v_ourcases_list.vm?channelId=$!cases.channelId">$cases.channelName</a></li>
+					#end	
+					<!-- 
+					<li><a href="#">门户网站</a></li>
+					<li><a href="#">企业型</a></li>
+					<li><a href="#">电子商务</a></li>
+					<li><a href="#">餐饮酒店</a></li>
+					<li><a href="#">法律咨询</a></li>
+					 -->			
+				</ul>	
+				<!-- 
+				<h3 class="title">归档</h3>
+				<ul class="nav">
+					<li><a href="#">2011 (15)</a></li>
+					<li><a href="#">2010 (52)</a></li>
+					<li><a href="#">2009 (47)</a></li>
+					<li><a href="#">2008 (55)</a></li>
+					<li><a href="#">2007 (38)</a></li>
+					<li><a href="#">2006 (42)</a></li>
+				</ul>		
+				 -->
+				<form id="search" action="#" method="post" >
+					<fieldset>
+						<input type="text" id="search-input" value="search..." onFocus="if(this.value=='search...')this.value='';" onBlur="if(this.value=='')this.value='search...';"> 
+						<input type="submit" id="search-submit" value="" />
+					</fieldset>
+				</form>											
+			</div>
+<!-- end Sidebar -->

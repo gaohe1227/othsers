@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.assistant.dao.VoteTopicMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.assistant.pojo.VoteTopic" >
+    <id column="votetopic_id" property="votetopicId" jdbcType="INTEGER" />
+    <result column="site_id" property="siteId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="repeate_hour" property="repeateHour" jdbcType="INTEGER" />
+    <result column="total_count" property="totalCount" jdbcType="INTEGER" />
+    <result column="multi_select" property="multiSelect" jdbcType="INTEGER" />
+    <result column="is_restrict_member" property="isRestrictMember" jdbcType="BIT" />
+    <result column="is_restrict_ip" property="isRestrictIp" jdbcType="BIT" />
+    <result column="is_restrict_cookie" property="isRestrictCookie" jdbcType="BIT" />
+    <result column="is_disabled" property="isDisabled" jdbcType="BIT" />
+    <result column="is_def" property="isDef" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    votetopic_id, site_id, title, description, start_time, end_time, repeate_hour, total_count, 
+    multi_select, is_restrict_member, is_restrict_ip, is_restrict_cookie, is_disabled, 
+    is_def
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.assistant.pojo.VoteTopicExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_vote_topic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+ <select id="selectByPage" resultMap="BaseResultMap" >
+	select
+	<include refid="Base_Column_List" />
+	from dc_vote_topic 
+	order by votetopic_id DESC
+ </select>   
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_vote_topic
+    where votetopic_id = #{votetopicId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_vote_topic
+    where votetopic_id = #{votetopicId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.assistant.pojo.VoteTopicExample" >
+    delete from dc_vote_topic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.assistant.pojo.VoteTopic" >
+    insert into dc_vote_topic (votetopic_id, site_id, title, 
+      description, start_time, end_time, 
+      repeate_hour, total_count, multi_select, 
+      is_restrict_member, is_restrict_ip, is_restrict_cookie, 
+      is_disabled, is_def)
+    values (#{votetopicId,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{repeateHour,jdbcType=INTEGER}, #{totalCount,jdbcType=INTEGER}, #{multiSelect,jdbcType=INTEGER}, 
+      #{isRestrictMember,jdbcType=BIT}, #{isRestrictIp,jdbcType=BIT}, #{isRestrictCookie,jdbcType=BIT}, 
+      #{isDisabled,jdbcType=BIT}, #{isDef,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.assistant.pojo.VoteTopic" >
+    insert into dc_vote_topic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="votetopicId != null" >
+        votetopic_id,
+      </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="repeateHour != null" >
+        repeate_hour,
+      </if>
+      <if test="totalCount != null" >
+        total_count,
+      </if>
+      <if test="multiSelect != null" >
+        multi_select,
+      </if>
+      <if test="isRestrictMember != null" >
+        is_restrict_member,
+      </if>
+      <if test="isRestrictIp != null" >
+        is_restrict_ip,
+      </if>
+      <if test="isRestrictCookie != null" >
+        is_restrict_cookie,
+      </if>
+      <if test="isDisabled != null" >
+        is_disabled,
+      </if>
+      <if test="isDef != null" >
+        is_def,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="votetopicId != null" >
+        #{votetopicId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repeateHour != null" >
+        #{repeateHour,jdbcType=INTEGER},
+      </if>
+      <if test="totalCount != null" >
+        #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="multiSelect != null" >
+        #{multiSelect,jdbcType=INTEGER},
+      </if>
+      <if test="isRestrictMember != null" >
+        #{isRestrictMember,jdbcType=BIT},
+      </if>
+      <if test="isRestrictIp != null" >
+        #{isRestrictIp,jdbcType=BIT},
+      </if>
+      <if test="isRestrictCookie != null" >
+        #{isRestrictCookie,jdbcType=BIT},
+      </if>
+      <if test="isDisabled != null" >
+        #{isDisabled,jdbcType=BIT},
+      </if>
+      <if test="isDef != null" >
+        #{isDef,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.assistant.pojo.VoteTopicExample" resultType="java.lang.Integer" >
+    select count(*) from dc_vote_topic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select 
+ 	Max(votetopic_id)
+    from dc_vote_topic
+  </select>    
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_vote_topic
+    <set >
+      <if test="record.votetopicId != null" >
+        votetopic_id = #{record.votetopicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteId != null" >
+        site_id = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.repeateHour != null" >
+        repeate_hour = #{record.repeateHour,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalCount != null" >
+        total_count = #{record.totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.multiSelect != null" >
+        multi_select = #{record.multiSelect,jdbcType=INTEGER},
+      </if>
+      <if test="record.isRestrictMember != null" >
+        is_restrict_member = #{record.isRestrictMember,jdbcType=BIT},
+      </if>
+      <if test="record.isRestrictIp != null" >
+        is_restrict_ip = #{record.isRestrictIp,jdbcType=BIT},
+      </if>
+      <if test="record.isRestrictCookie != null" >
+        is_restrict_cookie = #{record.isRestrictCookie,jdbcType=BIT},
+      </if>
+      <if test="record.isDisabled != null" >
+        is_disabled = #{record.isDisabled,jdbcType=BIT},
+      </if>
+      <if test="record.isDef != null" >
+        is_def = #{record.isDef,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_vote_topic
+    set votetopic_id = #{record.votetopicId,jdbcType=INTEGER},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      repeate_hour = #{record.repeateHour,jdbcType=INTEGER},
+      total_count = #{record.totalCount,jdbcType=INTEGER},
+      multi_select = #{record.multiSelect,jdbcType=INTEGER},
+      is_restrict_member = #{record.isRestrictMember,jdbcType=BIT},
+      is_restrict_ip = #{record.isRestrictIp,jdbcType=BIT},
+      is_restrict_cookie = #{record.isRestrictCookie,jdbcType=BIT},
+      is_disabled = #{record.isDisabled,jdbcType=BIT},
+      is_def = #{record.isDef,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.assistant.pojo.VoteTopic" >
+    update dc_vote_topic
+    <set >
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repeateHour != null" >
+        repeate_hour = #{repeateHour,jdbcType=INTEGER},
+      </if>
+      <if test="totalCount != null" >
+        total_count = #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="multiSelect != null" >
+        multi_select = #{multiSelect,jdbcType=INTEGER},
+      </if>
+      <if test="isRestrictMember != null" >
+        is_restrict_member = #{isRestrictMember,jdbcType=BIT},
+      </if>
+      <if test="isRestrictIp != null" >
+        is_restrict_ip = #{isRestrictIp,jdbcType=BIT},
+      </if>
+      <if test="isRestrictCookie != null" >
+        is_restrict_cookie = #{isRestrictCookie,jdbcType=BIT},
+      </if>
+      <if test="isDisabled != null" >
+        is_disabled = #{isDisabled,jdbcType=BIT},
+      </if>
+      <if test="isDef != null" >
+        is_def = #{isDef,jdbcType=BIT},
+      </if>
+    </set>
+    where votetopic_id = #{votetopicId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.assistant.pojo.VoteTopic" >
+    update dc_vote_topic
+    set site_id = #{siteId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      repeate_hour = #{repeateHour,jdbcType=INTEGER},
+      total_count = #{totalCount,jdbcType=INTEGER},
+      multi_select = #{multiSelect,jdbcType=INTEGER},
+      is_restrict_member = #{isRestrictMember,jdbcType=BIT},
+      is_restrict_ip = #{isRestrictIp,jdbcType=BIT},
+      is_restrict_cookie = #{isRestrictCookie,jdbcType=BIT},
+      is_disabled = #{isDisabled,jdbcType=BIT},
+      is_def = #{isDef,jdbcType=BIT}
+    where votetopic_id = #{votetopicId,jdbcType=INTEGER}
+  </update>
+</mapper>

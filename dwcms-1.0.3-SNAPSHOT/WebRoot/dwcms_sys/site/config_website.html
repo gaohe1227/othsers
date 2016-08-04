@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="config_website_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置:  站点设置 - 基本设置 - 修改</div>
+<form class="ropt">
+	<input value="基本设置" onclick="this.form.action='v_base_edit.do';" type="submit">
+</form>	<div class="clear"></div>
+</div>
+<form method="post" action="o_base_update.do" id="jvForm">
+<table class="pn-ftable" border="0" cellpadding="2" cellspacing="1" width="100%">
+<tbody><tr>
+<td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>站点名称:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="100" value="JEECMS开发站" name="name" class="required" style="width: 260px;" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>站点简称:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="100" value="JEECMS开发站" name="shortName" class="required" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>域名:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="50" value="localhost" name="domain" class="required" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>路径:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="20" value="www" name="path" class="required" type="text"> <span class="pn-fhelp">各站点资源的存放路径</span></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%">域名别名:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="255" name="domainAlias" style="width: 200px;" type="text"> <span class="pn-fhelp">用","分开</span></td><td class="pn-flabel pn-flabel-h" width="12%">域名重定向:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="255" name="domainRedirect" style="width: 200px;" type="text"> <span class="pn-fhelp">用","分开</span></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>使用相对路径:</td><td colspan="1" class="pn-fcontent" width="38%"><label><input value="true" checked="checked" name="relativePath" type="radio">是</label> <label><input value="false" name="relativePath" type="radio">否</label> <span class="pn-fhelp">只适于单站点</span></td>
+<td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>访问协议:</td><td colspan="1" class="pn-fcontent" width="38%"><select name="protocol"><option value="http://" selected="selected">http://</option><option value="https://">https://</option></select>
+</td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>动态页后缀:</td><td colspan="1" class="pn-fcontent" width="38%"><select name="dynamicSuffix"><option value=".jhtml" selected="selected">.jhtml</option><option value=".htm">.htm</option></select>
+ <span class="pn-fhelp">建议使用.jhtml为后缀，以避免冲突</span></td><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>静态页后缀:</td><td colspan="1" class="pn-fcontent" width="38%"><select name="staticSuffix"><option value=".html" selected="selected">.html</option><option value=".shtml">.shtml</option></select>
+</td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%">静态页目录:</td><td colspan="1" class="pn-fcontent" width="38%">
+<input maxlength="50" name="staticDir" type="text"><label><input onclick="$('#indexToRoot').val(this.checked)" type="checkbox"><input id="indexToRoot" name="indexToRoot" value="false" type="hidden">使用根首页</label>
+</td><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>开启静态首页:</td><td colspan="1" class="pn-fcontent" width="38%"><label><input value="true" name="staticIndex" type="radio">是</label> <label><input value="false" checked="checked" name="staticIndex" type="radio">否</label></td>
+</tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>后台本地化:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="10" value="zh_CN" name="localeAdmin" class="required" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>前台本地化:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="10" value="zh_CN" name="localeFront" class="required" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%">附件FTP:</td><td colspan="1" class="pn-fcontent" width="38%">
+<select name="uploadFtpId"><option value="" selected="selected">--无--</option></select>
+</td><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>开启回收站:</td><td colspan="1" class="pn-fcontent" width="38%"><label><input value="true" checked="checked" name="resycleOn" type="radio">是</label> <label><input value="false" name="resycleOn" type="radio">否</label></td>
+</tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>终审级别:</td><td colspan="1" class="pn-fcontent" width="38%"><input value="2" name="finalStep" class="required digits" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>审核后:</td><td colspan="1" class="pn-fcontent" width="38%"><select name="afterCheck"><option value="1">不能修改删除</option><option value="2" selected="selected">修改后退回</option><option value="3">修改后不变</option></select>
+</td></tr>
+<tr><td colspan="4" class="pn-fbutton">
+	<input name="id" value="1" type="hidden">
+<input value="提交" type="submit"> &nbsp; <input value="重置" type="reset">
+</td></tr></tbody></table>
+</form>
+</div>
+
+</body></html>

@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.config.dao.ConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.config.pojo.Config" >
+    <id column="config_id" property="configId" jdbcType="INTEGER" />
+    <result column="context_path" property="contextPath" jdbcType="VARCHAR" />
+    <result column="servlet_point" property="servletPoint" jdbcType="VARCHAR" />
+    <result column="port" property="port" jdbcType="INTEGER" />
+    <result column="db_file_uri" property="dbFileUri" jdbcType="VARCHAR" />
+    <result column="is_upload_to_db" property="isUploadToDb" jdbcType="BIT" />
+    <result column="def_img" property="defImg" jdbcType="VARCHAR" />
+    <result column="login_url" property="loginUrl" jdbcType="VARCHAR" />
+    <result column="process_url" property="processUrl" jdbcType="VARCHAR" />
+    <result column="mark_on" property="markOn" jdbcType="BIT" />
+    <result column="mark_width" property="markWidth" jdbcType="INTEGER" />
+    <result column="mark_height" property="markHeight" jdbcType="INTEGER" />
+    <result column="mark_image" property="markImage" jdbcType="VARCHAR" />
+    <result column="mark_content" property="markContent" jdbcType="VARCHAR" />
+    <result column="mark_size" property="markSize" jdbcType="INTEGER" />
+    <result column="mark_color" property="markColor" jdbcType="VARCHAR" />
+    <result column="mark_alpha" property="markAlpha" jdbcType="INTEGER" />
+    <result column="mark_position" property="markPosition" jdbcType="INTEGER" />
+    <result column="mark_offset_x" property="markOffsetX" jdbcType="INTEGER" />
+    <result column="mark_offset_y" property="markOffsetY" jdbcType="INTEGER" />
+    <result column="count_clear_time" property="countClearTime" jdbcType="DATE" />
+    <result column="count_copy_time" property="countCopyTime" jdbcType="TIMESTAMP" />
+    <result column="download_code" property="downloadCode" jdbcType="VARCHAR" />
+    <result column="download_time" property="downloadTime" jdbcType="INTEGER" />
+    <result column="email_host" property="emailHost" jdbcType="VARCHAR" />
+    <result column="email_encoding" property="emailEncoding" jdbcType="VARCHAR" />
+    <result column="email_username" property="emailUsername" jdbcType="VARCHAR" />
+    <result column="email_password" property="emailPassword" jdbcType="VARCHAR" />
+    <result column="email_personal" property="emailPersonal" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    config_id, context_path, servlet_point, port, db_file_uri, is_upload_to_db, def_img, 
+    login_url, process_url, mark_on, mark_width, mark_height, mark_image, mark_content, 
+    mark_size, mark_color, mark_alpha, mark_position, mark_offset_x, mark_offset_y, count_clear_time, 
+    count_copy_time, download_code, download_time, email_host, email_encoding, email_username, 
+    email_password, email_personal
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.config.pojo.ConfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_config
+    where config_id = #{configId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_config
+    where config_id = #{configId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.core.config.pojo.ConfigExample" >
+    delete from dc_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.config.pojo.Config" >
+    insert into dc_config (config_id, context_path, servlet_point, 
+      port, db_file_uri, is_upload_to_db, 
+      def_img, login_url, process_url, 
+      mark_on, mark_width, mark_height, 
+      mark_image, mark_content, mark_size, 
+      mark_color, mark_alpha, mark_position, 
+      mark_offset_x, mark_offset_y, count_clear_time, 
+      count_copy_time, download_code, download_time, 
+      email_host, email_encoding, email_username, 
+      email_password, email_personal)
+    values (#{configId,jdbcType=INTEGER}, #{contextPath,jdbcType=VARCHAR}, #{servletPoint,jdbcType=VARCHAR}, 
+      #{port,jdbcType=INTEGER}, #{dbFileUri,jdbcType=VARCHAR}, #{isUploadToDb,jdbcType=BIT}, 
+      #{defImg,jdbcType=VARCHAR}, #{loginUrl,jdbcType=VARCHAR}, #{processUrl,jdbcType=VARCHAR}, 
+      #{markOn,jdbcType=BIT}, #{markWidth,jdbcType=INTEGER}, #{markHeight,jdbcType=INTEGER}, 
+      #{markImage,jdbcType=VARCHAR}, #{markContent,jdbcType=VARCHAR}, #{markSize,jdbcType=INTEGER}, 
+      #{markColor,jdbcType=VARCHAR}, #{markAlpha,jdbcType=INTEGER}, #{markPosition,jdbcType=INTEGER}, 
+      #{markOffsetX,jdbcType=INTEGER}, #{markOffsetY,jdbcType=INTEGER}, #{countClearTime,jdbcType=DATE}, 
+      #{countCopyTime,jdbcType=TIMESTAMP}, #{downloadCode,jdbcType=VARCHAR}, #{downloadTime,jdbcType=INTEGER}, 
+      #{emailHost,jdbcType=VARCHAR}, #{emailEncoding,jdbcType=VARCHAR}, #{emailUsername,jdbcType=VARCHAR}, 
+      #{emailPassword,jdbcType=VARCHAR}, #{emailPersonal,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.config.pojo.Config" >
+    insert into dc_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="configId != null" >
+        config_id,
+      </if>
+      <if test="contextPath != null" >
+        context_path,
+      </if>
+      <if test="servletPoint != null" >
+        servlet_point,
+      </if>
+      <if test="port != null" >
+        port,
+      </if>
+      <if test="dbFileUri != null" >
+        db_file_uri,
+      </if>
+      <if test="isUploadToDb != null" >
+        is_upload_to_db,
+      </if>
+      <if test="defImg != null" >
+        def_img,
+      </if>
+      <if test="loginUrl != null" >
+        login_url,
+      </if>
+      <if test="processUrl != null" >
+        process_url,
+      </if>
+      <if test="markOn != null" >
+        mark_on,
+      </if>
+      <if test="markWidth != null" >
+        mark_width,
+      </if>
+      <if test="markHeight != null" >
+        mark_height,
+      </if>
+      <if test="markImage != null" >
+        mark_image,
+      </if>
+      <if test="markContent != null" >
+        mark_content,
+      </if>
+      <if test="markSize != null" >
+        mark_size,
+      </if>
+      <if test="markColor != null" >
+        mark_color,
+      </if>
+      <if test="markAlpha != null" >
+        mark_alpha,
+      </if>
+      <if test="markPosition != null" >
+        mark_position,
+      </if>
+      <if test="markOffsetX != null" >
+        mark_offset_x,
+      </if>
+      <if test="markOffsetY != null" >
+        mark_offset_y,
+      </if>
+      <if test="countClearTime != null" >
+        count_clear_time,
+      </if>
+      <if test="countCopyTime != null" >
+        count_copy_time,
+      </if>
+      <if test="downloadCode != null" >
+        download_code,
+      </if>
+      <if test="downloadTime != null" >
+        download_time,
+      </if>
+      <if test="emailHost != null" >
+        email_host,
+      </if>
+      <if test="emailEncoding != null" >
+        email_encoding,
+      </if>
+      <if test="emailUsername != null" >
+        email_username,
+      </if>
+      <if test="emailPassword != null" >
+        email_password,
+      </if>
+      <if test="emailPersonal != null" >
+        email_personal,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="configId != null" >
+        #{configId,jdbcType=INTEGER},
+      </if>
+      <if test="contextPath != null" >
+        #{contextPath,jdbcType=VARCHAR},
+      </if>
+      <if test="servletPoint != null" >
+        #{servletPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="dbFileUri != null" >
+        #{dbFileUri,jdbcType=VARCHAR},
+      </if>
+      <if test="isUploadToDb != null" >
+        #{isUploadToDb,jdbcType=BIT},
+      </if>
+      <if test="defImg != null" >
+        #{defImg,jdbcType=VARCHAR},
+      </if>
+      <if test="loginUrl != null" >
+        #{loginUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="processUrl != null" >
+        #{processUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="markOn != null" >
+        #{markOn,jdbcType=BIT},
+      </if>
+      <if test="markWidth != null" >
+        #{markWidth,jdbcType=INTEGER},
+      </if>
+      <if test="markHeight != null" >
+        #{markHeight,jdbcType=INTEGER},
+      </if>
+      <if test="markImage != null" >
+        #{markImage,jdbcType=VARCHAR},
+      </if>
+      <if test="markContent != null" >
+        #{markContent,jdbcType=VARCHAR},
+      </if>
+      <if test="markSize != null" >
+        #{markSize,jdbcType=INTEGER},
+      </if>
+      <if test="markColor != null" >
+        #{markColor,jdbcType=VARCHAR},
+      </if>
+      <if test="markAlpha != null" >
+        #{markAlpha,jdbcType=INTEGER},
+      </if>
+      <if test="markPosition != null" >
+        #{markPosition,jdbcType=INTEGER},
+      </if>
+      <if test="markOffsetX != null" >
+        #{markOffsetX,jdbcType=INTEGER},
+      </if>
+      <if test="markOffsetY != null" >
+        #{markOffsetY,jdbcType=INTEGER},
+      </if>
+      <if test="countClearTime != null" >
+        #{countClearTime,jdbcType=DATE},
+      </if>
+      <if test="countCopyTime != null" >
+        #{countCopyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downloadCode != null" >
+        #{downloadCode,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadTime != null" >
+        #{downloadTime,jdbcType=INTEGER},
+      </if>
+      <if test="emailHost != null" >
+        #{emailHost,jdbcType=VARCHAR},
+      </if>
+      <if test="emailEncoding != null" >
+        #{emailEncoding,jdbcType=VARCHAR},
+      </if>
+      <if test="emailUsername != null" >
+        #{emailUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="emailPassword != null" >
+        #{emailPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="emailPersonal != null" >
+        #{emailPersonal,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.core.config.pojo.ConfigExample" resultType="java.lang.Integer" >
+    select count(*) from dc_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_config
+    <set >
+      <if test="record.configId != null" >
+        config_id = #{record.configId,jdbcType=INTEGER},
+      </if>
+      <if test="record.contextPath != null" >
+        context_path = #{record.contextPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servletPoint != null" >
+        servlet_point = #{record.servletPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.port != null" >
+        port = #{record.port,jdbcType=INTEGER},
+      </if>
+      <if test="record.dbFileUri != null" >
+        db_file_uri = #{record.dbFileUri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isUploadToDb != null" >
+        is_upload_to_db = #{record.isUploadToDb,jdbcType=BIT},
+      </if>
+      <if test="record.defImg != null" >
+        def_img = #{record.defImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginUrl != null" >
+        login_url = #{record.loginUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processUrl != null" >
+        process_url = #{record.processUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.markOn != null" >
+        mark_on = #{record.markOn,jdbcType=BIT},
+      </if>
+      <if test="record.markWidth != null" >
+        mark_width = #{record.markWidth,jdbcType=INTEGER},
+      </if>
+      <if test="record.markHeight != null" >
+        mark_height = #{record.markHeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.markImage != null" >
+        mark_image = #{record.markImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.markContent != null" >
+        mark_content = #{record.markContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.markSize != null" >
+        mark_size = #{record.markSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.markColor != null" >
+        mark_color = #{record.markColor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.markAlpha != null" >
+        mark_alpha = #{record.markAlpha,jdbcType=INTEGER},
+      </if>
+      <if test="record.markPosition != null" >
+        mark_position = #{record.markPosition,jdbcType=INTEGER},
+      </if>
+      <if test="record.markOffsetX != null" >
+        mark_offset_x = #{record.markOffsetX,jdbcType=INTEGER},
+      </if>
+      <if test="record.markOffsetY != null" >
+        mark_offset_y = #{record.markOffsetY,jdbcType=INTEGER},
+      </if>
+      <if test="record.countClearTime != null" >
+        count_clear_time = #{record.countClearTime,jdbcType=DATE},
+      </if>
+      <if test="record.countCopyTime != null" >
+        count_copy_time = #{record.countCopyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.downloadCode != null" >
+        download_code = #{record.downloadCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downloadTime != null" >
+        download_time = #{record.downloadTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.emailHost != null" >
+        email_host = #{record.emailHost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emailEncoding != null" >
+        email_encoding = #{record.emailEncoding,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emailUsername != null" >
+        email_username = #{record.emailUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emailPassword != null" >
+        email_password = #{record.emailPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emailPersonal != null" >
+        email_personal = #{record.emailPersonal,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_config
+    set config_id = #{record.configId,jdbcType=INTEGER},
+      context_path = #{record.contextPath,jdbcType=VARCHAR},
+      servlet_point = #{record.servletPoint,jdbcType=VARCHAR},
+      port = #{record.port,jdbcType=INTEGER},
+      db_file_uri = #{record.dbFileUri,jdbcType=VARCHAR},
+      is_upload_to_db = #{record.isUploadToDb,jdbcType=BIT},
+      def_img = #{record.defImg,jdbcType=VARCHAR},
+      login_url = #{record.loginUrl,jdbcType=VARCHAR},
+      process_url = #{record.processUrl,jdbcType=VARCHAR},
+      mark_on = #{record.markOn,jdbcType=BIT},
+      mark_width = #{record.markWidth,jdbcType=INTEGER},
+      mark_height = #{record.markHeight,jdbcType=INTEGER},
+      mark_image = #{record.markImage,jdbcType=VARCHAR},
+      mark_content = #{record.markContent,jdbcType=VARCHAR},
+      mark_size = #{record.markSize,jdbcType=INTEGER},
+      mark_color = #{record.markColor,jdbcType=VARCHAR},
+      mark_alpha = #{record.markAlpha,jdbcType=INTEGER},
+      mark_position = #{record.markPosition,jdbcType=INTEGER},
+      mark_offset_x = #{record.markOffsetX,jdbcType=INTEGER},
+      mark_offset_y = #{record.markOffsetY,jdbcType=INTEGER},
+      count_clear_time = #{record.countClearTime,jdbcType=DATE},
+      count_copy_time = #{record.countCopyTime,jdbcType=TIMESTAMP},
+      download_code = #{record.downloadCode,jdbcType=VARCHAR},
+      download_time = #{record.downloadTime,jdbcType=INTEGER},
+      email_host = #{record.emailHost,jdbcType=VARCHAR},
+      email_encoding = #{record.emailEncoding,jdbcType=VARCHAR},
+      email_username = #{record.emailUsername,jdbcType=VARCHAR},
+      email_password = #{record.emailPassword,jdbcType=VARCHAR},
+      email_personal = #{record.emailPersonal,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.config.pojo.Config" >
+    update dc_config
+    <set >
+      <if test="contextPath != null" >
+        context_path = #{contextPath,jdbcType=VARCHAR},
+      </if>
+      <if test="servletPoint != null" >
+        servlet_point = #{servletPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="dbFileUri != null" >
+        db_file_uri = #{dbFileUri,jdbcType=VARCHAR},
+      </if>
+      <if test="isUploadToDb != null" >
+        is_upload_to_db = #{isUploadToDb,jdbcType=BIT},
+      </if>
+      <if test="defImg != null" >
+        def_img = #{defImg,jdbcType=VARCHAR},
+      </if>
+      <if test="loginUrl != null" >
+        login_url = #{loginUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="processUrl != null" >
+        process_url = #{processUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="markOn != null" >
+        mark_on = #{markOn,jdbcType=BIT},
+      </if>
+      <if test="markWidth != null" >
+        mark_width = #{markWidth,jdbcType=INTEGER},
+      </if>
+      <if test="markHeight != null" >
+        mark_height = #{markHeight,jdbcType=INTEGER},
+      </if>
+      <if test="markImage != null" >
+        mark_image = #{markImage,jdbcType=VARCHAR},
+      </if>
+      <if test="markContent != null" >
+        mark_content = #{markContent,jdbcType=VARCHAR},
+      </if>
+      <if test="markSize != null" >
+        mark_size = #{markSize,jdbcType=INTEGER},
+      </if>
+      <if test="markColor != null" >
+        mark_color = #{markColor,jdbcType=VARCHAR},
+      </if>
+      <if test="markAlpha != null" >
+        mark_alpha = #{markAlpha,jdbcType=INTEGER},
+      </if>
+      <if test="markPosition != null" >
+        mark_position = #{markPosition,jdbcType=INTEGER},
+      </if>
+      <if test="markOffsetX != null" >
+        mark_offset_x = #{markOffsetX,jdbcType=INTEGER},
+      </if>
+      <if test="markOffsetY != null" >
+        mark_offset_y = #{markOffsetY,jdbcType=INTEGER},
+      </if>
+      <if test="countClearTime != null" >
+        count_clear_time = #{countClearTime,jdbcType=DATE},
+      </if>
+      <if test="countCopyTime != null" >
+        count_copy_time = #{countCopyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downloadCode != null" >
+        download_code = #{downloadCode,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadTime != null" >
+        download_time = #{downloadTime,jdbcType=INTEGER},
+      </if>
+      <if test="emailHost != null" >
+        email_host = #{emailHost,jdbcType=VARCHAR},
+      </if>
+      <if test="emailEncoding != null" >
+        email_encoding = #{emailEncoding,jdbcType=VARCHAR},
+      </if>
+      <if test="emailUsername != null" >
+        email_username = #{emailUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="emailPassword != null" >
+        email_password = #{emailPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="emailPersonal != null" >
+        email_personal = #{emailPersonal,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where config_id = #{configId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.config.pojo.Config" >
+    update dc_config
+    set context_path = #{contextPath,jdbcType=VARCHAR},
+      servlet_point = #{servletPoint,jdbcType=VARCHAR},
+      port = #{port,jdbcType=INTEGER},
+      db_file_uri = #{dbFileUri,jdbcType=VARCHAR},
+      is_upload_to_db = #{isUploadToDb,jdbcType=BIT},
+      def_img = #{defImg,jdbcType=VARCHAR},
+      login_url = #{loginUrl,jdbcType=VARCHAR},
+      process_url = #{processUrl,jdbcType=VARCHAR},
+      mark_on = #{markOn,jdbcType=BIT},
+      mark_width = #{markWidth,jdbcType=INTEGER},
+      mark_height = #{markHeight,jdbcType=INTEGER},
+      mark_image = #{markImage,jdbcType=VARCHAR},
+      mark_content = #{markContent,jdbcType=VARCHAR},
+      mark_size = #{markSize,jdbcType=INTEGER},
+      mark_color = #{markColor,jdbcType=VARCHAR},
+      mark_alpha = #{markAlpha,jdbcType=INTEGER},
+      mark_position = #{markPosition,jdbcType=INTEGER},
+      mark_offset_x = #{markOffsetX,jdbcType=INTEGER},
+      mark_offset_y = #{markOffsetY,jdbcType=INTEGER},
+      count_clear_time = #{countClearTime,jdbcType=DATE},
+      count_copy_time = #{countCopyTime,jdbcType=TIMESTAMP},
+      download_code = #{downloadCode,jdbcType=VARCHAR},
+      download_time = #{downloadTime,jdbcType=INTEGER},
+      email_host = #{emailHost,jdbcType=VARCHAR},
+      email_encoding = #{emailEncoding,jdbcType=VARCHAR},
+      email_username = #{emailUsername,jdbcType=VARCHAR},
+      email_password = #{emailPassword,jdbcType=VARCHAR},
+      email_personal = #{emailPersonal,jdbcType=VARCHAR}
+    where config_id = #{configId,jdbcType=INTEGER}
+  </update>
+</mapper>

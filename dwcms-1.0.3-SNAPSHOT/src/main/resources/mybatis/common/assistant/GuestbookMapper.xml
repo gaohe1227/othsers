@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.assistant.dao.GuestbookMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.assistant.pojo.Guestbook" >
+    <id column="guestbook_id" property="guestbookId" jdbcType="INTEGER" />
+    <result column="site_id" property="siteId" jdbcType="INTEGER" />
+    <result column="guestbookctg_id" property="guestbookctgId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="replay_time" property="replayTime" jdbcType="TIMESTAMP" />
+    <result column="is_checked" property="isChecked" jdbcType="BIT" />
+    <result column="is_recommend" property="isRecommend" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    guestbook_id, site_id, guestbookctg_id, member_id, admin_id, ip, create_time, replay_time, 
+    is_checked, is_recommend
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.assistant.pojo.GuestbookExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_guestbook
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_guestbook
+    where guestbook_id = #{guestbookId,jdbcType=INTEGER}
+  </select>
+ <select id="selectByPage" resultMap="BaseResultMap" >
+	select
+	<include refid="Base_Column_List" />
+	from dc_guestbook 
+	order by guestbook_id DESC
+ </select>   
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select 
+ 	Max(guestbook_id)
+    from dc_guestbook
+  </select>   
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_guestbook
+    where guestbook_id = #{guestbookId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.assistant.pojo.GuestbookExample" >
+    delete from dc_guestbook
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.assistant.pojo.Guestbook" >
+    insert into dc_guestbook (guestbook_id, site_id, guestbookctg_id, 
+      member_id, admin_id, ip, 
+      create_time, replay_time, is_checked, 
+      is_recommend)
+    values (#{guestbookId,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, #{guestbookctgId,jdbcType=INTEGER}, 
+      #{memberId,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{replayTime,jdbcType=TIMESTAMP}, #{isChecked,jdbcType=BIT}, 
+      #{isRecommend,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.assistant.pojo.Guestbook" >
+    insert into dc_guestbook
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="guestbookId != null" >
+        guestbook_id,
+      </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="guestbookctgId != null" >
+        guestbookctg_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="replayTime != null" >
+        replay_time,
+      </if>
+      <if test="isChecked != null" >
+        is_checked,
+      </if>
+      <if test="isRecommend != null" >
+        is_recommend,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="guestbookId != null" >
+        #{guestbookId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="guestbookctgId != null" >
+        #{guestbookctgId,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replayTime != null" >
+        #{replayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isChecked != null" >
+        #{isChecked,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null" >
+        #{isRecommend,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.assistant.pojo.GuestbookExample" resultType="java.lang.Integer" >
+    select count(*) from dc_guestbook
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_guestbook
+    <set >
+      <if test="record.guestbookId != null" >
+        guestbook_id = #{record.guestbookId,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteId != null" >
+        site_id = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.guestbookctgId != null" >
+        guestbookctg_id = #{record.guestbookctgId,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberId != null" >
+        member_id = #{record.memberId,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replayTime != null" >
+        replay_time = #{record.replayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isChecked != null" >
+        is_checked = #{record.isChecked,jdbcType=BIT},
+      </if>
+      <if test="record.isRecommend != null" >
+        is_recommend = #{record.isRecommend,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_guestbook
+    set guestbook_id = #{record.guestbookId,jdbcType=INTEGER},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      guestbookctg_id = #{record.guestbookctgId,jdbcType=INTEGER},
+      member_id = #{record.memberId,jdbcType=INTEGER},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      replay_time = #{record.replayTime,jdbcType=TIMESTAMP},
+      is_checked = #{record.isChecked,jdbcType=BIT},
+      is_recommend = #{record.isRecommend,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.assistant.pojo.Guestbook" >
+    update dc_guestbook
+    <set >
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="guestbookctgId != null" >
+        guestbookctg_id = #{guestbookctgId,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replayTime != null" >
+        replay_time = #{replayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isChecked != null" >
+        is_checked = #{isChecked,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null" >
+        is_recommend = #{isRecommend,jdbcType=BIT},
+      </if>
+    </set>
+    where guestbook_id = #{guestbookId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.assistant.pojo.Guestbook" >
+    update dc_guestbook
+    set site_id = #{siteId,jdbcType=INTEGER},
+      guestbookctg_id = #{guestbookctgId,jdbcType=INTEGER},
+      member_id = #{memberId,jdbcType=INTEGER},
+      admin_id = #{adminId,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      replay_time = #{replayTime,jdbcType=TIMESTAMP},
+      is_checked = #{isChecked,jdbcType=BIT},
+      is_recommend = #{isRecommend,jdbcType=BIT}
+    where guestbook_id = #{guestbookId,jdbcType=INTEGER}
+  </update>
+</mapper>

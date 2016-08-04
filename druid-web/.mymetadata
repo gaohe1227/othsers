@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="druid-web"
+  id="myeclipse.1347258983754"
+  context-root="/druid-web"
+  j2ee-spec="5.0"
+  archive="druid-web.war">
+  <attributes>
+    <attribute name="webrootdir" value="/WebRoot" />
+  </attributes>
+</project-module>
+

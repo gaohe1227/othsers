@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="member_save_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置: 会员管理 - 添加</div>
+	<form class="ropt">
+		<input value="返回列表" onclick="this.form.action='v_list.do';" type="submit">
+	</form>
+	<div class="clear"></div>
+</div>
+<form method="post" action="o_save.do" id="jvForm">
+<table class="pn-ftable" border="0" cellpadding="2" cellspacing="1" width="100%">
+<tbody><tr>
+<td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>用户名:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="100" name="username" vld="{required:true,username:true,remote:'v_check_username.do',messages:{remote:'用户名已被使用'}}" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%">电子邮箱:</td><td colspan="1" class="pn-fcontent" width="38%"><input name="email" class="email" size="30" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>密码:</td><td colspan="1" class="pn-fcontent" width="38%"><input autocomplete="off" id="password" maxlength="100" name="password" class="required" type="password">
+</td><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>确认密码:</td><td colspan="1" class="pn-fcontent" width="38%"><input autocomplete="off" equalto="#password" type="password">
+</td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>会员组:</td><td colspan="3" class="pn-fcontent" width="88%"><select name="groupId"><option selected="selected" value="1">普通会员</option><option value="2">高级组</option></select>
+</td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%">真实姓名:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="100" name="realname" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%">性别:</td><td colspan="1" class="pn-fcontent" width="38%"><label><input value="true" name="gender" type="radio">男</label> <label><input value="false" name="gender" type="radio">女</label> <label><input value="" checked="checked" name="gender" type="radio">保密</label></td>
+</tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%">出生日期:</td><td colspan="1" class="pn-fcontent" width="38%"><input name="birthday" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%">来自:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="150" name="comefrom" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%">QQ:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="100" name="qq" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%">MSN:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="100" name="msn" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%">电话:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="50" name="phone" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%">手机:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="50" name="mobile" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%">来自:</td><td colspan="3" class="pn-fcontent" width="88%"><input maxlength="150" name="comefrom" size="70" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%">个人介绍:</td><td colspan="3" class="pn-fcontent" width="88%"><textarea cols="70" rows="5" name="intro" maxlength="255"></textarea>
+</td></tr>
+<tr><td colspan="4" class="pn-fbutton">
+<input value="提交" type="submit"> &nbsp; <input value="重置" type="reset"></td>
+</tr></tbody></table>
+</form>
+</div>
+
+</body></html>

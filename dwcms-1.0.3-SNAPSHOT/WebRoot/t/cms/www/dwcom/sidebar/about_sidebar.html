@@ -1,0 +1,14 @@
+#set($ctx = $request.getContextPath()) 
+<!-- Sidebar -->
+	<div id="sidebar">
+		<h3 class="title">${aboutUs.channelName}</h3>
+		<ul class="nav">
+			<li><a href="${ctx}/v_news_list.vm">$!news.channelName</a></li>
+			<li><a href="http://www.doadway.com/mobile/index.html" target="_Blank">手机网页版</a></li> 
+			<li><a href="${ctx}/profile.vm">$!companyProfile.channelName</a></li> 
+			<!-- 
+			<li><a href="${ctx}/v_recruit.vm">$!recruitment.channelName</a></li>
+			 -->
+		</ul>	
+	</div>
+<!-- end Sidebar -->

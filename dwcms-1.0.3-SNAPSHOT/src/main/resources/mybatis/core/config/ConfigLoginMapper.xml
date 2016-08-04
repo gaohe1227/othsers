@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.config.dao.ConfigLoginMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.config.pojo.ConfigLogin" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="LOGIN_TIMES" property="loginTimes" jdbcType="INTEGER" />
+    <result column="ERROR_TIME" property="errorTime" jdbcType="INTEGER" />
+    <result column="EMAIL_SERVER" property="emailServer" jdbcType="VARCHAR" />
+    <result column="EMAIL_PORT" property="emailPort" jdbcType="VARCHAR" />
+    <result column="EMAIL_USER_NAME" property="emailUserName" jdbcType="VARCHAR" />
+    <result column="EMAIL_PASSWORD" property="emailPassword" jdbcType="VARCHAR" />
+    <result column="EMAIL_CODE" property="emailCode" jdbcType="VARCHAR" />
+    <result column="EMAIL_SEND" property="emailSend" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, LOGIN_TIMES, ERROR_TIME, EMAIL_SERVER, EMAIL_PORT, EMAIL_USER_NAME, EMAIL_PASSWORD, 
+    EMAIL_CODE, EMAIL_SEND, TITLE, CONTENT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.config.pojo.ConfigLoginExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from config_login
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from config_login
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from config_login
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.config.pojo.ConfigLogin" >
+    insert into config_login (ID, LOGIN_TIMES, ERROR_TIME, 
+      EMAIL_SERVER, EMAIL_PORT, EMAIL_USER_NAME, 
+      EMAIL_PASSWORD, EMAIL_CODE, EMAIL_SEND, 
+      TITLE, CONTENT)
+    values (#{id,jdbcType=INTEGER}, #{loginTimes,jdbcType=INTEGER}, #{errorTime,jdbcType=INTEGER}, 
+      #{emailServer,jdbcType=VARCHAR}, #{emailPort,jdbcType=VARCHAR}, #{emailUserName,jdbcType=VARCHAR}, 
+      #{emailPassword,jdbcType=VARCHAR}, #{emailCode,jdbcType=VARCHAR}, #{emailSend,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.config.pojo.ConfigLogin" >
+    insert into config_login
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="loginTimes != null" >
+        LOGIN_TIMES,
+      </if>
+      <if test="errorTime != null" >
+        ERROR_TIME,
+      </if>
+      <if test="emailServer != null" >
+        EMAIL_SERVER,
+      </if>
+      <if test="emailPort != null" >
+        EMAIL_PORT,
+      </if>
+      <if test="emailUserName != null" >
+        EMAIL_USER_NAME,
+      </if>
+      <if test="emailPassword != null" >
+        EMAIL_PASSWORD,
+      </if>
+      <if test="emailCode != null" >
+        EMAIL_CODE,
+      </if>
+      <if test="emailSend != null" >
+        EMAIL_SEND,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="loginTimes != null" >
+        #{loginTimes,jdbcType=INTEGER},
+      </if>
+      <if test="errorTime != null" >
+        #{errorTime,jdbcType=INTEGER},
+      </if>
+      <if test="emailServer != null" >
+        #{emailServer,jdbcType=VARCHAR},
+      </if>
+      <if test="emailPort != null" >
+        #{emailPort,jdbcType=VARCHAR},
+      </if>
+      <if test="emailUserName != null" >
+        #{emailUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="emailPassword != null" >
+        #{emailPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="emailCode != null" >
+        #{emailCode,jdbcType=VARCHAR},
+      </if>
+      <if test="emailSend != null" >
+        #{emailSend,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.config.pojo.ConfigLogin" >
+    update config_login
+    <set >
+      <if test="loginTimes != null" >
+        LOGIN_TIMES = #{loginTimes,jdbcType=INTEGER},
+      </if>
+      <if test="errorTime != null" >
+        ERROR_TIME = #{errorTime,jdbcType=INTEGER},
+      </if>
+      <if test="emailServer != null" >
+        EMAIL_SERVER = #{emailServer,jdbcType=VARCHAR},
+      </if>
+      <if test="emailPort != null" >
+        EMAIL_PORT = #{emailPort,jdbcType=VARCHAR},
+      </if>
+      <if test="emailUserName != null" >
+        EMAIL_USER_NAME = #{emailUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="emailPassword != null" >
+        EMAIL_PASSWORD = #{emailPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="emailCode != null" >
+        EMAIL_CODE = #{emailCode,jdbcType=VARCHAR},
+      </if>
+      <if test="emailSend != null" >
+        EMAIL_SEND = #{emailSend,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.config.pojo.ConfigLogin" >
+    update config_login
+    set LOGIN_TIMES = #{loginTimes,jdbcType=INTEGER},
+      ERROR_TIME = #{errorTime,jdbcType=INTEGER},
+      EMAIL_SERVER = #{emailServer,jdbcType=VARCHAR},
+      EMAIL_PORT = #{emailPort,jdbcType=VARCHAR},
+      EMAIL_USER_NAME = #{emailUserName,jdbcType=VARCHAR},
+      EMAIL_PASSWORD = #{emailPassword,jdbcType=VARCHAR},
+      EMAIL_CODE = #{emailCode,jdbcType=VARCHAR},
+      EMAIL_SEND = #{emailSend,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

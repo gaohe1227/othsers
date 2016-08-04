@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>上传文档</title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.STYLE1 {font-size: 12px}
+.STYLE3 {font-size: 12px; font-weight: bold; }
+.STYLE4 {
+	color: #03515d;
+	font-size: 12px;
+}
+-->
+</style>
+
+</head>
+
+<body>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+   <tr>
+    <td height="30" background="images/tab_05.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="12" height="30"><img src="images/tab_03.gif" width="12" height="30" /></td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="5%"><div align="center"><img src="images/tb.gif" width="16" height="16" /></div></td>
+                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[文档管理]-[上传文档]</td>
+              </tr>
+            </table></td>
+            <td width="54%"><table border="0" align="right" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="60"><table width="87%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="STYLE1"><div align="center"></div></td>
+                    <td class="STYLE1"><div align="center"></div></td>
+                  </tr>
+                </table></td>
+                <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="STYLE1"><div align="center"></div></td>
+                    <td class="STYLE1"><div align="center"></div></td>
+                  </tr>
+                </table></td>
+                <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="STYLE1"><div align="center"></div></td>
+                    <td class="STYLE1"><div align="center"></div></td>
+                  </tr>
+                </table></td>
+                <td width="52"><table width="88%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="STYLE1"><div align="center"><img src="images/33.gif" alt="返回" width="14" height="14" /></div></td>
+                    <td class="STYLE1"><div align="center" onclick="window.history.go(-1)">返回</div></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+        <td width="16"><img src="images/tab_07.gif" width="16" height="30" /></td>
+      </tr>
+    </table></td>
+  </tr>
+  
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="8" background="images/tab_12.gif">&nbsp;</td>
+        <td>
+    <form action="control/insertlanmu.jsp" method="post" enctype="multipart/form-data" name="form1" id="form1">
+    <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
+      
+      <tr>
+   
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">文档类型:</div></td>
+		 <td height="20" colspan="3" bgcolor="#FFFFFF" class="STYLE1"><div align="left"><span class="STYLE21">
+		     <select name="shangjilanmu">
+		     	
+		     	
+               <option value="${currentLanmu.lanmuId }">图片</option>
+			   <option value="${currentLanmu.lanmuId }">视频</option>
+			   <option value="${currentLanmu.lanmuId }">文档</option>
+			   <option value="${currentLanmu.lanmuId }">软件</option>
+             </select>
+		     </span></div></td>
+		  </tr>
+      <tr>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">文档:</div></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><span class="STYLE21">
+          <input type="file" name="file" />
+        </span></td>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">文档ICO图标路径:</div></td>
+        <td height="20" bgcolor="#FFFFFF"><input type="text" name="metaTitle2" /></td>
+      </tr>
+      <tr>
+   
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">文档标题:</div></td>
+		 <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">
+		   <input type="text" name="metaTitle" />
+		 </div></td>
+		  <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">文档关键字:</div></td>
+        <td height="20" bgcolor="#FFFFFF"><div align="left"><span class="STYLE21">
+          <input type="text" name="metaKeyword" />
+        </span></div></td>
+      </tr>
+
+      <tr>
+   
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">文档描述:</div></td>
+		 <td height="20" colspan="3" bgcolor="#FFFFFF" class="STYLE1"><textarea name="metaDescript" cols="60" rows="6"></textarea></td>
+		  </tr>
+      <tr>
+   
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">排列顺序:</div></td>
+		 <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">
+		   <input type="text" name="sortNumber" value="10"/>
+		 </div></td>
+		  <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">是否显示:</div></td>
+        <td height="20" bgcolor="#FFFFFF"><div align="left"><span class="STYLE1">
+          <input name="isShow" type="radio" value="YES" checked="checked" />
+          是
+          <input name="isShow" type="radio" value="NO" />
+          否</span></div></td>
+      </tr>
+      <tr>
+   
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1">评论启用</td>
+		 <td height="20" colspan="3" bgcolor="#FFFFFF" class="STYLE1"><input name="isComment" type="radio" value="YES" checked />是<input name="isComment" type="radio" value="NO" />否</td>
+		  </tr>	  	
+      <tr>
+   
+        <td height="20" bgcolor="#FFFFFF" class="STYLE1"><div align="left">使用外部链接:</div></td>
+		 <td height="20" colspan="3" bgcolor="#FFFFFF" class="STYLE1"><input type="text" name="outsideUrl"  size="40" value=""/> 请已http://开头</td>
+		  </tr>		  
+      <tr>
+   
+        <td height="20" colspan="4" bgcolor="#FFFFFF" class="STYLE1" style=" text-align:center;"><input name="" type="submit" value="提交" /><input name="" type="reset" value="重置" /></td>
+		  </tr>	  		    	  	  	  
+    </table>
+    </form>		
+		</td>
+        <td width="8" background="images/tab_15.gif">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+  
+  <tr>
+    <td>
+</td>
+  </tr>
+ 
+
+  <tr>
+    <td height="35" background="images/tab_19.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="12" height="35"><img src="images/tab_18.gif" width="12" height="35" /></td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="STYLE4">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table></td>
+        <td width="16"><img src="images/tab_20.gif" width="16" height="35" /></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

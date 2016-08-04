@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcom.crm.dao.PersonnelExtMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcom.crm.pojo.PersonnelExt" >
+    <id column="personnel_id" property="personnelId" jdbcType="INTEGER" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="BIT" />
+    <result column="job_position" property="jobPosition" jdbcType="VARCHAR" />
+    <result column="work_years" property="workYears" jdbcType="VARCHAR" />
+    <result column="present_address" property="presentAddress" jdbcType="VARCHAR" />
+    <result column="onboard_time" property="onboardTime" jdbcType="TIMESTAMP" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="intro" property="intro" jdbcType="VARCHAR" />
+    <result column="comefrom" property="comefrom" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="msn" property="msn" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    personnel_id, realname, gender, job_position, work_years, present_address, onboard_time, 
+    birthday, intro, comefrom, qq, msn, phone, status, mobile
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcom.crm.pojo.PersonnelExtExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dw_personnel_ext
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dw_personnel_ext
+    where personnel_id = #{personnelId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dw_personnel_ext
+    where personnel_id = #{personnelId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcom.crm.pojo.PersonnelExtExample" >
+    delete from dw_personnel_ext
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcom.crm.pojo.PersonnelExt" >
+    insert into dw_personnel_ext (personnel_id, realname, gender, 
+      job_position, work_years, present_address, 
+      onboard_time, birthday, intro, 
+      comefrom, qq, msn, 
+      phone, status, mobile
+      )
+    values (#{personnelId,jdbcType=INTEGER}, #{realname,jdbcType=VARCHAR}, #{gender,jdbcType=BIT}, 
+      #{jobPosition,jdbcType=VARCHAR}, #{workYears,jdbcType=VARCHAR}, #{presentAddress,jdbcType=VARCHAR}, 
+      #{onboardTime,jdbcType=TIMESTAMP}, #{birthday,jdbcType=TIMESTAMP}, #{intro,jdbcType=VARCHAR}, 
+      #{comefrom,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{msn,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcom.crm.pojo.PersonnelExt" >
+    insert into dw_personnel_ext
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="personnelId != null" >
+        personnel_id,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="jobPosition != null" >
+        job_position,
+      </if>
+      <if test="workYears != null" >
+        work_years,
+      </if>
+      <if test="presentAddress != null" >
+        present_address,
+      </if>
+      <if test="onboardTime != null" >
+        onboard_time,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="intro != null" >
+        intro,
+      </if>
+      <if test="comefrom != null" >
+        comefrom,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="msn != null" >
+        msn,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="personnelId != null" >
+        #{personnelId,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=BIT},
+      </if>
+      <if test="jobPosition != null" >
+        #{jobPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="workYears != null" >
+        #{workYears,jdbcType=VARCHAR},
+      </if>
+      <if test="presentAddress != null" >
+        #{presentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="onboardTime != null" >
+        #{onboardTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="intro != null" >
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="comefrom != null" >
+        #{comefrom,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null" >
+        #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+    <select id="selectByPage" resultMap="BaseResultMap" >
+	    select
+	    	    dw_personnel_ext.personnel_id, dw_personnel_ext.realname, dw_personnel_ext.gender, dw_personnel_ext.job_position, dw_personnel_ext.work_years, dw_personnel_ext.present_address, dw_personnel_ext.onboard_time, 
+    			dw_personnel_ext.birthday, dw_personnel_ext.intro, dw_personnel_ext.comefrom, dw_personnel_ext.qq, dw_personnel_ext.msn, dw_personnel_ext.phone, dw_personnel_ext.status, dw_personnel_ext.mobile
+	    from dw_personnel_ext,dw_personnel
+	    where dw_personnel_ext.personnel_id=dw_personnel.personnel_id and dw_personnel_ext.realname!=''  
+		 	<if test="params.personnelType!=null">
+			 	and dw_personnel.personnel_type=#{params.personnelType}
+		 	</if> 
+		 	 <if test="params.jobPosition!=null">
+			 	and dw_personnel_ext.job_position like #{params.jobPosition}
+		 	</if>
+		 	 <if test="params.workYears!=null">
+			 	and dw_personnel_ext.work_years = #{params.workYears} 
+		 	</if>
+		 	 <if test="params.presentAddress!=null">
+			 	and dw_personnel_ext.present_address like #{params.presentAddress}
+		 	</if> 
+		 	<if test="params.onboardTime!=null">
+			 	and dw_personnel_ext.onboard_time like #{params.onboardTime}
+		 	</if> 
+	    order by dw_personnel.register_time DESC
+ 	</select>   
+  <select id="countByExample" parameterType="com.doadway.dwcom.crm.pojo.PersonnelExtExample" resultType="java.lang.Integer" >
+    select count(*) from dw_personnel_ext
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dw_personnel_ext
+    <set >
+      <if test="record.personnelId != null" >
+        personnel_id = #{record.personnelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.realname != null" >
+        realname = #{record.realname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=BIT},
+      </if>
+      <if test="record.jobPosition != null" >
+        job_position = #{record.jobPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workYears != null" >
+        work_years = #{record.workYears,jdbcType=VARCHAR},
+      </if>
+      <if test="record.presentAddress != null" >
+        present_address = #{record.presentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onboardTime != null" >
+        onboard_time = #{record.onboardTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.birthday != null" >
+        birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.intro != null" >
+        intro = #{record.intro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comefrom != null" >
+        comefrom = #{record.comefrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msn != null" >
+        msn = #{record.msn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dw_personnel_ext
+    set personnel_id = #{record.personnelId,jdbcType=INTEGER},
+      realname = #{record.realname,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=BIT},
+      job_position = #{record.jobPosition,jdbcType=VARCHAR},
+      work_years = #{record.workYears,jdbcType=VARCHAR},
+      present_address = #{record.presentAddress,jdbcType=VARCHAR},
+      onboard_time = #{record.onboardTime,jdbcType=TIMESTAMP},
+      birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      intro = #{record.intro,jdbcType=VARCHAR},
+      comefrom = #{record.comefrom,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      msn = #{record.msn,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      mobile = #{record.mobile,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcom.crm.pojo.PersonnelExt" >
+    update dw_personnel_ext
+    <set >
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=BIT},
+      </if>
+      <if test="jobPosition != null" >
+        job_position = #{jobPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="workYears != null" >
+        work_years = #{workYears,jdbcType=VARCHAR},
+      </if>
+      <if test="presentAddress != null" >
+        present_address = #{presentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="onboardTime != null" >
+        onboard_time = #{onboardTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="intro != null" >
+        intro = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="comefrom != null" >
+        comefrom = #{comefrom,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null" >
+        msn = #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where personnel_id = #{personnelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcom.crm.pojo.PersonnelExt" >
+    update dw_personnel_ext
+    set realname = #{realname,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=BIT},
+      job_position = #{jobPosition,jdbcType=VARCHAR},
+      work_years = #{workYears,jdbcType=VARCHAR},
+      present_address = #{presentAddress,jdbcType=VARCHAR},
+      onboard_time = #{onboardTime,jdbcType=TIMESTAMP},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      intro = #{intro,jdbcType=VARCHAR},
+      comefrom = #{comefrom,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      msn = #{msn,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR}
+    where personnel_id = #{personnelId,jdbcType=INTEGER}
+  </update>
+</mapper>

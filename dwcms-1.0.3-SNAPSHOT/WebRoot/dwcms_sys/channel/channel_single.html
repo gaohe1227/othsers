@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<link href="v_add.do_files/admin.css" rel="stylesheet" type="text/css">
+<link href="v_add.do_files/theme.css" rel="stylesheet" type="text/css">
+<link href="v_add.do_files/jquery.css" rel="stylesheet" type="text/css">
+<link href="v_add.do_files/jquery_003.css" rel="stylesheet" type="text/css">
+<link href="v_add.do_files/jquery_002.css" rel="stylesheet" type="text/css">
+
+<script src="v_add.do_files/fckeditor.js" type="text/javascript"></script>
+<script src="v_add.do_files/WdatePicker.js" type="text/javascript"></script><link type="text/css" rel="stylesheet" href="v_add.do_files/WdatePicker.css">
+<script src="v_add.do_files/jquery_002.js" type="text/javascript"></script>
+<script src="v_add.do_files/jquery.js" type="text/javascript"></script>
+<script src="v_add.do_files/pony.js" type="text/javascript"></script>
+<script src="v_add.do_files/admin.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="v_add.do_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<script type="text/javascript">
+//上传图片
+function upload(n) {
+	var of = $("#uploadFile"+n);
+	//检查是否选择了图片
+	if(of.val()=="") {
+		alert("请先选择图片");
+		return;
+	}
+	//将file移动至上传表单
+	$("#fileContent").empty();
+	$("#fileContent").append(of);
+	//复制一个file放至原处
+	$("#ufc"+n).append(of.clone().attr("value",""));
+	//修改属性
+	of.attr("id","");
+	of.attr("name","uploadFile");
+	//其他表单
+	$("#ufFileName").val($("#fileName"+n).val());
+	$("#ufWidth").val($("#zoomWidth"+n).val());
+	$("#ufHeight").val($("#zoomHeight"+n).val());
+	//先清除
+	$("#ufMark").val("");
+	$("#ufMark").val($("#mark"+n).val());
+	$("#uploadNum").val(n);
+	$("#uploadForm").submit();
+}
+//剪裁图片
+function imgCut(n) {
+	if($("#uploadImgPath"+n).val()=="") {
+		alert("请先上传图片");
+		return;
+	}
+	var url = "../common/v_image_area_select.do?uploadNum="+n+"&imgSrcPath="
+		+$("#uploadImgPath"+n).val()+"&zoomWidth="+$("#zoomWidth"+n).val()+"&zoomHeight="+$("#zoomHeight"+n).val();
+	window.open(url,"imgcut","height=550, width=1000, top=0, left=0, toolbar=no, menubar=no, scrollbars=auto, resizable=yes,location=no, status=no");
+}
+//预览图片
+function previewImg(n) {
+	var img = $("#uploadImgPath"+n).val();
+	if(img!="") {
+		if(img.indexOf("?")==-1) {
+			$("#preImg"+n).attr("src",img+"?d="+new Date()*1);
+		} else {
+			$("#preImg"+n).attr("src",img+"&d="+new Date()*1);
+		}
+		if(!$("#preImg"+n).attr("noResize")) {
+			$("#preImg"+n).css("width","auto");
+			$("#preImg"+n).css("height","auto");
+		}
+	} else {
+		$("#preImg"+n).removeAttr("src");		
+	}
+}
+</script>
+<form id="uploadForm" action="../common/o_upload_image.do" method="post" enctype="multipart/form-data" target="hiddenIframe" style="display:none;width:0px;height:0px;">
+<span id="fileContent"></span>
+<input id="ufWidth" name="zoomWidth" type="hidden">
+<input id="ufHeight" name="zoomHeight" type="hidden">
+<input id="ufFileName" name="fileName" type="hidden">
+<input id="ufMark" name="mark" type="hidden">
+<input id="uploadNum" name="uploadNum" type="hidden">
+</form>
+<iframe name="hiddenIframe" border="0" style="display: none; width: 0px; height: 0px;" frameborder="0"></iframe><div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置: 栏目管理 - 添加</div>
+	<form class="ropt">
+		<input value="返回列表" onclick="this.form.action='v_list.do';" type="submit">
+	</form>
+	<div class="clear"></div>
+</div>
+<form method="post" action="o_save.do" id="jvForm">
+<table class="pn-ftable" border="0" cellpadding="2" cellspacing="1" width="100%">
+<tbody><tr>
+<td class="pn-flabel pn-flabel-h" width="10%">上级栏目:</td><td colspan="1" class="pn-fcontent" width="40%">
+顶级栏目</td>
+<td class="pn-flabel pn-flabel-h" width="10%">模型:</td><td colspan="1" class="pn-fcontent" width="40%">
+单页</td></tr>
+<tr>
+
+<td class="pn-flabel pn-flabel-h" width="10%"><span class="pn-frequired">*</span>栏目名称:</td><td colspan="1" class="pn-fcontent" width="40%"><input maxlength="100" name="name" class="required" type="text"></td>
+
+
+
+<td class="pn-flabel pn-flabel-h" width="10%"><span class="pn-frequired">*</span>访问路径:</td><td colspan="1" class="pn-fcontent" width="40%"><input maxlength="30" name="path" class="required" type="text"></td></tr>
+<tr>
+
+
+
+<td class="pn-flabel pn-flabel-h" width="10%">meta标题:</td><td colspan="1" class="pn-fcontent" width="40%"><input maxlength="255" name="title" size="35" type="text"></td>
+
+
+
+<td class="pn-flabel pn-flabel-h" width="10%">meta关键字:</td><td colspan="1" class="pn-fcontent" width="40%"><input maxlength="255" name="keywords" size="35" type="text"></td></tr>
+<tr>
+
+
+
+<td class="pn-flabel pn-flabel-h" width="10%">meta描述:</td><td colspan="3" class="pn-fcontent" width="90%"><textarea cols="70" rows="3" name="description" maxlength="255"></textarea>
+</td></tr>
+<tr>
+
+
+
+<td class="pn-flabel pn-flabel-h" width="10%">栏目模板:</td><td colspan="1" class="pn-fcontent" width="40%"><select name="tplChannel"><option value="" selected="selected">--默认--</option><option value="/red/alone/单页.html">/red/alone/单页.html</option></select>
+</td>
+
+
+
+<td class="pn-flabel pn-flabel-h" width="10%"><span class="pn-frequired">*</span>排列顺序:</td><td colspan="1" class="pn-fcontent" width="40%"><input maxlength="255" value="10" name="priority" class="reuqired digits" size="10" type="text"></td></tr>
+<tr>
+
+
+
+<td class="pn-flabel pn-flabel-h" width="10%"><span class="pn-frequired">*</span>显示:</td><td colspan="1" class="pn-fcontent" width="40%">
+<label><input value="true" checked="checked" name="display" type="radio">是</label> <label><input value="false" name="display" type="radio">否</label>
+&nbsp; <label><input onclick="$('#blank').val(this.checked);" type="checkbox">新窗口打开</label><input id="blank" name="blank" value="false" type="hidden">
+</td>
+
+
+
+<td class="pn-flabel pn-flabel-h" width="10%">浏览权限:</td><td colspan="1" class="pn-fcontent" width="40%"><label><input value="1" name="viewGroupIds" type="checkbox">普通会员</label> <label><input value="2" name="viewGroupIds" type="checkbox">高级组</label></td></tr>
+<tr>
+
+
+
+<td class="pn-flabel pn-flabel-h" width="10%">外部链接:</td><td colspan="3" class="pn-fcontent" width="90%"><input maxlength="255" name="link" size="35" type="text"> <span class="pn-fhelp">直接使用该地址作为url</span></td></tr>
+<tr>
+
+
+
+<td class="pn-flabel" width="10%">内容图:</td><td colspan="1" class="pn-fcontent" width="40%">
+<input id="uploadImgPath2" name="contentImg" style="width: 220px;" type="text"> <input value="预览" onclick="previewImg(2);" type="button"><br>
+<span id="ufc2"><input id="uploadFile2" size="14" style="width: 180px;" type="file"></span> <label><input onclick="$('#mark2').val(this.checked);" type="checkbox">水印</label><input id="mark2" value="false" type="hidden"> <input value="上传" onclick="upload(2);" type="button"><br>
+宽: <input id="zoomWidth2" value="310" size="5" type="text"> 高: <input id="zoomHeight2" value="310" size="5" type="text"> <input value="裁剪" onclick="imgCut(2);" type="button"> 
+</td><td colspan="2" class="pn-fbutton">
+<img id="preImg2" alt="预览" style="width: 100px; height: 70px; background-color: rgb(204, 204, 204); border: 1px solid rgb(51, 51, 51);">
+</td></tr>
+<tr>
+
+
+
+<td class="pn-flabel pn-flabel-h" width="10%">内容:</td><td colspan="3" class="pn-fcontent" width="90%"><script type="text/javascript">
+var txt = new FCKeditor("txt");
+txt.BasePath = "/jcms/thirdparty/fckeditor/";
+txt.Config["CustomConfigurationsPath"]="/jcms/thirdparty/fckeditor/myconfig.js";
+
+txt.Config["LinkBrowser"] = false ;
+txt.Config["ImageBrowser"] = false ;
+txt.Config["FlashBrowser"] = false ;
+txt.Config["MediaBrowser"] = false ;
+
+txt.Config["LinkBrowserURL"] = "/jcms/thirdparty/fckeditor/editor/filemanager/browser/default/browser.html?Connector=/jcms/jeeadmin/jeecms/fck/connector.do" ;
+txt.Config["ImageBrowserURL"] = "/jcms/thirdparty/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=/jcms/jeeadmin/jeecms/fck/connector.do" ;
+txt.Config["FlashBrowserURL"] = "/jcms/thirdparty/fckeditor/editor/filemanager/browser/default/browser.html?Type=Flash&Connector=/jcms/jeeadmin/jeecms/fck/connector.do" ;
+txt.Config["MediaBrowserURL"] = "/jcms/thirdparty/fckeditor/editor/filemanager/browser/default/browser.html?Type=Media&Connector=/jcms/jeeadmin/jeecms/fck/connector.do" ;
+
+txt.Config["LinkUpload"] = true ;
+txt.Config["ImageUpload"] = true ;
+txt.Config["FlashUpload"] = true ;
+txt.Config["MediaUpload"] = true ;
+
+txt.Config["LinkUploadURL"] = "/jcms/jeeadmin/jeecms/fck/upload.do" ;
+txt.Config["ImageUploadURL"] = "/jcms/jeeadmin/jeecms/fck/upload.do?Type=Image" ;
+txt.Config["FlashUploadURL"] = "/jcms/jeeadmin/jeecms/fck/upload.do?Type=Flash" ;
+txt.Config["MediaUploadURL"] = "/jcms/jeeadmin/jeecms/fck/upload.do?Type=Media" ;
+
+txt.ToolbarSet="My";
+txt.Height=230;
+txt.Value="";
+txt.Create();
+</script><input id="txt" name="txt" value="" style="display: none;" type="hidden"><input id="txt___Config" value="CustomConfigurationsPath=%2Fjcms%2Fthirdparty%2Ffckeditor%2Fmyconfig.js&amp;LinkBrowser=false&amp;ImageBrowser=false&amp;FlashBrowser=false&amp;MediaBrowser=false&amp;LinkBrowserURL=%2Fjcms%2Fthirdparty%2Ffckeditor%2Feditor%2Ffilemanager%2Fbrowser%2Fdefault%2Fbrowser.html%3FConnector%3D%2Fjcms%2Fjeeadmin%2Fjeecms%2Ffck%2Fconnector.do&amp;ImageBrowserURL=%2Fjcms%2Fthirdparty%2Ffckeditor%2Feditor%2Ffilemanager%2Fbrowser%2Fdefault%2Fbrowser.html%3FType%3DImage%26Connector%3D%2Fjcms%2Fjeeadmin%2Fjeecms%2Ffck%2Fconnector.do&amp;FlashBrowserURL=%2Fjcms%2Fthirdparty%2Ffckeditor%2Feditor%2Ffilemanager%2Fbrowser%2Fdefault%2Fbrowser.html%3FType%3DFlash%26Connector%3D%2Fjcms%2Fjeeadmin%2Fjeecms%2Ffck%2Fconnector.do&amp;MediaBrowserURL=%2Fjcms%2Fthirdparty%2Ffckeditor%2Feditor%2Ffilemanager%2Fbrowser%2Fdefault%2Fbrowser.html%3FType%3DMedia%26Connector%3D%2Fjcms%2Fjeeadmin%2Fjeecms%2Ffck%2Fconnector.do&amp;LinkUpload=true&amp;ImageUpload=true&amp;FlashUpload=true&amp;MediaUpload=true&amp;LinkUploadURL=%2Fjcms%2Fjeeadmin%2Fjeecms%2Ffck%2Fupload.do&amp;ImageUploadURL=%2Fjcms%2Fjeeadmin%2Fjeecms%2Ffck%2Fupload.do%3FType%3DImage&amp;FlashUploadURL=%2Fjcms%2Fjeeadmin%2Fjeecms%2Ffck%2Fupload.do%3FType%3DFlash&amp;MediaUploadURL=%2Fjcms%2Fjeeadmin%2Fjeecms%2Ffck%2Fupload.do%3FType%3DMedia" style="display: none;" type="hidden"><iframe style="margin: 0pt; padding: 0pt; border: 0pt none; background-color: transparent; background-image: none; width: 100%; height: 230px;" id="txt___Frame" src="v_add.do_files/fckeditor.html" frameborder="0" height="230" scrolling="no" width="100%"></iframe>
+</td></tr>
+<tr>
+
+
+<td colspan="4" class="pn-fbutton">
+	<input name="root" value="" type="hidden">
+	<input name="modelId" value="2" type="hidden">
+	<input value="提交" type="submit"> &nbsp; <input value="重置" type="reset">
+</td></tr></tbody></table>
+</form>
+</div>
+
+<iframe src="javascript:void(0)" style="margin: 0pt; padding: 0pt; border: 0pt none; background-color: transparent; background-image: none; height: 0px; width: 0px; position: absolute; z-index: 10000;" frameborder="0" scrolling="no"></iframe><iframe src="javascript:void(0)" style="margin: 0pt; padding: 0pt; border: 0pt none; background-color: transparent; background-image: none; height: 0px; width: 0px; position: absolute; z-index: 10000;" frameborder="0" scrolling="no"></iframe><iframe src="javascript:void(0)" style="margin: 0pt; padding: 0pt; border: 0pt none; background-color: transparent; background-image: none; height: 0px; width: 0px; position: absolute; z-index: 10000;" frameborder="0" scrolling="no"></iframe><iframe src="javascript:void(0)" style="margin: 0pt; padding: 0pt; border: 0pt none; background-color: transparent; background-image: none; height: 0px; width: 0px; position: absolute; z-index: 10000;" frameborder="0" scrolling="no"></iframe><iframe src="javascript:void(0)" style="margin: 0pt; padding: 0pt; border: 0pt none; background-color: transparent; background-image: none; height: 0px; width: 0px; position: absolute; z-index: 10000;" frameborder="0" scrolling="no"></iframe><iframe src="javascript:void(0)" style="margin: 0pt; padding: 0pt; border: 0pt none; background-color: transparent; background-image: none; height: 0px; width: 0px; position: absolute; z-index: 10000;" frameborder="0" scrolling="no"></iframe><iframe src="javascript:void(0)" style="margin: 0pt; padding: 0pt; border: 0pt none; background-color: transparent; background-image: none; height: 0px; width: 0px; position: absolute; z-index: 10000;" frameborder="0" scrolling="no"></iframe></body></html>

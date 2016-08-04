@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.config.dao.ConfigWebsiteMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.config.pojo.ConfigWebsite" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SITE_NAME" property="siteName" jdbcType="VARCHAR" />
+    <result column="DESCRIPT" property="descript" jdbcType="VARCHAR" />
+    <result column="DOMAIN_NAME" property="domainName" jdbcType="VARCHAR" />
+    <result column="PATH" property="path" jdbcType="VARCHAR" />
+    <result column="OTHER_NAME" property="otherName" jdbcType="VARCHAR" />
+    <result column="DOMAIN_REDIRECT" property="domainRedirect" jdbcType="VARCHAR" />
+    <result column="RELATIVE_PATH" property="relativePath" jdbcType="VARCHAR" />
+    <result column="PROTOCOL" property="protocol" jdbcType="VARCHAR" />
+    <result column="DYNAMIC_SUFFIX" property="dynamicSuffix" jdbcType="VARCHAR" />
+    <result column="STATIC_PAGE_SUFFIX" property="staticPageSuffix" jdbcType="VARCHAR" />
+    <result column="STATIC_CATALOG" property="staticCatalog" jdbcType="VARCHAR" />
+    <result column="OPEN_STATIC_HOME" property="openStaticHome" jdbcType="VARCHAR" />
+    <result column="ADMIN_LOCAL" property="adminLocal" jdbcType="VARCHAR" />
+    <result column="ATTACHMENTS_FTP" property="attachmentsFtp" jdbcType="VARCHAR" />
+    <result column="FRONT_LOCAL" property="frontLocal" jdbcType="VARCHAR" />
+    <result column="OPEN_RECYCLE" property="openRecycle" jdbcType="INTEGER" />
+    <result column="AUDIT_LEVEL" property="auditLevel" jdbcType="INTEGER" />
+    <result column="AFTER_AUDIT" property="afterAudit" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, SITE_NAME, DESCRIPT, DOMAIN_NAME, PATH, OTHER_NAME, DOMAIN_REDIRECT, RELATIVE_PATH, 
+    PROTOCOL, DYNAMIC_SUFFIX, STATIC_PAGE_SUFFIX, STATIC_CATALOG, OPEN_STATIC_HOME, ADMIN_LOCAL, 
+    ATTACHMENTS_FTP, FRONT_LOCAL, OPEN_RECYCLE, AUDIT_LEVEL, AFTER_AUDIT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.config.pojo.ConfigWebsiteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from config_website
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from config_website
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select 
+ 	Max(CONFIG_WEBSITE.ID)
+    from config_website
+  </select>  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from config_website
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.config.pojo.ConfigWebsite" >
+    insert into config_website (ID, SITE_NAME, DESCRIPT, 
+      DOMAIN_NAME, PATH, OTHER_NAME, 
+      DOMAIN_REDIRECT, RELATIVE_PATH, PROTOCOL, 
+      DYNAMIC_SUFFIX, STATIC_PAGE_SUFFIX, STATIC_CATALOG, 
+      OPEN_STATIC_HOME, ADMIN_LOCAL, ATTACHMENTS_FTP, 
+      FRONT_LOCAL, OPEN_RECYCLE, AUDIT_LEVEL, 
+      AFTER_AUDIT)
+    values (#{id,jdbcType=INTEGER}, #{siteName,jdbcType=VARCHAR}, #{descript,jdbcType=VARCHAR}, 
+      #{domainName,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{otherName,jdbcType=VARCHAR}, 
+      #{domainRedirect,jdbcType=VARCHAR}, #{relativePath,jdbcType=VARCHAR}, #{protocol,jdbcType=VARCHAR}, 
+      #{dynamicSuffix,jdbcType=VARCHAR}, #{staticPageSuffix,jdbcType=VARCHAR}, #{staticCatalog,jdbcType=VARCHAR}, 
+      #{openStaticHome,jdbcType=VARCHAR}, #{adminLocal,jdbcType=VARCHAR}, #{attachmentsFtp,jdbcType=VARCHAR}, 
+      #{frontLocal,jdbcType=VARCHAR}, #{openRecycle,jdbcType=INTEGER}, #{auditLevel,jdbcType=INTEGER}, 
+      #{afterAudit,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.config.pojo.ConfigWebsite" >
+    insert into config_website
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="siteName != null" >
+        SITE_NAME,
+      </if>
+      <if test="descript != null" >
+        DESCRIPT,
+      </if>
+      <if test="domainName != null" >
+        DOMAIN_NAME,
+      </if>
+      <if test="path != null" >
+        PATH,
+      </if>
+      <if test="otherName != null" >
+        OTHER_NAME,
+      </if>
+      <if test="domainRedirect != null" >
+        DOMAIN_REDIRECT,
+      </if>
+      <if test="relativePath != null" >
+        RELATIVE_PATH,
+      </if>
+      <if test="protocol != null" >
+        PROTOCOL,
+      </if>
+      <if test="dynamicSuffix != null" >
+        DYNAMIC_SUFFIX,
+      </if>
+      <if test="staticPageSuffix != null" >
+        STATIC_PAGE_SUFFIX,
+      </if>
+      <if test="staticCatalog != null" >
+        STATIC_CATALOG,
+      </if>
+      <if test="openStaticHome != null" >
+        OPEN_STATIC_HOME,
+      </if>
+      <if test="adminLocal != null" >
+        ADMIN_LOCAL,
+      </if>
+      <if test="attachmentsFtp != null" >
+        ATTACHMENTS_FTP,
+      </if>
+      <if test="frontLocal != null" >
+        FRONT_LOCAL,
+      </if>
+      <if test="openRecycle != null" >
+        OPEN_RECYCLE,
+      </if>
+      <if test="auditLevel != null" >
+        AUDIT_LEVEL,
+      </if>
+      <if test="afterAudit != null" >
+        AFTER_AUDIT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="siteName != null" >
+        #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="descript != null" >
+        #{descript,jdbcType=VARCHAR},
+      </if>
+      <if test="domainName != null" >
+        #{domainName,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="otherName != null" >
+        #{otherName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainRedirect != null" >
+        #{domainRedirect,jdbcType=VARCHAR},
+      </if>
+      <if test="relativePath != null" >
+        #{relativePath,jdbcType=VARCHAR},
+      </if>
+      <if test="protocol != null" >
+        #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicSuffix != null" >
+        #{dynamicSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="staticPageSuffix != null" >
+        #{staticPageSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="staticCatalog != null" >
+        #{staticCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="openStaticHome != null" >
+        #{openStaticHome,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLocal != null" >
+        #{adminLocal,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentsFtp != null" >
+        #{attachmentsFtp,jdbcType=VARCHAR},
+      </if>
+      <if test="frontLocal != null" >
+        #{frontLocal,jdbcType=VARCHAR},
+      </if>
+      <if test="openRecycle != null" >
+        #{openRecycle,jdbcType=INTEGER},
+      </if>
+      <if test="auditLevel != null" >
+        #{auditLevel,jdbcType=INTEGER},
+      </if>
+      <if test="afterAudit != null" >
+        #{afterAudit,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.config.pojo.ConfigWebsite" >
+    update config_website
+    <set >
+      <if test="siteName != null" >
+        SITE_NAME = #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="descript != null" >
+        DESCRIPT = #{descript,jdbcType=VARCHAR},
+      </if>
+      <if test="domainName != null" >
+        DOMAIN_NAME = #{domainName,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        PATH = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="otherName != null" >
+        OTHER_NAME = #{otherName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainRedirect != null" >
+        DOMAIN_REDIRECT = #{domainRedirect,jdbcType=VARCHAR},
+      </if>
+      <if test="relativePath != null" >
+        RELATIVE_PATH = #{relativePath,jdbcType=VARCHAR},
+      </if>
+      <if test="protocol != null" >
+        PROTOCOL = #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicSuffix != null" >
+        DYNAMIC_SUFFIX = #{dynamicSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="staticPageSuffix != null" >
+        STATIC_PAGE_SUFFIX = #{staticPageSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="staticCatalog != null" >
+        STATIC_CATALOG = #{staticCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="openStaticHome != null" >
+        OPEN_STATIC_HOME = #{openStaticHome,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLocal != null" >
+        ADMIN_LOCAL = #{adminLocal,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentsFtp != null" >
+        ATTACHMENTS_FTP = #{attachmentsFtp,jdbcType=VARCHAR},
+      </if>
+      <if test="frontLocal != null" >
+        FRONT_LOCAL = #{frontLocal,jdbcType=VARCHAR},
+      </if>
+      <if test="openRecycle != null" >
+        OPEN_RECYCLE = #{openRecycle,jdbcType=INTEGER},
+      </if>
+      <if test="auditLevel != null" >
+        AUDIT_LEVEL = #{auditLevel,jdbcType=INTEGER},
+      </if>
+      <if test="afterAudit != null" >
+        AFTER_AUDIT = #{afterAudit,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.config.pojo.ConfigWebsite" >
+    update config_website
+    set SITE_NAME = #{siteName,jdbcType=VARCHAR},
+      DESCRIPT = #{descript,jdbcType=VARCHAR},
+      DOMAIN_NAME = #{domainName,jdbcType=VARCHAR},
+      PATH = #{path,jdbcType=VARCHAR},
+      OTHER_NAME = #{otherName,jdbcType=VARCHAR},
+      DOMAIN_REDIRECT = #{domainRedirect,jdbcType=VARCHAR},
+      RELATIVE_PATH = #{relativePath,jdbcType=VARCHAR},
+      PROTOCOL = #{protocol,jdbcType=VARCHAR},
+      DYNAMIC_SUFFIX = #{dynamicSuffix,jdbcType=VARCHAR},
+      STATIC_PAGE_SUFFIX = #{staticPageSuffix,jdbcType=VARCHAR},
+      STATIC_CATALOG = #{staticCatalog,jdbcType=VARCHAR},
+      OPEN_STATIC_HOME = #{openStaticHome,jdbcType=VARCHAR},
+      ADMIN_LOCAL = #{adminLocal,jdbcType=VARCHAR},
+      ATTACHMENTS_FTP = #{attachmentsFtp,jdbcType=VARCHAR},
+      FRONT_LOCAL = #{frontLocal,jdbcType=VARCHAR},
+      OPEN_RECYCLE = #{openRecycle,jdbcType=INTEGER},
+      AUDIT_LEVEL = #{auditLevel,jdbcType=INTEGER},
+      AFTER_AUDIT = #{afterAudit,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

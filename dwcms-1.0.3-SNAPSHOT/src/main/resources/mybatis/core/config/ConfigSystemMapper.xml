@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.config.dao.ConfigSystemMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.config.pojo.ConfigSystem" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="DEPLOYMENT_PATH" property="deploymentPath" jdbcType="VARCHAR" />
+    <result column="PORT" property="port" jdbcType="INTEGER" />
+    <result column="DEFAULT_PIC" property="defaultPic" jdbcType="VARCHAR" />
+    <result column="IF_ATTACHMENT" property="ifAttachment" jdbcType="INTEGER" />
+    <result column="ATTACHMENT_FILE_PATH" property="attachmentFilePath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, DEPLOYMENT_PATH, PORT, DEFAULT_PIC, IF_ATTACHMENT, ATTACHMENT_FILE_PATH
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.config.pojo.ConfigSystemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from config_system
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from config_system
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from config_system
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.config.pojo.ConfigSystem" >
+    insert into config_system (ID, DEPLOYMENT_PATH, PORT, 
+      DEFAULT_PIC, IF_ATTACHMENT, ATTACHMENT_FILE_PATH
+      )
+    values (#{id,jdbcType=INTEGER}, #{deploymentPath,jdbcType=VARCHAR}, #{port,jdbcType=INTEGER}, 
+      #{defaultPic,jdbcType=VARCHAR}, #{ifAttachment,jdbcType=INTEGER}, #{attachmentFilePath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.config.pojo.ConfigSystem" >
+    insert into config_system
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="deploymentPath != null" >
+        DEPLOYMENT_PATH,
+      </if>
+      <if test="port != null" >
+        PORT,
+      </if>
+      <if test="defaultPic != null" >
+        DEFAULT_PIC,
+      </if>
+      <if test="ifAttachment != null" >
+        IF_ATTACHMENT,
+      </if>
+      <if test="attachmentFilePath != null" >
+        ATTACHMENT_FILE_PATH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deploymentPath != null" >
+        #{deploymentPath,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="defaultPic != null" >
+        #{defaultPic,jdbcType=VARCHAR},
+      </if>
+      <if test="ifAttachment != null" >
+        #{ifAttachment,jdbcType=INTEGER},
+      </if>
+      <if test="attachmentFilePath != null" >
+        #{attachmentFilePath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.config.pojo.ConfigSystem" >
+    update config_system
+    <set >
+      <if test="deploymentPath != null" >
+        DEPLOYMENT_PATH = #{deploymentPath,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        PORT = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="defaultPic != null" >
+        DEFAULT_PIC = #{defaultPic,jdbcType=VARCHAR},
+      </if>
+      <if test="ifAttachment != null" >
+        IF_ATTACHMENT = #{ifAttachment,jdbcType=INTEGER},
+      </if>
+      <if test="attachmentFilePath != null" >
+        ATTACHMENT_FILE_PATH = #{attachmentFilePath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.config.pojo.ConfigSystem" >
+    update config_system
+    set DEPLOYMENT_PATH = #{deploymentPath,jdbcType=VARCHAR},
+      PORT = #{port,jdbcType=INTEGER},
+      DEFAULT_PIC = #{defaultPic,jdbcType=VARCHAR},
+      IF_ATTACHMENT = #{ifAttachment,jdbcType=INTEGER},
+      ATTACHMENT_FILE_PATH = #{attachmentFilePath,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

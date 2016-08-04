@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.assistant.dao.AdvertisingMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.assistant.pojo.Advertising" >
+    <id column="advertising_id" property="advertisingId" jdbcType="INTEGER" />
+    <result column="adspace_id" property="adspaceId" jdbcType="INTEGER" />
+    <result column="site_id" property="siteId" jdbcType="INTEGER" />
+    <result column="ad_name" property="adName" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="ad_weight" property="adWeight" jdbcType="INTEGER" />
+    <result column="display_count" property="displayCount" jdbcType="BIGINT" />
+    <result column="click_count" property="clickCount" jdbcType="BIGINT" />
+    <result column="start_time" property="startTime" jdbcType="DATE" />
+    <result column="end_time" property="endTime" jdbcType="DATE" />
+    <result column="is_enabled" property="isEnabled" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.doadway.dwcms.assistant.pojo.Advertising" extends="BaseResultMap" >
+    <result column="ad_code" property="adCode" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    advertising_id, adspace_id, site_id, ad_name, category, ad_weight, display_count, 
+    click_count, start_time, end_time, is_enabled
+  </sql>
+  <sql id="Blob_Column_List" >
+    ad_code
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.doadway.dwcms.assistant.pojo.AdvertisingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dc_advertising
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.assistant.pojo.AdvertisingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_advertising
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select 
+ 	Max(advertising_id)
+    from dc_advertising
+  </select> 
+    <select id="selectByPage" resultMap="BaseResultMap" >
+	    select
+	    <include refid="Base_Column_List" />
+	    from dc_advertising 
+	    order by advertising_id DESC
+ 	</select>     
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dc_advertising
+    where advertising_id = #{advertisingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_advertising
+    where advertising_id = #{advertisingId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.assistant.pojo.AdvertisingExample" >
+    delete from dc_advertising
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.assistant.pojo.Advertising" >
+    insert into dc_advertising (advertising_id, adspace_id, site_id, 
+      ad_name, category, ad_weight, 
+      display_count, click_count, start_time, 
+      end_time, is_enabled, ad_code
+      )
+    values (#{advertisingId,jdbcType=INTEGER}, #{adspaceId,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, 
+      #{adName,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{adWeight,jdbcType=INTEGER}, 
+      #{displayCount,jdbcType=BIGINT}, #{clickCount,jdbcType=BIGINT}, #{startTime,jdbcType=DATE}, 
+      #{endTime,jdbcType=DATE}, #{isEnabled,jdbcType=CHAR}, #{adCode,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.assistant.pojo.Advertising" >
+    insert into dc_advertising
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="advertisingId != null" >
+        advertising_id,
+      </if>
+      <if test="adspaceId != null" >
+        adspace_id,
+      </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="adName != null" >
+        ad_name,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="adWeight != null" >
+        ad_weight,
+      </if>
+      <if test="displayCount != null" >
+        display_count,
+      </if>
+      <if test="clickCount != null" >
+        click_count,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="adCode != null" >
+        ad_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="advertisingId != null" >
+        #{advertisingId,jdbcType=INTEGER},
+      </if>
+      <if test="adspaceId != null" >
+        #{adspaceId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="adName != null" >
+        #{adName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="adWeight != null" >
+        #{adWeight,jdbcType=INTEGER},
+      </if>
+      <if test="displayCount != null" >
+        #{displayCount,jdbcType=BIGINT},
+      </if>
+      <if test="clickCount != null" >
+        #{clickCount,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=CHAR},
+      </if>
+      <if test="adCode != null" >
+        #{adCode,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.assistant.pojo.AdvertisingExample" resultType="java.lang.Integer" >
+    select count(*) from dc_advertising
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_advertising
+    <set >
+      <if test="record.advertisingId != null" >
+        advertising_id = #{record.advertisingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.adspaceId != null" >
+        adspace_id = #{record.adspaceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteId != null" >
+        site_id = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.adName != null" >
+        ad_name = #{record.adName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adWeight != null" >
+        ad_weight = #{record.adWeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.displayCount != null" >
+        display_count = #{record.displayCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.clickCount != null" >
+        click_count = #{record.clickCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=DATE},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=DATE},
+      </if>
+      <if test="record.isEnabled != null" >
+        is_enabled = #{record.isEnabled,jdbcType=CHAR},
+      </if>
+      <if test="record.adCode != null" >
+        ad_code = #{record.adCode,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update dc_advertising
+    set advertising_id = #{record.advertisingId,jdbcType=INTEGER},
+      adspace_id = #{record.adspaceId,jdbcType=INTEGER},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      ad_name = #{record.adName,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      ad_weight = #{record.adWeight,jdbcType=INTEGER},
+      display_count = #{record.displayCount,jdbcType=BIGINT},
+      click_count = #{record.clickCount,jdbcType=BIGINT},
+      start_time = #{record.startTime,jdbcType=DATE},
+      end_time = #{record.endTime,jdbcType=DATE},
+      is_enabled = #{record.isEnabled,jdbcType=CHAR},
+      ad_code = #{record.adCode,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_advertising
+    set advertising_id = #{record.advertisingId,jdbcType=INTEGER},
+      adspace_id = #{record.adspaceId,jdbcType=INTEGER},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      ad_name = #{record.adName,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      ad_weight = #{record.adWeight,jdbcType=INTEGER},
+      display_count = #{record.displayCount,jdbcType=BIGINT},
+      click_count = #{record.clickCount,jdbcType=BIGINT},
+      start_time = #{record.startTime,jdbcType=DATE},
+      end_time = #{record.endTime,jdbcType=DATE},
+      is_enabled = #{record.isEnabled,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.assistant.pojo.Advertising" >
+    update dc_advertising
+    <set >
+      <if test="adspaceId != null" >
+        adspace_id = #{adspaceId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="adName != null" >
+        ad_name = #{adName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="adWeight != null" >
+        ad_weight = #{adWeight,jdbcType=INTEGER},
+      </if>
+      <if test="displayCount != null" >
+        display_count = #{displayCount,jdbcType=BIGINT},
+      </if>
+      <if test="clickCount != null" >
+        click_count = #{clickCount,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=DATE},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=CHAR},
+      </if>
+      <if test="adCode != null" >
+        ad_code = #{adCode,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where advertising_id = #{advertisingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.doadway.dwcms.assistant.pojo.Advertising" >
+    update dc_advertising
+    set adspace_id = #{adspaceId,jdbcType=INTEGER},
+      site_id = #{siteId,jdbcType=INTEGER},
+      ad_name = #{adName,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      ad_weight = #{adWeight,jdbcType=INTEGER},
+      display_count = #{displayCount,jdbcType=BIGINT},
+      click_count = #{clickCount,jdbcType=BIGINT},
+      start_time = #{startTime,jdbcType=DATE},
+      end_time = #{endTime,jdbcType=DATE},
+      is_enabled = #{isEnabled,jdbcType=CHAR},
+      ad_code = #{adCode,jdbcType=LONGVARCHAR}
+    where advertising_id = #{advertisingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.assistant.pojo.Advertising" >
+    update dc_advertising
+    set adspace_id = #{adspaceId,jdbcType=INTEGER},
+      site_id = #{siteId,jdbcType=INTEGER},
+      ad_name = #{adName,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      ad_weight = #{adWeight,jdbcType=INTEGER},
+      display_count = #{displayCount,jdbcType=BIGINT},
+      click_count = #{clickCount,jdbcType=BIGINT},
+      start_time = #{startTime,jdbcType=DATE},
+      end_time = #{endTime,jdbcType=DATE},
+      is_enabled = #{isEnabled,jdbcType=CHAR}
+    where advertising_id = #{advertisingId,jdbcType=INTEGER}
+  </update>
+</mapper>

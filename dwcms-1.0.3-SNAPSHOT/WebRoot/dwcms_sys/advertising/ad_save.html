@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	attrChange("image");
+	$("#textColor").colorPicker();
+	$("#jvForm").validate();
+});
+var attr_all=["image","flash","text","code"];
+function attrChange(value) {
+	for(var attr in attr_all) {
+		if(attr_all[attr]==value) {
+			showAttr(attr_all[attr]);
+		} else {
+			hideAttr(attr_all[attr]);
+		}
+	}
+}
+function hideAttr(value) {
+	var name = "#attr_"+value;
+	$(name).hide();
+	$(name+" input,"+name+" select,"+name+" textarea").each(function() {
+		$(this).attr("disabled","disabled");
+	});
+}
+function showAttr(value) {
+	var name = "#attr_"+value;
+	$("#attr_"+value).show();
+	$(name+" input,"+name+" select,"+name+" textarea").each(function() {
+		$(this).removeAttr("disabled");
+	});
+}
+</script>
+<style type="text/css">
+.attr{padding:3px;margin:0;}
+</style>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="ad_save_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<script type="text/javascript">
+//上传图片
+function upload(n) {
+	var of = $("#uploadFile"+n);
+	//检查是否选择了图片
+	if(of.val()=="") {
+		alert("请先选择图片");
+		return;
+	}
+	//将file移动至上传表单
+	$("#fileContent").empty();
+	$("#fileContent").append(of);
+	//复制一个file放至原处
+	$("#ufc"+n).append(of.clone().attr("value",""));
+	//修改属性
+	of.attr("id","");
+	of.attr("name","uploadFile");
+	//其他表单
+	$("#ufFileName").val($("#fileName"+n).val());
+	$("#ufWidth").val($("#zoomWidth"+n).val());
+	$("#ufHeight").val($("#zoomHeight"+n).val());
+	//先清除
+	$("#ufMark").val("");
+	$("#ufMark").val($("#mark"+n).val());
+	$("#uploadNum").val(n);
+	$("#uploadForm").submit();
+}
+//剪裁图片
+function imgCut(n) {
+	if($("#uploadImgPath"+n).val()=="") {
+		alert("请先上传图片");
+		return;
+	}
+	var url = "../common/v_image_area_select.do?uploadNum="+n+"&imgSrcPath="
+		+$("#uploadImgPath"+n).val()+"&zoomWidth="+$("#zoomWidth"+n).val()+"&zoomHeight="+$("#zoomHeight"+n).val();
+	window.open(url,"imgcut","height=550, width=1000, top=0, left=0, toolbar=no, menubar=no, scrollbars=auto, resizable=yes,location=no, status=no");
+}
+//预览图片
+function previewImg(n) {
+	var img = $("#uploadImgPath"+n).val();
+	if(img!="") {
+		if(img.indexOf("?")==-1) {
+			$("#preImg"+n).attr("src",img+"?d="+new Date()*1);
+		} else {
+			$("#preImg"+n).attr("src",img+"&d="+new Date()*1);
+		}
+		if(!$("#preImg"+n).attr("noResize")) {
+			$("#preImg"+n).css("width","auto");
+			$("#preImg"+n).css("height","auto");
+		}
+	} else {
+		$("#preImg"+n).removeAttr("src");		
+	}
+}
+</script>
+<form id="uploadForm" action="../common/o_upload_image.do" method="post" enctype="multipart/form-data" target="hiddenIframe" style="display:none;width:0px;height:0px;">
+<span id="fileContent"></span>
+<input id="ufWidth" name="zoomWidth" type="hidden">
+<input id="ufHeight" name="zoomHeight" type="hidden">
+<input id="ufFileName" name="fileName" type="hidden">
+<input id="ufMark" name="mark" type="hidden">
+<input id="uploadNum" name="uploadNum" type="hidden">
+</form>
+<iframe name="hiddenIframe" border="0" style="display: none; width: 0px; height: 0px;" frameborder="0"></iframe><script type="text/javascript">
+//上传附件
+function uploadFlash(n) {
+	var af = $('#flashFile'+n);
+	//检查是否选择了文件
+	if(af.val()=='') {
+		alert('请先选择文件');
+		return;
+	}
+	//将file移动至上传表单
+	$('#flashContent').empty();
+	$('#flashContent').append(af);
+	//复制一个file放至原处
+	$('#ffc'+n).append(af.clone().attr('value',''));
+	//修改属性
+	af.attr('id','');
+	//其他表单
+	$('#flashNum').val(n);
+	$('#flashForm').submit();
+}
+</script>
+<form id="flashForm" action="o_upload_flash.do" method="post" enctype="multipart/form-data" target="flash_iframe" style="display:none;width:0px;height:0px;">
+<span id="flashContent"></span>
+<input id="flashNum" name="flashNum" type="hidden">
+</form>
+<iframe name="flash_iframe" border="0" style="display: none; width: 0px; height: 0px;" frameborder="0"></iframe><div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置: 广告管理 - 添加</div>
+	<form class="ropt">
+		<input value="返回列表" onclick="this.form.action='v_list.do';" type="submit">
+	</form>
+	<div class="clear"></div>
+</div>
+<form method="post" action="o_save.do" id="jvForm">
+<table class="pn-ftable" border="0" cellpadding="2" cellspacing="1" width="100%">
+<tbody><tr>
+<td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>名称:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="100" name="name" class="required" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>版位:</td><td colspan="1" class="pn-fcontent" width="38%"><select name="adspaceId"><option selected="selected" value="1">页头banner</option><option value="2">通栏广告</option></select>
+</td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>类型:</td><td colspan="3" class="pn-fcontent" width="88%"><label><input value="image" checked="checked" name="category" onclick="attrChange(this.value)" type="radio">图片</label> <label><input value="flash" name="category" onclick="attrChange(this.value)" type="radio">FLASH</label> <label><input value="text" name="category" onclick="attrChange(this.value)" type="radio">文字</label> <label><input value="code" name="category" onclick="attrChange(this.value)" type="radio">代码</label></td>
+</tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>广告内容:</td><td colspan="3" class="pn-fcontent" width="88%">
+<div id="attr_image">
+	<p class="attr">图片地址: <input id="uploadImgPath1" name="attr_image_url" class="required" maxlength="255" style="width: 300px;" type="text"></p>
+	<p class="attr">图片上传: <span id="ufc1"><input id="uploadFile1" type="file"></span> <input value="上传" onclick="upload(1);" type="button"><input id="mark1" value="false" type="hidden"></p>
+	<p class="attr">图片尺寸: <input name="attr_image_width" maxlength="50" style="width: 70px;" type="text"> * <input name="attr_image_height" maxlength="50" style="width: 70px;" type="text"> <span class="pn-fhelp">（宽×高）</span></p>
+	<p class="attr">链接地址: <input name="attr_image_link" value="http://" maxlength="255" style="width: 300px;" type="text"></p>
+	<p class="attr">链接提示: <input name="attr_image_title" maxlength="255" style="width: 300px;" type="text"></p>
+	<p class="attr">链接目标: <label><input value="_blank" checked="checked" name="attr_image_target" type="radio">新窗口</label> <label><input value="_self" name="attr_image_target" type="radio">原窗口</label>
+</p>
+</div>
+<div id="attr_flash" style="display:none;">
+	<p class="attr">FLASH地址: <input disabled="disabled" id="flashPath1" name="attr_flash_url" class="required" maxlength="255" style="width: 300px;" type="text"></p>
+	<p class="attr">FLASH上传: <span id="ffc1"><input disabled="disabled" id="flashFile1" name="flashFile" type="file"></span> <input disabled="disabled" value="上传" onclick="uploadFlash(1);" type="button"></p>
+	<p class="attr">FLASH尺寸: <input disabled="disabled" name="attr_flash_width" maxlength="50" style="width: 70px;" type="text"> * <input disabled="disabled" name="attr_flash_height" maxlength="50" style="width: 70px;" type="text"> <span class="pn-fhelp">（宽×高）</span></p>
+</div>
+<div id="attr_text" style="display:none;">
+	<p class="attr">文字内容: <input disabled="disabled" name="attr_text_title" class="required" maxlength="255" style="width: 300px;" type="text"></p>
+	<p class="attr">文字链接: <input disabled="disabled" name="attr_text_link" value="http://" maxlength="255" style="width: 300px;" type="text"></p>
+	<p class="attr">文字颜色: <input disabled="disabled" id="textColor" name="attr_text_color" maxlength="50" style="width: 70px;" type="text"><input tabindex="10000" readonly="readonly" style="background-color: rgb(255, 255, 255); width: 30px; border: 1px solid rgb(204, 204, 204); margin-left: 2px; cursor: pointer;" type="text"></p>
+	<p class="attr">文字大小: <input disabled="disabled" name="attr_text_font" maxlength="50" style="width: 70px;" type="text"> <span class="pn-fhelp">如：12px</span></p>
+	<p class="attr">链接目标: <label><input disabled="disabled" value="_blank" checked="checked" name="attr_text_target" type="radio">新窗口</label> <label><input disabled="disabled" value="_self" name="attr_text_target" type="radio">原窗口</label>
+</p>
+</div>
+<div id="attr_code" style="display:none;">
+	<textarea disabled="disabled" name="code" rows="7" cols="60" maxlength="655350"></textarea>
+</div>
+</td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%">开始时间:</td><td colspan="1" class="pn-fcontent" width="38%"><input name="startTime" class="Wdate" style="width: 120px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%">结束时间:</td><td colspan="1" class="pn-fcontent" width="38%"><input name="endTime" class="Wdate" style="width: 120px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>点击次数:</td><td colspan="1" class="pn-fcontent" width="38%"><input value="0" name="clickCount" class="required digits" style="width: 70px;" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>展现次数:</td><td colspan="1" class="pn-fcontent" width="38%"><input value="0" name="displayCount" class="required digits" style="width: 70px;" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>权重:</td><td colspan="1" class="pn-fcontent" width="38%"><input value="1" name="weight" class="required digits" style="width: 70px;" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>启用:</td><td colspan="1" class="pn-fcontent" width="38%"><label><input value="true" checked="checked" name="enabled" type="radio">是</label> <label><input value="false" name="enabled" type="radio">否</label></td>
+</tr>
+<tr><td colspan="4" class="pn-fbutton">
+<input value="提交" type="submit"> &nbsp; <input value="重置" type="reset"></td>
+</tr></tbody></table>
+</form>
+</div>
+
+<table style="display: none; position: absolute; margin-top: 0px; border: 1px solid rgb(204, 204, 204); background-color: rgb(255, 255, 255);" border="0" cellpadding="0" cellspacing="5"><tbody><tr height="15"><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#FF8080" title="#FF8080">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#FFFF80" title="#FFFF80">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#80FF80" title="#80FF80">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#00FF80" title="#00FF80">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#80FFFF" title="#80FFFF">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#0080FF" title="#0080FF">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#FF80C0" title="#FF80C0">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#FF80FF" title="#FF80FF">&nbsp;<div></div></div></td></tr><tr height="15"><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#FF0000" title="#FF0000">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#FFFF00" title="#FFFF00">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#80FF00" title="#80FF00">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#00FF40" title="#00FF40">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#00FFFF" title="#00FFFF">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#0080C0" title="#0080C0">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#8080C0" title="#8080C0">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#FF00FF" title="#FF00FF">&nbsp;<div></div></div></td></tr><tr height="15"><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#804040" title="#804040">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#FF8040" title="#FF8040">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#00FF00" title="#00FF00">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#008080" title="#008080">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#004080" title="#004080">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#8080FF" title="#8080FF">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#800040" title="#800040">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#FF0080" title="#FF0080">&nbsp;<div></div></div></td></tr><tr height="15"><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#800000" title="#800000">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#FF8000" title="#FF8000">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#008000" title="#008000">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#008040" title="#008040">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#0000FF" title="#0000FF">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#0000A0" title="#0000A0">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#800080" title="#800080">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#8000FF" title="#8000FF">&nbsp;<div></div></div></td></tr><tr height="15"><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#400000" title="#400000">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#804000" title="#804000">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#004000" title="#004000">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#004040" title="#004040">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#000080" title="#000080">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#000040" title="#000040">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#400040" title="#400040">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#400080" title="#400080">&nbsp;<div></div></div></td></tr><tr height="15"><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#000000" title="#000000">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#808000" title="#808000">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#808040" title="#808040">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#808080" title="#808080">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#408080" title="#408080">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#C0C0C0" title="#C0C0C0">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#400040" title="#400040">&nbsp;<div></div></div></td><td width="15"><div class="c" style="width:13px;height:13px;border:1px solid #fff;cursor:pointer;background-color:#FFFFFF" title="#FFFFFF">&nbsp;<div></div></div></td></tr></tbody></table></body></html>

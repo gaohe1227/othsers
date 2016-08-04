@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.user.dao.GroupMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.user.pojo.Group" >
+    <id column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="need_captcha" property="needCaptcha" jdbcType="BIT" />
+    <result column="need_check" property="needCheck" jdbcType="BIT" />
+    <result column="allow_per_day" property="allowPerDay" jdbcType="INTEGER" />
+    <result column="allow_max_file" property="allowMaxFile" jdbcType="INTEGER" />
+    <result column="allow_suffix" property="allowSuffix" jdbcType="VARCHAR" />
+    <result column="is_reg_def" property="isRegDef" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    group_id, group_name, priority, need_captcha, need_check, allow_per_day, allow_max_file, 
+    allow_suffix, is_reg_def
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.user.pojo.GroupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select 
+ 	Max(group_id)
+    from dc_group
+  </select>   
+    
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_group
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_group
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.core.user.pojo.GroupExample" >
+    delete from dc_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.user.pojo.Group" >
+    insert into dc_group (group_id, group_name, priority, 
+      need_captcha, need_check, allow_per_day, 
+      allow_max_file, allow_suffix, is_reg_def
+      )
+    values (#{groupId,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, 
+      #{needCaptcha,jdbcType=BIT}, #{needCheck,jdbcType=BIT}, #{allowPerDay,jdbcType=INTEGER}, 
+      #{allowMaxFile,jdbcType=INTEGER}, #{allowSuffix,jdbcType=VARCHAR}, #{isRegDef,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.user.pojo.Group" >
+    insert into dc_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="needCaptcha != null" >
+        need_captcha,
+      </if>
+      <if test="needCheck != null" >
+        need_check,
+      </if>
+      <if test="allowPerDay != null" >
+        allow_per_day,
+      </if>
+      <if test="allowMaxFile != null" >
+        allow_max_file,
+      </if>
+      <if test="allowSuffix != null" >
+        allow_suffix,
+      </if>
+      <if test="isRegDef != null" >
+        is_reg_def,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="needCaptcha != null" >
+        #{needCaptcha,jdbcType=BIT},
+      </if>
+      <if test="needCheck != null" >
+        #{needCheck,jdbcType=BIT},
+      </if>
+      <if test="allowPerDay != null" >
+        #{allowPerDay,jdbcType=INTEGER},
+      </if>
+      <if test="allowMaxFile != null" >
+        #{allowMaxFile,jdbcType=INTEGER},
+      </if>
+      <if test="allowSuffix != null" >
+        #{allowSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="isRegDef != null" >
+        #{isRegDef,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.core.user.pojo.GroupExample" resultType="java.lang.Integer" >
+    select count(*) from dc_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_group
+    <set >
+      <if test="record.groupId != null" >
+        group_id = #{record.groupId,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupName != null" >
+        group_name = #{record.groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priority != null" >
+        priority = #{record.priority,jdbcType=INTEGER},
+      </if>
+      <if test="record.needCaptcha != null" >
+        need_captcha = #{record.needCaptcha,jdbcType=BIT},
+      </if>
+      <if test="record.needCheck != null" >
+        need_check = #{record.needCheck,jdbcType=BIT},
+      </if>
+      <if test="record.allowPerDay != null" >
+        allow_per_day = #{record.allowPerDay,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowMaxFile != null" >
+        allow_max_file = #{record.allowMaxFile,jdbcType=INTEGER},
+      </if>
+      <if test="record.allowSuffix != null" >
+        allow_suffix = #{record.allowSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isRegDef != null" >
+        is_reg_def = #{record.isRegDef,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_group
+    set group_id = #{record.groupId,jdbcType=INTEGER},
+      group_name = #{record.groupName,jdbcType=VARCHAR},
+      priority = #{record.priority,jdbcType=INTEGER},
+      need_captcha = #{record.needCaptcha,jdbcType=BIT},
+      need_check = #{record.needCheck,jdbcType=BIT},
+      allow_per_day = #{record.allowPerDay,jdbcType=INTEGER},
+      allow_max_file = #{record.allowMaxFile,jdbcType=INTEGER},
+      allow_suffix = #{record.allowSuffix,jdbcType=VARCHAR},
+      is_reg_def = #{record.isRegDef,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.user.pojo.Group" >
+    update dc_group
+    <set >
+      <if test="groupName != null" >
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="needCaptcha != null" >
+        need_captcha = #{needCaptcha,jdbcType=BIT},
+      </if>
+      <if test="needCheck != null" >
+        need_check = #{needCheck,jdbcType=BIT},
+      </if>
+      <if test="allowPerDay != null" >
+        allow_per_day = #{allowPerDay,jdbcType=INTEGER},
+      </if>
+      <if test="allowMaxFile != null" >
+        allow_max_file = #{allowMaxFile,jdbcType=INTEGER},
+      </if>
+      <if test="allowSuffix != null" >
+        allow_suffix = #{allowSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="isRegDef != null" >
+        is_reg_def = #{isRegDef,jdbcType=BIT},
+      </if>
+    </set>
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.user.pojo.Group" >
+    update dc_group
+    set group_name = #{groupName,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
+      need_captcha = #{needCaptcha,jdbcType=BIT},
+      need_check = #{needCheck,jdbcType=BIT},
+      allow_per_day = #{allowPerDay,jdbcType=INTEGER},
+      allow_max_file = #{allowMaxFile,jdbcType=INTEGER},
+      allow_suffix = #{allowSuffix,jdbcType=VARCHAR},
+      is_reg_def = #{isRegDef,jdbcType=BIT}
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </update>
+</mapper>

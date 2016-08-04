@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/2002/xmlspec/dtd/2.10/xmlspec.dtd">
+<tools>
+    <data type="boolean" key="xhtml" value="true"/>
+    <data type="boolean" key="isSimple" value="true"/>
+    <data type="number" key="version" value="2.0"/>
+    <data key="foo">this is foo</data>
+    <data key="bar">this is bar.</data>
+    
+    <toolbox scope="request">
+        <!-- <tool key="toytool" class="ToyTool" restrictTo="index*"/> -->
+    </toolbox>
+    
+    <toolbox scope="session">
+        <!-- <tool key="map" class="java.util.HashMap"/> -->
+    </toolbox>
+    
+    <toolbox scope="application">
+        <!-- <tool key="map" class="java.util.HashMap"/> -->
+        <tool key="dateUtil" class="com.doadway.common.shiro.DateUtils"/>
+        <tool key="shiro" class="com.doadway.common.shiro.Permission"/>
+        <tool key="date" class="org.apache.velocity.tools.generic.DateTool">
+        	<parameter name="format" value="dd/MM/yyyy" />
+        </tool>
+        <tool key="display" class="org.apache.velocity.tools.generic.DisplayTool"/>
+        <tool key="math" class="org.apache.velocity.tools.generic.MathTool"/>
+        <tool key="iter" class="org.apache.velocity.tools.generic.IteratorTool"/>
+        <tool key="esc" class="org.apache.velocity.tools.generic.EscapeTool"/>
+        <tool key="sort" class="org.apache.velocity.tools.generic.SortTool"/>
+    </toolbox>
+</tools>

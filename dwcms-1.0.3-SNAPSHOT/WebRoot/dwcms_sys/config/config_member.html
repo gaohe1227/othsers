@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="config_member_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置:  全局设置 - 会员设置 - 修改</div>
+<form class="ropt">
+	<input value="系统设置" onclick="this.form.action='config_systeam.html';" type="submit">
+	<input value="登录设置" onclick="this.form.action='config_login.html';" type="submit">
+	<input value="会员设置" onclick="this.form.action='config_member.html';" type="submit">
+	<!-- <input value="水印设置" onclick="this.form.action='v_mark_edit.do';" type="submit"> -->
+</form>	<div class="clear"></div>
+</div>
+<form method="post" action="o_member_update.do" id="jvForm">
+<table class="pn-ftable" border="0" cellpadding="2" cellspacing="1" width="100%">
+<tbody><tr>
+<td class="pn-flabel pn-flabel-h" width="15%"><span class="pn-frequired">*</span>开启会员功能:</td><td colspan="1" class="pn-fcontent" width="35%"><label><input value="true" checked="checked" name="memberOn" type="radio">是</label> <label><input value="false" name="memberOn" type="radio">否</label></td>
+<td class="pn-flabel pn-flabel-h" width="15%"><span class="pn-frequired">*</span>开启会员注册:</td><td colspan="1" class="pn-fcontent" width="35%"><label><input value="true" checked="checked" name="registerOn" type="radio">是</label> <label><input value="false" name="registerOn" type="radio">否</label></td>
+</tr>
+<tr><td class="pn-flabel pn-flabel-h" width="15%"><span class="pn-frequired">*</span>用户名最小长度:</td><td colspan="1" class="pn-fcontent" width="35%"><input value="3" name="usernameMinLen" class="required digits" type="text"></td><td class="pn-flabel pn-flabel-h" width="15%"><span class="pn-frequired">*</span>密码最小长度:</td><td colspan="1" class="pn-fcontent" width="35%"><input value="3" name="passwordMinLen" class="required digits" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="15%">用户名保留字:</td><td colspan="3" class="pn-fcontent" width="85%"><textarea cols="30" rows="5" name="usernameReserved" maxlength="255"></textarea>
+<div class="pn-fhelp">可以使用 * 作为通配符，如: *admin*</div></td></tr>
+<tr><td colspan="4" class="pn-fbutton">
+<input value="提交" type="submit"> &nbsp; <input value="重置" type="reset"></td>
+</tr></tbody></table>
+</form>
+</div>
+
+</body></html>

@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.assistant.dao.AcquisitionMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.assistant.pojo.Acquisition" >
+    <id column="acquisition_id" property="acquisitionId" jdbcType="INTEGER" />
+    <result column="site_id" property="siteId" jdbcType="INTEGER" />
+    <result column="channel_id" property="channelId" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="acq_name" property="acqName" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="curr_num" property="currNum" jdbcType="INTEGER" />
+    <result column="curr_item" property="currItem" jdbcType="INTEGER" />
+    <result column="total_item" property="totalItem" jdbcType="INTEGER" />
+    <result column="pause_time" property="pauseTime" jdbcType="INTEGER" />
+    <result column="page_encoding" property="pageEncoding" jdbcType="VARCHAR" />
+    <result column="dynamic_addr" property="dynamicAddr" jdbcType="VARCHAR" />
+    <result column="dynamic_start" property="dynamicStart" jdbcType="INTEGER" />
+    <result column="dynamic_end" property="dynamicEnd" jdbcType="INTEGER" />
+    <result column="linkset_start" property="linksetStart" jdbcType="VARCHAR" />
+    <result column="linkset_end" property="linksetEnd" jdbcType="VARCHAR" />
+    <result column="link_start" property="linkStart" jdbcType="VARCHAR" />
+    <result column="link_end" property="linkEnd" jdbcType="VARCHAR" />
+    <result column="title_start" property="titleStart" jdbcType="VARCHAR" />
+    <result column="title_end" property="titleEnd" jdbcType="VARCHAR" />
+    <result column="keywords_start" property="keywordsStart" jdbcType="VARCHAR" />
+    <result column="keywords_end" property="keywordsEnd" jdbcType="VARCHAR" />
+    <result column="description_start" property="descriptionStart" jdbcType="VARCHAR" />
+    <result column="description_end" property="descriptionEnd" jdbcType="VARCHAR" />
+    <result column="content_start" property="contentStart" jdbcType="VARCHAR" />
+    <result column="content_end" property="contentEnd" jdbcType="VARCHAR" />
+    <result column="pagination_start" property="paginationStart" jdbcType="VARCHAR" />
+    <result column="pagination_end" property="paginationEnd" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.doadway.dwcms.assistant.pojo.Acquisition" extends="BaseResultMap" >
+    <result column="plan_list" property="planList" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    acquisition_id, site_id, channel_id, type_id, user_id, acq_name, start_time, end_time, 
+    status, curr_num, curr_item, total_item, pause_time, page_encoding, dynamic_addr, 
+    dynamic_start, dynamic_end, linkset_start, linkset_end, link_start, link_end, title_start, 
+    title_end, keywords_start, keywords_end, description_start, description_end, content_start, 
+    content_end, pagination_start, pagination_end
+  </sql>
+  <sql id="Blob_Column_List" >
+    plan_list
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.doadway.dwcms.assistant.pojo.AcquisitionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dc_acquisition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.assistant.pojo.AcquisitionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_acquisition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dc_acquisition
+    where acquisition_id = #{acquisitionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_acquisition
+    where acquisition_id = #{acquisitionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.assistant.pojo.AcquisitionExample" >
+    delete from dc_acquisition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.assistant.pojo.Acquisition" >
+    insert into dc_acquisition (acquisition_id, site_id, channel_id, 
+      type_id, user_id, acq_name, 
+      start_time, end_time, status, 
+      curr_num, curr_item, total_item, 
+      pause_time, page_encoding, dynamic_addr, 
+      dynamic_start, dynamic_end, linkset_start, 
+      linkset_end, link_start, link_end, 
+      title_start, title_end, keywords_start, 
+      keywords_end, description_start, description_end, 
+      content_start, content_end, pagination_start, 
+      pagination_end, plan_list)
+    values (#{acquisitionId,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, #{channelId,jdbcType=INTEGER}, 
+      #{typeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{acqName,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{currNum,jdbcType=INTEGER}, #{currItem,jdbcType=INTEGER}, #{totalItem,jdbcType=INTEGER}, 
+      #{pauseTime,jdbcType=INTEGER}, #{pageEncoding,jdbcType=VARCHAR}, #{dynamicAddr,jdbcType=VARCHAR}, 
+      #{dynamicStart,jdbcType=INTEGER}, #{dynamicEnd,jdbcType=INTEGER}, #{linksetStart,jdbcType=VARCHAR}, 
+      #{linksetEnd,jdbcType=VARCHAR}, #{linkStart,jdbcType=VARCHAR}, #{linkEnd,jdbcType=VARCHAR}, 
+      #{titleStart,jdbcType=VARCHAR}, #{titleEnd,jdbcType=VARCHAR}, #{keywordsStart,jdbcType=VARCHAR}, 
+      #{keywordsEnd,jdbcType=VARCHAR}, #{descriptionStart,jdbcType=VARCHAR}, #{descriptionEnd,jdbcType=VARCHAR}, 
+      #{contentStart,jdbcType=VARCHAR}, #{contentEnd,jdbcType=VARCHAR}, #{paginationStart,jdbcType=VARCHAR}, 
+      #{paginationEnd,jdbcType=VARCHAR}, #{planList,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.assistant.pojo.Acquisition" >
+    insert into dc_acquisition
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="acquisitionId != null" >
+        acquisition_id,
+      </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="channelId != null" >
+        channel_id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="acqName != null" >
+        acq_name,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="currNum != null" >
+        curr_num,
+      </if>
+      <if test="currItem != null" >
+        curr_item,
+      </if>
+      <if test="totalItem != null" >
+        total_item,
+      </if>
+      <if test="pauseTime != null" >
+        pause_time,
+      </if>
+      <if test="pageEncoding != null" >
+        page_encoding,
+      </if>
+      <if test="dynamicAddr != null" >
+        dynamic_addr,
+      </if>
+      <if test="dynamicStart != null" >
+        dynamic_start,
+      </if>
+      <if test="dynamicEnd != null" >
+        dynamic_end,
+      </if>
+      <if test="linksetStart != null" >
+        linkset_start,
+      </if>
+      <if test="linksetEnd != null" >
+        linkset_end,
+      </if>
+      <if test="linkStart != null" >
+        link_start,
+      </if>
+      <if test="linkEnd != null" >
+        link_end,
+      </if>
+      <if test="titleStart != null" >
+        title_start,
+      </if>
+      <if test="titleEnd != null" >
+        title_end,
+      </if>
+      <if test="keywordsStart != null" >
+        keywords_start,
+      </if>
+      <if test="keywordsEnd != null" >
+        keywords_end,
+      </if>
+      <if test="descriptionStart != null" >
+        description_start,
+      </if>
+      <if test="descriptionEnd != null" >
+        description_end,
+      </if>
+      <if test="contentStart != null" >
+        content_start,
+      </if>
+      <if test="contentEnd != null" >
+        content_end,
+      </if>
+      <if test="paginationStart != null" >
+        pagination_start,
+      </if>
+      <if test="paginationEnd != null" >
+        pagination_end,
+      </if>
+      <if test="planList != null" >
+        plan_list,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="acquisitionId != null" >
+        #{acquisitionId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="acqName != null" >
+        #{acqName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="currNum != null" >
+        #{currNum,jdbcType=INTEGER},
+      </if>
+      <if test="currItem != null" >
+        #{currItem,jdbcType=INTEGER},
+      </if>
+      <if test="totalItem != null" >
+        #{totalItem,jdbcType=INTEGER},
+      </if>
+      <if test="pauseTime != null" >
+        #{pauseTime,jdbcType=INTEGER},
+      </if>
+      <if test="pageEncoding != null" >
+        #{pageEncoding,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicAddr != null" >
+        #{dynamicAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicStart != null" >
+        #{dynamicStart,jdbcType=INTEGER},
+      </if>
+      <if test="dynamicEnd != null" >
+        #{dynamicEnd,jdbcType=INTEGER},
+      </if>
+      <if test="linksetStart != null" >
+        #{linksetStart,jdbcType=VARCHAR},
+      </if>
+      <if test="linksetEnd != null" >
+        #{linksetEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="linkStart != null" >
+        #{linkStart,jdbcType=VARCHAR},
+      </if>
+      <if test="linkEnd != null" >
+        #{linkEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="titleStart != null" >
+        #{titleStart,jdbcType=VARCHAR},
+      </if>
+      <if test="titleEnd != null" >
+        #{titleEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="keywordsStart != null" >
+        #{keywordsStart,jdbcType=VARCHAR},
+      </if>
+      <if test="keywordsEnd != null" >
+        #{keywordsEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionStart != null" >
+        #{descriptionStart,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionEnd != null" >
+        #{descriptionEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="contentStart != null" >
+        #{contentStart,jdbcType=VARCHAR},
+      </if>
+      <if test="contentEnd != null" >
+        #{contentEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="paginationStart != null" >
+        #{paginationStart,jdbcType=VARCHAR},
+      </if>
+      <if test="paginationEnd != null" >
+        #{paginationEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="planList != null" >
+        #{planList,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.assistant.pojo.AcquisitionExample" resultType="java.lang.Integer" >
+    select count(*) from dc_acquisition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_acquisition
+    <set >
+      <if test="record.acquisitionId != null" >
+        acquisition_id = #{record.acquisitionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteId != null" >
+        site_id = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.channelId != null" >
+        channel_id = #{record.channelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.acqName != null" >
+        acq_name = #{record.acqName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.currNum != null" >
+        curr_num = #{record.currNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.currItem != null" >
+        curr_item = #{record.currItem,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalItem != null" >
+        total_item = #{record.totalItem,jdbcType=INTEGER},
+      </if>
+      <if test="record.pauseTime != null" >
+        pause_time = #{record.pauseTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.pageEncoding != null" >
+        page_encoding = #{record.pageEncoding,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dynamicAddr != null" >
+        dynamic_addr = #{record.dynamicAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dynamicStart != null" >
+        dynamic_start = #{record.dynamicStart,jdbcType=INTEGER},
+      </if>
+      <if test="record.dynamicEnd != null" >
+        dynamic_end = #{record.dynamicEnd,jdbcType=INTEGER},
+      </if>
+      <if test="record.linksetStart != null" >
+        linkset_start = #{record.linksetStart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linksetEnd != null" >
+        linkset_end = #{record.linksetEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkStart != null" >
+        link_start = #{record.linkStart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkEnd != null" >
+        link_end = #{record.linkEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleStart != null" >
+        title_start = #{record.titleStart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleEnd != null" >
+        title_end = #{record.titleEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keywordsStart != null" >
+        keywords_start = #{record.keywordsStart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keywordsEnd != null" >
+        keywords_end = #{record.keywordsEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descriptionStart != null" >
+        description_start = #{record.descriptionStart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descriptionEnd != null" >
+        description_end = #{record.descriptionEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentStart != null" >
+        content_start = #{record.contentStart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentEnd != null" >
+        content_end = #{record.contentEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paginationStart != null" >
+        pagination_start = #{record.paginationStart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paginationEnd != null" >
+        pagination_end = #{record.paginationEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planList != null" >
+        plan_list = #{record.planList,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update dc_acquisition
+    set acquisition_id = #{record.acquisitionId,jdbcType=INTEGER},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      channel_id = #{record.channelId,jdbcType=INTEGER},
+      type_id = #{record.typeId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      acq_name = #{record.acqName,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      curr_num = #{record.currNum,jdbcType=INTEGER},
+      curr_item = #{record.currItem,jdbcType=INTEGER},
+      total_item = #{record.totalItem,jdbcType=INTEGER},
+      pause_time = #{record.pauseTime,jdbcType=INTEGER},
+      page_encoding = #{record.pageEncoding,jdbcType=VARCHAR},
+      dynamic_addr = #{record.dynamicAddr,jdbcType=VARCHAR},
+      dynamic_start = #{record.dynamicStart,jdbcType=INTEGER},
+      dynamic_end = #{record.dynamicEnd,jdbcType=INTEGER},
+      linkset_start = #{record.linksetStart,jdbcType=VARCHAR},
+      linkset_end = #{record.linksetEnd,jdbcType=VARCHAR},
+      link_start = #{record.linkStart,jdbcType=VARCHAR},
+      link_end = #{record.linkEnd,jdbcType=VARCHAR},
+      title_start = #{record.titleStart,jdbcType=VARCHAR},
+      title_end = #{record.titleEnd,jdbcType=VARCHAR},
+      keywords_start = #{record.keywordsStart,jdbcType=VARCHAR},
+      keywords_end = #{record.keywordsEnd,jdbcType=VARCHAR},
+      description_start = #{record.descriptionStart,jdbcType=VARCHAR},
+      description_end = #{record.descriptionEnd,jdbcType=VARCHAR},
+      content_start = #{record.contentStart,jdbcType=VARCHAR},
+      content_end = #{record.contentEnd,jdbcType=VARCHAR},
+      pagination_start = #{record.paginationStart,jdbcType=VARCHAR},
+      pagination_end = #{record.paginationEnd,jdbcType=VARCHAR},
+      plan_list = #{record.planList,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_acquisition
+    set acquisition_id = #{record.acquisitionId,jdbcType=INTEGER},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      channel_id = #{record.channelId,jdbcType=INTEGER},
+      type_id = #{record.typeId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      acq_name = #{record.acqName,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      curr_num = #{record.currNum,jdbcType=INTEGER},
+      curr_item = #{record.currItem,jdbcType=INTEGER},
+      total_item = #{record.totalItem,jdbcType=INTEGER},
+      pause_time = #{record.pauseTime,jdbcType=INTEGER},
+      page_encoding = #{record.pageEncoding,jdbcType=VARCHAR},
+      dynamic_addr = #{record.dynamicAddr,jdbcType=VARCHAR},
+      dynamic_start = #{record.dynamicStart,jdbcType=INTEGER},
+      dynamic_end = #{record.dynamicEnd,jdbcType=INTEGER},
+      linkset_start = #{record.linksetStart,jdbcType=VARCHAR},
+      linkset_end = #{record.linksetEnd,jdbcType=VARCHAR},
+      link_start = #{record.linkStart,jdbcType=VARCHAR},
+      link_end = #{record.linkEnd,jdbcType=VARCHAR},
+      title_start = #{record.titleStart,jdbcType=VARCHAR},
+      title_end = #{record.titleEnd,jdbcType=VARCHAR},
+      keywords_start = #{record.keywordsStart,jdbcType=VARCHAR},
+      keywords_end = #{record.keywordsEnd,jdbcType=VARCHAR},
+      description_start = #{record.descriptionStart,jdbcType=VARCHAR},
+      description_end = #{record.descriptionEnd,jdbcType=VARCHAR},
+      content_start = #{record.contentStart,jdbcType=VARCHAR},
+      content_end = #{record.contentEnd,jdbcType=VARCHAR},
+      pagination_start = #{record.paginationStart,jdbcType=VARCHAR},
+      pagination_end = #{record.paginationEnd,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.assistant.pojo.Acquisition" >
+    update dc_acquisition
+    <set >
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="channelId != null" >
+        channel_id = #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="acqName != null" >
+        acq_name = #{acqName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="currNum != null" >
+        curr_num = #{currNum,jdbcType=INTEGER},
+      </if>
+      <if test="currItem != null" >
+        curr_item = #{currItem,jdbcType=INTEGER},
+      </if>
+      <if test="totalItem != null" >
+        total_item = #{totalItem,jdbcType=INTEGER},
+      </if>
+      <if test="pauseTime != null" >
+        pause_time = #{pauseTime,jdbcType=INTEGER},
+      </if>
+      <if test="pageEncoding != null" >
+        page_encoding = #{pageEncoding,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicAddr != null" >
+        dynamic_addr = #{dynamicAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicStart != null" >
+        dynamic_start = #{dynamicStart,jdbcType=INTEGER},
+      </if>
+      <if test="dynamicEnd != null" >
+        dynamic_end = #{dynamicEnd,jdbcType=INTEGER},
+      </if>
+      <if test="linksetStart != null" >
+        linkset_start = #{linksetStart,jdbcType=VARCHAR},
+      </if>
+      <if test="linksetEnd != null" >
+        linkset_end = #{linksetEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="linkStart != null" >
+        link_start = #{linkStart,jdbcType=VARCHAR},
+      </if>
+      <if test="linkEnd != null" >
+        link_end = #{linkEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="titleStart != null" >
+        title_start = #{titleStart,jdbcType=VARCHAR},
+      </if>
+      <if test="titleEnd != null" >
+        title_end = #{titleEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="keywordsStart != null" >
+        keywords_start = #{keywordsStart,jdbcType=VARCHAR},
+      </if>
+      <if test="keywordsEnd != null" >
+        keywords_end = #{keywordsEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionStart != null" >
+        description_start = #{descriptionStart,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionEnd != null" >
+        description_end = #{descriptionEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="contentStart != null" >
+        content_start = #{contentStart,jdbcType=VARCHAR},
+      </if>
+      <if test="contentEnd != null" >
+        content_end = #{contentEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="paginationStart != null" >
+        pagination_start = #{paginationStart,jdbcType=VARCHAR},
+      </if>
+      <if test="paginationEnd != null" >
+        pagination_end = #{paginationEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="planList != null" >
+        plan_list = #{planList,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where acquisition_id = #{acquisitionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.doadway.dwcms.assistant.pojo.Acquisition" >
+    update dc_acquisition
+    set site_id = #{siteId,jdbcType=INTEGER},
+      channel_id = #{channelId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      acq_name = #{acqName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      curr_num = #{currNum,jdbcType=INTEGER},
+      curr_item = #{currItem,jdbcType=INTEGER},
+      total_item = #{totalItem,jdbcType=INTEGER},
+      pause_time = #{pauseTime,jdbcType=INTEGER},
+      page_encoding = #{pageEncoding,jdbcType=VARCHAR},
+      dynamic_addr = #{dynamicAddr,jdbcType=VARCHAR},
+      dynamic_start = #{dynamicStart,jdbcType=INTEGER},
+      dynamic_end = #{dynamicEnd,jdbcType=INTEGER},
+      linkset_start = #{linksetStart,jdbcType=VARCHAR},
+      linkset_end = #{linksetEnd,jdbcType=VARCHAR},
+      link_start = #{linkStart,jdbcType=VARCHAR},
+      link_end = #{linkEnd,jdbcType=VARCHAR},
+      title_start = #{titleStart,jdbcType=VARCHAR},
+      title_end = #{titleEnd,jdbcType=VARCHAR},
+      keywords_start = #{keywordsStart,jdbcType=VARCHAR},
+      keywords_end = #{keywordsEnd,jdbcType=VARCHAR},
+      description_start = #{descriptionStart,jdbcType=VARCHAR},
+      description_end = #{descriptionEnd,jdbcType=VARCHAR},
+      content_start = #{contentStart,jdbcType=VARCHAR},
+      content_end = #{contentEnd,jdbcType=VARCHAR},
+      pagination_start = #{paginationStart,jdbcType=VARCHAR},
+      pagination_end = #{paginationEnd,jdbcType=VARCHAR},
+      plan_list = #{planList,jdbcType=LONGVARCHAR}
+    where acquisition_id = #{acquisitionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.assistant.pojo.Acquisition" >
+    update dc_acquisition
+    set site_id = #{siteId,jdbcType=INTEGER},
+      channel_id = #{channelId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      acq_name = #{acqName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      curr_num = #{currNum,jdbcType=INTEGER},
+      curr_item = #{currItem,jdbcType=INTEGER},
+      total_item = #{totalItem,jdbcType=INTEGER},
+      pause_time = #{pauseTime,jdbcType=INTEGER},
+      page_encoding = #{pageEncoding,jdbcType=VARCHAR},
+      dynamic_addr = #{dynamicAddr,jdbcType=VARCHAR},
+      dynamic_start = #{dynamicStart,jdbcType=INTEGER},
+      dynamic_end = #{dynamicEnd,jdbcType=INTEGER},
+      linkset_start = #{linksetStart,jdbcType=VARCHAR},
+      linkset_end = #{linksetEnd,jdbcType=VARCHAR},
+      link_start = #{linkStart,jdbcType=VARCHAR},
+      link_end = #{linkEnd,jdbcType=VARCHAR},
+      title_start = #{titleStart,jdbcType=VARCHAR},
+      title_end = #{titleEnd,jdbcType=VARCHAR},
+      keywords_start = #{keywordsStart,jdbcType=VARCHAR},
+      keywords_end = #{keywordsEnd,jdbcType=VARCHAR},
+      description_start = #{descriptionStart,jdbcType=VARCHAR},
+      description_end = #{descriptionEnd,jdbcType=VARCHAR},
+      content_start = #{contentStart,jdbcType=VARCHAR},
+      content_end = #{contentEnd,jdbcType=VARCHAR},
+      pagination_start = #{paginationStart,jdbcType=VARCHAR},
+      pagination_end = #{paginationEnd,jdbcType=VARCHAR},
+      plan_list = #{planList,jdbcType=VARCHAR} 
+    where acquisition_id = #{acquisitionId,jdbcType=INTEGER}
+  </update>
+</mapper>

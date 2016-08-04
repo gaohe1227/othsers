@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.user.dao.DcUserMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.user.pojo.DcUser" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="register_ip" property="registerIp" jdbcType="VARCHAR" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
+    <result column="login_count" property="loginCount" jdbcType="INTEGER" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="upload_total" property="uploadTotal" jdbcType="BIGINT" />
+    <result column="upload_size" property="uploadSize" jdbcType="INTEGER" />
+    <result column="upload_date" property="uploadDate" jdbcType="DATE" />
+    <result column="is_admin" property="isAdmin" jdbcType="BIT" />
+    <result column="is_viewonly_admin" property="isViewonlyAdmin" jdbcType="BIT" />
+    <result column="is_self_admin" property="isSelfAdmin" jdbcType="BIT" />
+    <result column="is_disabled" property="isDisabled" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, group_id, username, email, register_time, register_ip, last_login_time, 
+    last_login_ip, login_count, rank, upload_total, upload_size, upload_date, is_admin, 
+    is_viewonly_admin, is_self_admin, is_disabled
+  </sql>
+  
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select 
+ 	Max(user_id)
+    from dc_user
+  </select>    
+  
+  <select id="selectByPage" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from dc_user
+ 	where 1=1 
+ 	<if test="params.isAdmin!=null">
+	 	and is_admin=#{params.isAdmin}
+ 	</if> 
+ </select>  
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.user.pojo.DcUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.core.user.pojo.DcUserExample" >
+    delete from dc_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.user.pojo.DcUser" >
+    insert into dc_user (user_id, group_id, username, 
+      email, register_time, register_ip, 
+      last_login_time, last_login_ip, login_count, 
+      rank, upload_total, upload_size, 
+      upload_date, is_admin, is_viewonly_admin, 
+      is_self_admin, is_disabled)
+    values (#{userId,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, #{registerIp,jdbcType=VARCHAR}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginIp,jdbcType=VARCHAR}, #{loginCount,jdbcType=INTEGER}, 
+      #{rank,jdbcType=INTEGER}, #{uploadTotal,jdbcType=BIGINT}, #{uploadSize,jdbcType=INTEGER}, 
+      #{uploadDate,jdbcType=DATE}, #{isAdmin,jdbcType=BIT}, #{isViewonlyAdmin,jdbcType=BIT}, 
+      #{isSelfAdmin,jdbcType=BIT}, #{isDisabled,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.user.pojo.DcUser" >
+    insert into dc_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="registerTime != null" >
+        register_time,
+      </if>
+      <if test="registerIp != null" >
+        register_ip,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="lastLoginIp != null" >
+        last_login_ip,
+      </if>
+      <if test="loginCount != null" >
+        login_count,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="uploadTotal != null" >
+        upload_total,
+      </if>
+      <if test="uploadSize != null" >
+        upload_size,
+      </if>
+      <if test="uploadDate != null" >
+        upload_date,
+      </if>
+      <if test="isAdmin != null" >
+        is_admin,
+      </if>
+      <if test="isViewonlyAdmin != null" >
+        is_viewonly_admin,
+      </if>
+      <if test="isSelfAdmin != null" >
+        is_self_admin,
+      </if>
+      <if test="isDisabled != null" >
+        is_disabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerIp != null" >
+        #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null" >
+        #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginCount != null" >
+        #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="uploadTotal != null" >
+        #{uploadTotal,jdbcType=BIGINT},
+      </if>
+      <if test="uploadSize != null" >
+        #{uploadSize,jdbcType=INTEGER},
+      </if>
+      <if test="uploadDate != null" >
+        #{uploadDate,jdbcType=DATE},
+      </if>
+      <if test="isAdmin != null" >
+        #{isAdmin,jdbcType=BIT},
+      </if>
+      <if test="isViewonlyAdmin != null" >
+        #{isViewonlyAdmin,jdbcType=BIT},
+      </if>
+      <if test="isSelfAdmin != null" >
+        #{isSelfAdmin,jdbcType=BIT},
+      </if>
+      <if test="isDisabled != null" >
+        #{isDisabled,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.core.user.pojo.DcUserExample" resultType="java.lang.Integer" >
+    select count(*) from dc_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_user
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupId != null" >
+        group_id = #{record.groupId,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerTime != null" >
+        register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.registerIp != null" >
+        register_ip = #{record.registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastLoginTime != null" >
+        last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastLoginIp != null" >
+        last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginCount != null" >
+        login_count = #{record.loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.rank != null" >
+        rank = #{record.rank,jdbcType=INTEGER},
+      </if>
+      <if test="record.uploadTotal != null" >
+        upload_total = #{record.uploadTotal,jdbcType=BIGINT},
+      </if>
+      <if test="record.uploadSize != null" >
+        upload_size = #{record.uploadSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.uploadDate != null" >
+        upload_date = #{record.uploadDate,jdbcType=DATE},
+      </if>
+      <if test="record.isAdmin != null" >
+        is_admin = #{record.isAdmin,jdbcType=BIT},
+      </if>
+      <if test="record.isViewonlyAdmin != null" >
+        is_viewonly_admin = #{record.isViewonlyAdmin,jdbcType=BIT},
+      </if>
+      <if test="record.isSelfAdmin != null" >
+        is_self_admin = #{record.isSelfAdmin,jdbcType=BIT},
+      </if>
+      <if test="record.isDisabled != null" >
+        is_disabled = #{record.isDisabled,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_user
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      group_id = #{record.groupId,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+      register_ip = #{record.registerIp,jdbcType=VARCHAR},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
+      login_count = #{record.loginCount,jdbcType=INTEGER},
+      rank = #{record.rank,jdbcType=INTEGER},
+      upload_total = #{record.uploadTotal,jdbcType=BIGINT},
+      upload_size = #{record.uploadSize,jdbcType=INTEGER},
+      upload_date = #{record.uploadDate,jdbcType=DATE},
+      is_admin = #{record.isAdmin,jdbcType=BIT},
+      is_viewonly_admin = #{record.isViewonlyAdmin,jdbcType=BIT},
+      is_self_admin = #{record.isSelfAdmin,jdbcType=BIT},
+      is_disabled = #{record.isDisabled,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.user.pojo.DcUser" >
+    update dc_user
+    <set >
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerIp != null" >
+        register_ip = #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null" >
+        last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginCount != null" >
+        login_count = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="uploadTotal != null" >
+        upload_total = #{uploadTotal,jdbcType=BIGINT},
+      </if>
+      <if test="uploadSize != null" >
+        upload_size = #{uploadSize,jdbcType=INTEGER},
+      </if>
+      <if test="uploadDate != null" >
+        upload_date = #{uploadDate,jdbcType=DATE},
+      </if>
+      <if test="isAdmin != null" >
+        is_admin = #{isAdmin,jdbcType=BIT},
+      </if>
+      <if test="isViewonlyAdmin != null" >
+        is_viewonly_admin = #{isViewonlyAdmin,jdbcType=BIT},
+      </if>
+      <if test="isSelfAdmin != null" >
+        is_self_admin = #{isSelfAdmin,jdbcType=BIT},
+      </if>
+      <if test="isDisabled != null" >
+        is_disabled = #{isDisabled,jdbcType=BIT},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.user.pojo.DcUser" >
+    update dc_user
+    set group_id = #{groupId,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      register_ip = #{registerIp,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      login_count = #{loginCount,jdbcType=INTEGER},
+      rank = #{rank,jdbcType=INTEGER},
+      upload_total = #{uploadTotal,jdbcType=BIGINT},
+      upload_size = #{uploadSize,jdbcType=INTEGER},
+      upload_date = #{uploadDate,jdbcType=DATE},
+      is_admin = #{isAdmin,jdbcType=BIT},
+      is_viewonly_admin = #{isViewonlyAdmin,jdbcType=BIT},
+      is_self_admin = #{isSelfAdmin,jdbcType=BIT},
+      is_disabled = #{isDisabled,jdbcType=BIT}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

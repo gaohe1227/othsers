@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+
+});
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置:  全局设置 - 系统设置 - 修改</div>
+<form class="ropt">
+	<input value="系统设置" onclick="this.form.action='config_systeam.html';" type="submit">
+	<input value="登录设置" onclick="this.form.action='config_login.html';" type="submit">
+	<input value="会员设置" onclick="this.form.action='config_member.html';" type="submit">
+	<!-- <input value="水印设置" onclick="this.form.action='v_mark_edit.do';" type="submit"> -->
+</form>	<div class="clear"></div>
+</div>
+<form method="post" action="o_system_update.do" id="jvForm">
+<table class="pn-ftable" border="0" cellpadding="2" cellspacing="1" width="100%">
+<tbody><tr>
+<td class="pn-flabel pn-flabel-h" width="10%">部署路径:</td><td colspan="1" class="pn-fcontent" width="40%"><input maxlength="20" value="/jcms" name="contextPath" type="text"> <span class="pn-fhelp">部署在根目录请留空</span></td><td class="pn-flabel pn-flabel-h" width="10%">端口号:</td><td colspan="1" class="pn-fcontent" width="40%"><input value="8080" name="port" class="digits" type="text"> <span class="pn-fhelp">默认留空</span></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="10%"><span class="pn-frequired">*</span>默认图片:</td><td colspan="3" class="pn-fcontent" width="90%"><input maxlength="100" value="/r/cms/www/no_picture.gif" name="defImg" class="required" style="width: 300px;" type="text"> <span class="pn-fhelp">图片不存在时显示</span></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="10%"><span class="pn-frequired">*</span>数据库附件:</td><td colspan="1" class="pn-fcontent" width="40%"><label><input value="true" name="uploadToDb" type="radio">是</label> <label><input value="false" checked="checked" name="uploadToDb" type="radio">否</label></td>
+<td class="pn-flabel pn-flabel-h" width="10%"><span class="pn-frequired">*</span>附件地址:</td><td colspan="1" class="pn-fcontent" width="40%"><input maxlength="50" value="/dbfile.svl?n=" name="dbFileUri" class="required" type="text"> <span class="pn-fhelp">一般无需改动</span></td></tr>
+<tr><td colspan="4" class="pn-fbutton">
+<input name="id" value="1" type="hidden">
+<input value="提交" type="submit"> &nbsp; <input value="重置" type="reset"></td>
+</tr></tbody></table>
+</form>
+</div>
+
+</body></html>

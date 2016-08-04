@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.config.dao.SiteModelMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.config.pojo.SiteModel" >
+    <id column="model_id" property="modelId" jdbcType="INTEGER" />
+    <result column="field" property="field" jdbcType="VARCHAR" />
+    <result column="model_label" property="modelLabel" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="upload_path" property="uploadPath" jdbcType="VARCHAR" />
+    <result column="text_size" property="textSize" jdbcType="VARCHAR" />
+    <result column="area_rows" property="areaRows" jdbcType="VARCHAR" />
+    <result column="area_cols" property="areaCols" jdbcType="VARCHAR" />
+    <result column="help" property="help" jdbcType="VARCHAR" />
+    <result column="help_position" property="helpPosition" jdbcType="VARCHAR" />
+    <result column="data_type" property="dataType" jdbcType="INTEGER" />
+    <result column="is_single" property="isSingle" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    model_id, field, model_label, priority, upload_path, text_size, area_rows, area_cols, 
+    help, help_position, data_type, is_single
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.config.pojo.SiteModelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_site_model
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_site_model
+    where model_id = #{modelId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_site_model
+    where model_id = #{modelId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.core.config.pojo.SiteModelExample" >
+    delete from dc_site_model
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.config.pojo.SiteModel" >
+    insert into dc_site_model (model_id, field, model_label, 
+      priority, upload_path, text_size, 
+      area_rows, area_cols, help, 
+      help_position, data_type, is_single
+      )
+    values (#{modelId,jdbcType=INTEGER}, #{field,jdbcType=VARCHAR}, #{modelLabel,jdbcType=VARCHAR}, 
+      #{priority,jdbcType=INTEGER}, #{uploadPath,jdbcType=VARCHAR}, #{textSize,jdbcType=VARCHAR}, 
+      #{areaRows,jdbcType=VARCHAR}, #{areaCols,jdbcType=VARCHAR}, #{help,jdbcType=VARCHAR}, 
+      #{helpPosition,jdbcType=VARCHAR}, #{dataType,jdbcType=INTEGER}, #{isSingle,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.config.pojo.SiteModel" >
+    insert into dc_site_model
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="modelId != null" >
+        model_id,
+      </if>
+      <if test="field != null" >
+        field,
+      </if>
+      <if test="modelLabel != null" >
+        model_label,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="uploadPath != null" >
+        upload_path,
+      </if>
+      <if test="textSize != null" >
+        text_size,
+      </if>
+      <if test="areaRows != null" >
+        area_rows,
+      </if>
+      <if test="areaCols != null" >
+        area_cols,
+      </if>
+      <if test="help != null" >
+        help,
+      </if>
+      <if test="helpPosition != null" >
+        help_position,
+      </if>
+      <if test="dataType != null" >
+        data_type,
+      </if>
+      <if test="isSingle != null" >
+        is_single,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="modelId != null" >
+        #{modelId,jdbcType=INTEGER},
+      </if>
+      <if test="field != null" >
+        #{field,jdbcType=VARCHAR},
+      </if>
+      <if test="modelLabel != null" >
+        #{modelLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="uploadPath != null" >
+        #{uploadPath,jdbcType=VARCHAR},
+      </if>
+      <if test="textSize != null" >
+        #{textSize,jdbcType=VARCHAR},
+      </if>
+      <if test="areaRows != null" >
+        #{areaRows,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCols != null" >
+        #{areaCols,jdbcType=VARCHAR},
+      </if>
+      <if test="help != null" >
+        #{help,jdbcType=VARCHAR},
+      </if>
+      <if test="helpPosition != null" >
+        #{helpPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null" >
+        #{dataType,jdbcType=INTEGER},
+      </if>
+      <if test="isSingle != null" >
+        #{isSingle,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.core.config.pojo.SiteModelExample" resultType="java.lang.Integer" >
+    select count(*) from dc_site_model
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_site_model
+    <set >
+      <if test="record.modelId != null" >
+        model_id = #{record.modelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.field != null" >
+        field = #{record.field,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelLabel != null" >
+        model_label = #{record.modelLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priority != null" >
+        priority = #{record.priority,jdbcType=INTEGER},
+      </if>
+      <if test="record.uploadPath != null" >
+        upload_path = #{record.uploadPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.textSize != null" >
+        text_size = #{record.textSize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaRows != null" >
+        area_rows = #{record.areaRows,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaCols != null" >
+        area_cols = #{record.areaCols,jdbcType=VARCHAR},
+      </if>
+      <if test="record.help != null" >
+        help = #{record.help,jdbcType=VARCHAR},
+      </if>
+      <if test="record.helpPosition != null" >
+        help_position = #{record.helpPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataType != null" >
+        data_type = #{record.dataType,jdbcType=INTEGER},
+      </if>
+      <if test="record.isSingle != null" >
+        is_single = #{record.isSingle,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_site_model
+    set model_id = #{record.modelId,jdbcType=INTEGER},
+      field = #{record.field,jdbcType=VARCHAR},
+      model_label = #{record.modelLabel,jdbcType=VARCHAR},
+      priority = #{record.priority,jdbcType=INTEGER},
+      upload_path = #{record.uploadPath,jdbcType=VARCHAR},
+      text_size = #{record.textSize,jdbcType=VARCHAR},
+      area_rows = #{record.areaRows,jdbcType=VARCHAR},
+      area_cols = #{record.areaCols,jdbcType=VARCHAR},
+      help = #{record.help,jdbcType=VARCHAR},
+      help_position = #{record.helpPosition,jdbcType=VARCHAR},
+      data_type = #{record.dataType,jdbcType=INTEGER},
+      is_single = #{record.isSingle,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.config.pojo.SiteModel" >
+    update dc_site_model
+    <set >
+      <if test="field != null" >
+        field = #{field,jdbcType=VARCHAR},
+      </if>
+      <if test="modelLabel != null" >
+        model_label = #{modelLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="uploadPath != null" >
+        upload_path = #{uploadPath,jdbcType=VARCHAR},
+      </if>
+      <if test="textSize != null" >
+        text_size = #{textSize,jdbcType=VARCHAR},
+      </if>
+      <if test="areaRows != null" >
+        area_rows = #{areaRows,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCols != null" >
+        area_cols = #{areaCols,jdbcType=VARCHAR},
+      </if>
+      <if test="help != null" >
+        help = #{help,jdbcType=VARCHAR},
+      </if>
+      <if test="helpPosition != null" >
+        help_position = #{helpPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null" >
+        data_type = #{dataType,jdbcType=INTEGER},
+      </if>
+      <if test="isSingle != null" >
+        is_single = #{isSingle,jdbcType=BIT},
+      </if>
+    </set>
+    where model_id = #{modelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.config.pojo.SiteModel" >
+    update dc_site_model
+    set field = #{field,jdbcType=VARCHAR},
+      model_label = #{modelLabel,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
+      upload_path = #{uploadPath,jdbcType=VARCHAR},
+      text_size = #{textSize,jdbcType=VARCHAR},
+      area_rows = #{areaRows,jdbcType=VARCHAR},
+      area_cols = #{areaCols,jdbcType=VARCHAR},
+      help = #{help,jdbcType=VARCHAR},
+      help_position = #{helpPosition,jdbcType=VARCHAR},
+      data_type = #{dataType,jdbcType=INTEGER},
+      is_single = #{isSingle,jdbcType=BIT}
+    where model_id = #{modelId,jdbcType=INTEGER}
+  </update>
+</mapper>

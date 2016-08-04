@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$("#rejectDialog").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 380,
+		height: 200,
+		position: ["center",50],
+		buttons: {
+			"OK": function() {
+				rejectSubmit();
+			}
+		}
+	});
+});
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("请选择您要操作的数据");
+		return;
+	}
+	if(!confirm("您确定删除吗？")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+function optCheck() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("请选择您要操作的数据");
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_check.do";
+	f.submit();
+}
+function optReject() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("请选择您要操作的数据");
+		return;
+	}
+	$("#rejectDialog").dialog("open");
+}
+function rejectSubmit() {
+	$("input[name=rejectOpinion]").val($("#rejectOpinion").val());
+	$("input[name=rejectStep]").val($("#rejectStep").val());
+	$("#rejectDialog").dialog("close");
+	var f = getTableForm();
+	f.action="o_reject.do";
+	f.submit();
+}
+function chgStatus() {
+	var queryStatus = $("input[name=queryStatus]:checked").val();
+	location.href="v_list.do?cid=&queryStatus=" + queryStatus;
+}
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="content_list_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置: 内容管理 - 列表</div>
+	<form class="ropt">
+		<input value="添加" onclick="this.form.action='v_add.do';" type="submit">
+		<input name="cid" value="" type="hidden">
+	</form>
+	<div class="clear"></div>
+</div>
+<form action="v_list.do" method="post" style="padding-top:5px;">
+<div>
+标题: <input name="queryTitle" style="width: 100px;" type="text">
+发布者: <input name="queryInputUsername" style="width: 70px;" type="text">
+<label><input name="queryTopLevel" value="true" type="checkbox">固顶</label>
+<label><input name="queryRecommend" value="true" type="checkbox">推荐</label>
+<select name="queryTypeId"><option value="" selected="selected">--所有类型--</option><option value="1">普通</option><option value="2">图文</option><option value="3">焦点</option><option value="4">头条</option></select>
+<select name="queryOrderBy"><option value="0" selected="selected">ID降序</option><option value="1">ID升序</option><option value="2">发布时间降</option><option value="3">发布时间升</option><option value="4">固顶降,发布降</option><option value="5">固顶降,发布升</option><option value="6">日点击降</option><option value="7">周点击降</option><option value="8">月点击降</option><option value="9">总点击降</option><option value="10">日评论降</option><option value="11">周评论降</option><option value="12">月评论降</option><option value="13">总评论降</option><option value="14">日下载降</option><option value="15">周下载降</option><option value="16">月下载降</option><option value="17">总下载降</option><option value="18">日顶降</option><option value="19">周顶降</option><option value="20">月顶降</option><option value="21">总顶降</option></select>
+<input name="cid" value="" type="hidden">
+<input value="查询" type="submit">
+</div>
+<div style="padding-top:5px">
+<label><input name="queryStatus" value="all" onclick="chgStatus();" checked="checked" type="radio">所有内容</label>
+<label><input name="queryStatus" value="draft" onclick="chgStatus();" type="radio">草稿</label>
+<label><input name="queryStatus" value="prepared" onclick="chgStatus();" type="radio">待审</label>
+<label><input name="queryStatus" value="passed" onclick="chgStatus();" type="radio">已审</label>
+<label><input name="queryStatus" value="checked" onclick="chgStatus();" type="radio">终审</label>
+<label><input name="queryStatus" value="rejected" onclick="chgStatus();" type="radio">退回</label>
+</div>
+</form>
+<form id="tableForm" method="post">
+<input name="pageNo" value="" type="hidden">
+<input name="cid" value="" type="hidden">
+<input name="queryOrderBy" value="0" type="hidden"><input name="queryTopLevel" value="false" type="hidden"><input name="queryRecommend" value="false" type="hidden"><input name="rejectStep" type="hidden">
+<input name="rejectOpinion" type="hidden">
+
+<table class="pn-ltable" style="" border="0" cellpadding="0" cellspacing="1" width="100%">
+<thead class="pn-lthead"><tr>
+	<th width="20"><input onclick='Pn.checkbox("ids",this.checked)' type="checkbox"></th>
+	<th>ID</th>
+	<th>标题</th>
+	<th>类型</th>
+	<th>发布者</th>
+	<th>点击</th>
+	<th>发布时间</th>
+	<th>状态</th>
+	<th>操作选项</th></tr></thead>
+<tbody class="pn-ltbody"><tr>
+	<td><input name="ids" value="189" type="checkbox"></td>
+	<td>189</td>
+	<td>		
+		
+		<strong>[国内新闻]</strong>
+		<a href="http://localhost:8080/jcms/gnxw/189.jhtml" target="_blank">大连遭遇强降雪和寒潮天气</a>
+</td>
+	<td align="center">焦点</td>
+	<td align="center">admin</td>
+	<td align="right">1</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=189&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=189&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=189&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="188" type="checkbox"></td>
+	<td>188</td>
+	<td>		
+		
+		<strong>[社会热点]</strong>
+		<a href="http://localhost:8080/jcms/shehui/188.jhtml" target="_blank">世界各地迎接2011新年</a>
+</td>
+	<td align="center">焦点</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=188&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=188&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=188&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="187" type="checkbox"></td>
+	<td>187</td>
+	<td>		
+		
+		<strong>[图片新闻]</strong>
+		<a href="http://localhost:8080/jcms/photo/187.jhtml" target="_blank">农场上的狂欢：欧洲最大的音乐节</a>
+</td>
+	<td align="center">图文</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=187&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=187&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=187&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="186" type="checkbox"></td>
+	<td>186</td>
+	<td>		
+		
+		<strong>[图片新闻]</strong>
+		<a href="http://localhost:8080/jcms/photo/186.jhtml" target="_blank">谎言：日本科研捕鲸</a>
+</td>
+	<td align="center">图文</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=186&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=186&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=186&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="185" type="checkbox"></td>
+	<td>185</td>
+	<td>		
+		
+		<strong>[图片新闻]</strong>
+		<a href="http://localhost:8080/jcms/photo/185.jhtml" target="_blank">首位机器宇航员将服役</a>
+</td>
+	<td align="center">图文</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=185&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=185&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=185&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="184" type="checkbox"></td>
+	<td>184</td>
+	<td>		
+		
+		<strong>[图片新闻]</strong>
+		<a href="http://localhost:8080/jcms/photo/184.jhtml" target="_blank">印尼海底发现新物种</a>
+</td>
+	<td align="center">图文</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=184&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=184&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=184&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="183" type="checkbox"></td>
+	<td>183</td>
+	<td>		
+		
+		<strong>[图片新闻]</strong>
+		<a href="http://localhost:8080/jcms/photo/183.jhtml" target="_blank">艺术家创石头平衡术</a>
+</td>
+	<td align="center">图文</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=183&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=183&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=183&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="182" type="checkbox"></td>
+	<td>182</td>
+	<td>		
+		
+		<strong>[图片新闻]</strong>
+		<a href="http://localhost:8080/jcms/photo/182.jhtml" target="_blank">美国迎来秋天狩猎季</a>
+</td>
+	<td align="center">图文</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=182&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=182&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=182&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="181" type="checkbox"></td>
+	<td>181</td>
+	<td>		
+		
+		<strong>[图片新闻]</strong>
+		<a href="http://localhost:8080/jcms/photo/181.jhtml" target="_blank">微距下的昆虫之美</a>
+</td>
+	<td align="center">图文</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=181&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=181&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=181&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="180" type="checkbox"></td>
+	<td>180</td>
+	<td>		
+		
+		<strong>[图片新闻]</strong>
+		<a href="http://localhost:8080/jcms/photo/180.jhtml" target="_blank">镜头下的梦幻冰川洞穴</a>
+</td>
+	<td align="center">图文</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=180&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=180&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=180&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="179" type="checkbox"></td>
+	<td>179</td>
+	<td>		
+		
+		<strong>[图片新闻]</strong>
+		<a href="http://localhost:8080/jcms/photo/179.jhtml" target="_blank">微观摄影赛获奖作品选</a>
+</td>
+	<td align="center">图文</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=179&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=179&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=179&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="178" type="checkbox"></td>
+	<td>178</td>
+	<td>		
+		
+		<strong>[图片新闻]</strong>
+		<a href="http://localhost:8080/jcms/photo/178.jhtml" target="_blank">抓拍彗星划过洛城夜空</a>
+</td>
+	<td align="center">图文</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=178&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=178&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=178&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="177" type="checkbox"></td>
+	<td>177</td>
+	<td>		
+		
+		<strong>[图片新闻]</strong>
+		<a href="http://localhost:8080/jcms/photo/177.jhtml" target="_blank">外太空鸟瞰地球河流</a>
+</td>
+	<td align="center">图文</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=177&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=177&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=177&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="176" type="checkbox"></td>
+	<td>176</td>
+	<td>		
+		
+		<strong>[图片新闻]</strong>
+		<a href="http://localhost:8080/jcms/photo/176.jhtml" target="_blank">美国国家地理评2010年最佳太空图片</a>
+</td>
+	<td align="center">图文</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=176&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=176&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=176&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="175" type="checkbox"></td>
+	<td>175</td>
+	<td>		
+		
+		<strong>[系统软件]</strong>
+		<a href="http://localhost:8080/jcms/system/175.jhtml" target="_blank">超级硬盘数据恢复软件 V2.3.1.1 </a>
+</td>
+	<td align="center">普通</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=175&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=175&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=175&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="174" type="checkbox"></td>
+	<td>174</td>
+	<td>		
+		
+		<strong>[系统软件]</strong>
+		<a href="http://localhost:8080/jcms/system/174.jhtml" target="_blank">谷歌浏览器(Google Chrome) V6.0.447.0 Beta</a>
+</td>
+	<td align="center">普通</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=174&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=174&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=174&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="173" type="checkbox"></td>
+	<td>173</td>
+	<td>		
+		
+		<strong>[媒体工具]</strong>
+		<a href="http://localhost:8080/jcms/media/173.jhtml" target="_blank">千千静听(TTPlayer) V5.7 BETA1</a>
+</td>
+	<td align="center">普通</td>
+	<td align="center">admin</td>
+	<td align="right">3</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=173&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=173&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=173&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="172" type="checkbox"></td>
+	<td>172</td>
+	<td>		
+		
+		<strong>[媒体工具]</strong>
+		<a href="http://localhost:8080/jcms/media/172.jhtml" target="_blank">酷乐影音2010 1.0.3.6</a>
+</td>
+	<td align="center">普通</td>
+	<td align="center">admin</td>
+	<td align="right">0</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=172&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=172&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=172&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="171" type="checkbox"></td>
+	<td>171</td>
+	<td>		
+		
+		<strong>[影视明星]</strong>
+		<a href="http://localhost:8080/jcms/star/171.jhtml" target="_blank">王思懿：我已成为北京人 内心一直感谢张纪中</a>
+</td>
+	<td align="center">普通</td>
+	<td align="center">admin</td>
+	<td align="right">3</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=171&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=171&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=171&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr>
+<tr>
+	<td><input name="ids" value="170" type="checkbox"></td>
+	<td>170</td>
+	<td>		
+		
+		<strong>[影视明星]</strong>
+		<a href="http://localhost:8080/jcms/star/170.jhtml" target="_blank">冯小刚做客新版《小崔说事》:闺女都觉得我欠抽</a>
+</td>
+	<td align="center">普通</td>
+	<td align="center">admin</td>
+	<td align="right">2</td>
+	<td align="center">2011-01-04</td>
+	<td align="center">已终审		
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_view.do?id=170&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">查看</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/v_edit.do?id=170&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" class="pn-opt">修改</a> | 		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/content/o_delete.do?ids=170&amp;cid=&amp;pageNo=&amp;queryTitle=&amp;queryInputUsername=&amp;queryTopLevel=false&amp;queryRecommend=false&amp;queryTypeId=&amp;queryStatus=&amp;queryOrderBy=0" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a>
+		</td>
+</tr></tbody>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="pn-sp" align="center">
+	共 155 条&nbsp;
+	每页<input value="20" style="width: 30px;" onfocus="this.select();" onblur="$.cookie('_cookie_page_size',this.value,{expires:3650});" onkeypress="if(event.keyCode==13){$(this).blur();return false;}" type="text">条&nbsp;
+	<input value="首 页" onclick="_gotoPage('1');" disabled="disabled" type="button">
+	<input value="上一页" onclick="_gotoPage('1');" disabled="disabled" type="button">
+	<input value="下一页" onclick="_gotoPage('2');" type="button">
+	<input value="尾 页" onclick="_gotoPage('8');" type="button">&nbsp;
+	当前 1/8 页 &nbsp;转到第<input id="_goPs" style="width: 50px;" onfocus="this.select();" onkeypress="if(event.keyCode==13){$('#_goPage').click();return false;}" type="text">页
+	<input id="_goPage" value="转" onclick="_gotoPage($('#_goPs').val());" type="button">
+</td></tr></tbody></table>
+<script type="text/javascript">
+function _gotoPage(pageNo) {
+	try{
+		var tableForm = getTableForm();
+		$("input[name=pageNo]").val(pageNo);
+		tableForm.action="v_list.do";
+		tableForm.onsubmit=null;
+		tableForm.submit();
+	} catch(e) {
+		alert('_gotoPage(pageNo)方法出错');
+	}
+}
+</script>
+<div>
+	<input value="删除" onclick="optDelete();" type="button">
+	<input value="审核" onclick="optCheck();" type="button">
+	<input id="rejectButton" value="退回" onclick="optReject();" type="button">
+</div>
+</form>
+</div>
+
+
+<div aria-labelledby="ui-dialog-title-rejectDialog" role="dialog" tabindex="-1" class="ui-dialog ui-widget ui-widget-content ui-corner-all  ui-draggable ui-resizable" style="display: none; position: absolute; overflow: hidden; z-index: 1000; outline: 0px none;"><div style="-moz-user-select: none;" unselectable="on" class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span style="-moz-user-select: none;" unselectable="on" id="ui-dialog-title-rejectDialog" class="ui-dialog-title">退回原因</span><a style="-moz-user-select: none;" unselectable="on" role="button" class="ui-dialog-titlebar-close ui-corner-all" href="#"><span style="-moz-user-select: none;" unselectable="on" class="ui-icon ui-icon-closethick">close</span></a></div><div class="ui-dialog-content ui-widget-content" id="rejectDialog" style="">
+<p>退回原因: <input id="rejectOpinion" style="width: 260px;" onkeypress="if(event.keyCode==13){rejectSubmit();return false;}" type="text"></p>
+<p>退回级数:
+	<select id="rejectStep">
+		<option selected="selected" value="">上一级</option>
+		<option value="1">1</option><option value="0">0</option>
+	</select>
+</p>
+</div><div style="-moz-user-select: none;" unselectable="on" class="ui-resizable-handle ui-resizable-n"></div><div style="-moz-user-select: none;" unselectable="on" class="ui-resizable-handle ui-resizable-e"></div><div style="-moz-user-select: none;" unselectable="on" class="ui-resizable-handle ui-resizable-s"></div><div style="-moz-user-select: none;" unselectable="on" class="ui-resizable-handle ui-resizable-w"></div><div unselectable="on" style="z-index: 1001; -moz-user-select: none;" class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se ui-icon-grip-diagonal-se"></div><div unselectable="on" style="z-index: 1002; -moz-user-select: none;" class="ui-resizable-handle ui-resizable-sw"></div><div unselectable="on" style="z-index: 1003; -moz-user-select: none;" class="ui-resizable-handle ui-resizable-ne"></div><div unselectable="on" style="z-index: 1004; -moz-user-select: none;" class="ui-resizable-handle ui-resizable-nw"></div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><button class="ui-state-default ui-corner-all" type="button">OK</button></div></div></body></html>

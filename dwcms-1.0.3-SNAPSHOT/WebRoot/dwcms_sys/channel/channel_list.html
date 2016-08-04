@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("请选择您要操作的数据");
+		return;
+	}
+	if(!confirm("您确定删除吗？")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+function optPriority() {
+	var f = getTableForm();
+	f.action="o_priority.do";
+	f.submit();
+}
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="chanel_list_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置: 栏目管理 - 列表</div>
+	<form class="ropt">
+		<input name="root" value="" type="hidden">
+		<select name="modelId" onchange="if(this.options[this.selectedIndex].value!=''){this.form.action='v_add.do';this.form.submit();}">
+			<option selected="selected">--添加子栏目--</option>
+			<option value="1">新闻</option>
+			<option value="2">单页</option>
+			<option value="3">作品</option>
+			<option value="4">下载</option>
+		</select>
+	</form>
+	<div class="clear"></div>
+</div>
+<form id="tableForm" method="post">
+<input name="root" value="" type="hidden">
+<input name="pageNo" value="" type="hidden">
+<table class="pn-ltable" style="" border="0" cellpadding="0" cellspacing="1" width="100%">
+<thead class="pn-lthead"><tr>
+	<th width="20"><input onclick='Pn.checkbox("ids",this.checked)' type="checkbox"></th>
+	<th>ID</th>
+	<th>栏目名称</th>
+	<th>访问路径</th>
+	<th>排列顺序</th>
+	<th>显示</th>
+	<th>操作选项</th></tr></thead>
+<tbody class="pn-ltbody"><tr>
+	<td><input name="ids" value="1" type="checkbox"></td>
+	<td>1<input name="wids" value="1" type="hidden"></td>
+	<td>新闻资讯 [<span style="color:red">新闻</span>]</td>
+	<td>news</td>
+	<td align="center"><input name="priority" value="1" style="width: 40px;" type="text"></td>
+	<td align="center">是</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/v_edit.do?id=1" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/o_delete.do?ids=1&amp;root=" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="2" type="checkbox"></td>
+	<td>2<input name="wids" value="2" type="hidden"></td>
+	<td>影视娱乐 [<span style="color:red">新闻</span>]</td>
+	<td>ent</td>
+	<td align="center"><input name="priority" value="10" style="width: 40px;" type="text"></td>
+	<td align="center">是</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/v_edit.do?id=2" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/o_delete.do?ids=2&amp;root=" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="3" type="checkbox"></td>
+	<td>3<input name="wids" value="3" type="hidden"></td>
+	<td>财经报道 [<span style="color:red">新闻</span>]</td>
+	<td>finance</td>
+	<td align="center"><input name="priority" value="10" style="width: 40px;" type="text"></td>
+	<td align="center">是</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/v_edit.do?id=3" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/o_delete.do?ids=3&amp;root=" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="4" type="checkbox"></td>
+	<td>4<input name="wids" value="4" type="hidden"></td>
+	<td>房产资讯 [<span style="color:red">新闻</span>]</td>
+	<td>house</td>
+	<td align="center"><input name="priority" value="10" style="width: 40px;" type="text"></td>
+	<td align="center">是</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/v_edit.do?id=4" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/o_delete.do?ids=4&amp;root=" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="5" type="checkbox"></td>
+	<td>5<input name="wids" value="5" type="hidden"></td>
+	<td>体育世界 [<span style="color:red">新闻</span>]</td>
+	<td>sports</td>
+	<td align="center"><input name="priority" value="10" style="width: 40px;" type="text"></td>
+	<td align="center">是</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/v_edit.do?id=5" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/o_delete.do?ids=5&amp;root=" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="6" type="checkbox"></td>
+	<td>6<input name="wids" value="6" type="hidden"></td>
+	<td>科技创新 [<span style="color:red">新闻</span>]</td>
+	<td>tech</td>
+	<td align="center"><input name="priority" value="10" style="width: 40px;" type="text"></td>
+	<td align="center">是</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/v_edit.do?id=6" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/o_delete.do?ids=6&amp;root=" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="7" type="checkbox"></td>
+	<td>7<input name="wids" value="7" type="hidden"></td>
+	<td>时尚汽车 [<span style="color:red">新闻</span>]</td>
+	<td>car</td>
+	<td align="center"><input name="priority" value="10" style="width: 40px;" type="text"></td>
+	<td align="center">是</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/v_edit.do?id=7" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/o_delete.do?ids=7&amp;root=" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="9" type="checkbox"></td>
+	<td>9<input name="wids" value="9" type="hidden"></td>
+	<td>下载中心 [<span style="color:red">下载</span>]</td>
+	<td>download</td>
+	<td align="center"><input name="priority" value="10" style="width: 40px;" type="text"></td>
+	<td align="center">是</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/v_edit.do?id=9" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/o_delete.do?ids=9&amp;root=" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="10" type="checkbox"></td>
+	<td>10<input name="wids" value="10" type="hidden"></td>
+	<td>关于我们 [<span style="color:red">单页</span>]</td>
+	<td>about</td>
+	<td align="center"><input name="priority" value="10" style="width: 40px;" type="text"></td>
+	<td align="center">是</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/v_edit.do?id=10" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/channel/o_delete.do?ids=10&amp;root=" class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}">删除</a></td>
+</tr></tbody>
+</table>
+<div>
+	<input value="删除" onclick="optDelete();" type="button">
+&nbsp; <input value="保存排列顺序" onclick="optPriority();" type="button">
+</div>
+</form>
+</div>
+
+</body></html>

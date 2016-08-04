@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+function setDefSolution() {
+	$.post("o_def_template.do", {
+		"solution" : $("#defSolution").val()
+	}, function(data) {
+		if (data.success) {
+			alert("保存成功");
+		} else {
+			alert(data.msg);
+		}
+	}, "json");
+}
+function exportTpl() {
+	var form = document.getElementById("jvForm");
+	form.action = "o_export.do";
+	form.encoding = "application/x-www-form-urlencoded";
+	form.submit();
+}
+function importTpl() {
+	if($("#tplZip").val()=="") {
+		alert("请选择文件");
+		return;
+	}
+	var form = document.getElementById("jvForm");
+	form.action = "o_import.do";
+	form.encoding = "multipart/form-data";
+	form.submit();
+}
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="templet_setup_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置: 模板管理 - 设置</div>
+	<form class="ropt">
+	</form>
+	<div class="clear"></div>
+</div>
+<form method="post" action="" id="jvForm">
+<table class="pn-ftable" border="0" cellpadding="2" cellspacing="1" width="100%">
+<tbody><tr>
+<td class="pn-flabel pn-flabel-h" width="20%">默认方案:</td><td class="pn-fcontent" width="80%">
+<select id="defSolution"><option value="red" selected="selected">red</option></select>
+&nbsp; <input onclick="setDefSolution();" value="设置" type="button">
+</td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="20%">导出:</td><td class="pn-fcontent" width="80%">
+<select name="solution"><option value="red" selected="selected">red</option></select>
+&nbsp; <input onclick="exportTpl();" value="导出" type="button">
+</td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="20%">导入:</td><td class="pn-fcontent" width="80%">
+	<input id="tplZip" name="tplZip" type="file">
+&nbsp; <input onclick="importTpl();" value="导入" type="button">
+</td></tr></tbody></table>
+</form>
+</div>
+
+</body></html>

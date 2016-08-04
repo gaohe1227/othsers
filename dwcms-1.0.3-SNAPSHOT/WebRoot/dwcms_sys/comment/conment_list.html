@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("请选择您要操作的数据");
+		return;
+	}
+	if(!confirm("您确定删除吗？")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="conment_list_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置: 评论管理 - 列表</div>
+	<form class="ropt">
+	</form>
+	<div class="clear"></div>
+</div>
+<form id="tableForm" method="post">
+<input name="pageNo" value="" type="hidden">
+<table class="pn-ltable" style="" border="0" cellpadding="0" cellspacing="1" width="100%">
+<thead class="pn-lthead"><tr>
+	<th width="20"><input onclick='Pn.checkbox("ids",this.checked)' type="checkbox"></th>
+	<th>ID</th>
+	<th>评论</th>
+	<th>文档</th>
+	<th>会员</th>
+	<th>操作选项</th></tr></thead>
+<tbody class="pn-ltbody"><tr>
+	<td><input name="ids" value="8" type="checkbox"></td>
+	<td>8</td>
+	<td>		
+		[<span style="color:red">推荐</span>]
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_list.do?contentId=167">可惜了，资源浪费啊</a>
+		<br><span style="color:red"></span>
+</td>
+	<td>		<a href="http://localhost:8080/jcms/star/167.jhtml" target="_blank" title="范冰冰称会放弃一切去爱 暗示婚后会退出娱乐圈">范冰冰称会放弃一切去爱 暗示婚后会退出娱乐圈</a>
+</td>
+	<td align="center">		admin<br>
+		192.168.0.1<br>2011-01-04 14:54:00
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_edit.do?id=8&amp;pageNo=" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/o_delete.do?ids=8&amp;pageNo=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="7" type="checkbox"></td>
+	<td>7</td>
+	<td>		
+		[<span style="color:red">推荐</span>]
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_list.do?contentId=167">拍电影累了，是该好好歇歇了，冰冰，我支持你息影</a>
+		<br><span style="color:red"></span>
+</td>
+	<td>		<a href="http://localhost:8080/jcms/star/167.jhtml" target="_blank" title="范冰冰称会放弃一切去爱 暗示婚后会退出娱乐圈">范冰冰称会放弃一切去爱 暗示婚后会退出娱乐圈</a>
+</td>
+	<td align="center">		admin<br>
+		192.168.0.1<br>2011-01-04 14:42:17
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_edit.do?id=7&amp;pageNo=" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/o_delete.do?ids=7&amp;pageNo=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="6" type="checkbox"></td>
+	<td>6</td>
+	<td>		
+		[<span style="color:red">推荐</span>]
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_list.do?contentId=170">是该抽了</a>
+		<br><span style="color:red"></span>
+</td>
+	<td>		<a href="http://localhost:8080/jcms/star/170.jhtml" target="_blank" title="冯小刚做客新版《小崔说事》:闺女都觉得我欠抽">冯小刚做客新版《小崔说事》:闺女都觉得我欠抽</a>
+</td>
+	<td align="center">		admin<br>
+		192.168.0.1<br>2011-01-04 14:39:11
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_edit.do?id=6&amp;pageNo=" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/o_delete.do?ids=6&amp;pageNo=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="5" type="checkbox"></td>
+	<td>5</td>
+	<td>		
+		[<span style="color:red">推荐</span>]
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_list.do?contentId=171">很好，不错</a>
+		<br><span style="color:red"></span>
+</td>
+	<td>		<a href="http://localhost:8080/jcms/star/171.jhtml" target="_blank" title="王思懿：我已成为北京人 内心一直感谢张纪中">王思懿：我已成为北京人 内心一直感谢张纪中</a>
+</td>
+	<td align="center">		admin<br>
+		192.168.0.1<br>2011-01-04 14:38:40
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_edit.do?id=5&amp;pageNo=" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/o_delete.do?ids=5&amp;pageNo=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="4" type="checkbox"></td>
+	<td>4</td>
+	<td>		
+		
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_list.do?contentId=52">dsdsdfs</a>
+		<br><span style="color:red"></span>
+</td>
+	<td>		<a href="http://localhost:8080/jcms/gnxw/52.jhtml" target="_blank" title="苏州迁户口取消购房年限工作地域等限制">苏州迁户口取消购房年限工作地域等限制</a>
+</td>
+	<td align="center">		匿名<br>
+		127.0.0.1<br>2011-01-04 10:12:55
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_edit.do?id=4&amp;pageNo=" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/o_delete.do?ids=4&amp;pageNo=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="3" type="checkbox"></td>
+	<td>3</td>
+	<td>		
+		
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_list.do?contentId=52">eer</a>
+		<br><span style="color:red"></span>
+</td>
+	<td>		<a href="http://localhost:8080/jcms/gnxw/52.jhtml" target="_blank" title="苏州迁户口取消购房年限工作地域等限制">苏州迁户口取消购房年限工作地域等限制</a>
+</td>
+	<td align="center">		admin<br>
+		127.0.0.1<br>2011-01-04 10:12:37
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_edit.do?id=3&amp;pageNo=" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/o_delete.do?ids=3&amp;pageNo=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="2" type="checkbox"></td>
+	<td>2</td>
+	<td>		
+		
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_list.do?contentId=52">frtrtrtr</a>
+		<br><span style="color:red"></span>
+</td>
+	<td>		<a href="http://localhost:8080/jcms/gnxw/52.jhtml" target="_blank" title="苏州迁户口取消购房年限工作地域等限制">苏州迁户口取消购房年限工作地域等限制</a>
+</td>
+	<td align="center">		admin<br>
+		127.0.0.1<br>2011-01-04 10:11:42
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_edit.do?id=2&amp;pageNo=" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/o_delete.do?ids=2&amp;pageNo=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="1" type="checkbox"></td>
+	<td>1</td>
+	<td>		
+		
+		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_list.do?contentId=52">eewewew</a>
+		<br><span style="color:red"></span>
+</td>
+	<td>		<a href="http://localhost:8080/jcms/gnxw/52.jhtml" target="_blank" title="苏州迁户口取消购房年限工作地域等限制">苏州迁户口取消购房年限工作地域等限制</a>
+</td>
+	<td align="center">		admin<br>
+		127.0.0.1<br>2011-01-04 10:11:01
+</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/v_edit.do?id=1&amp;pageNo=" class="pn-opt">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/comment/o_delete.do?ids=1&amp;pageNo=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr></tbody>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="pn-sp" align="center">
+	共 8 条&nbsp;
+	每页<input value="20" style="width: 30px;" onfocus="this.select();" onblur="$.cookie('_cookie_page_size',this.value,{expires:3650});" onkeypress="if(event.keyCode==13){$(this).blur();return false;}" type="text">条&nbsp;
+	<input value="首 页" onclick="_gotoPage('1');" disabled="disabled" type="button">
+	<input value="上一页" onclick="_gotoPage('1');" disabled="disabled" type="button">
+	<input value="下一页" onclick="_gotoPage('1');" disabled="disabled" type="button">
+	<input value="尾 页" onclick="_gotoPage('1');" disabled="disabled" type="button">&nbsp;
+	当前 1/1 页 &nbsp;转到第<input id="_goPs" style="width: 50px;" onfocus="this.select();" onkeypress="if(event.keyCode==13){$('#_goPage').click();return false;}" type="text">页
+	<input id="_goPage" value="转" onclick="_gotoPage($('#_goPs').val());" disabled="disabled" type="button">
+</td></tr></tbody></table>
+<script type="text/javascript">
+function _gotoPage(pageNo) {
+	try{
+		var tableForm = getTableForm();
+		$("input[name=pageNo]").val(pageNo);
+		tableForm.action="v_list.do";
+		tableForm.onsubmit=null;
+		tableForm.submit();
+	} catch(e) {
+		alert('_gotoPage(pageNo)方法出错');
+	}
+}
+</script>
+<div><input value="删除" onclick="optDelete();" type="button"></div>
+</form>
+</div>
+
+</body></html>

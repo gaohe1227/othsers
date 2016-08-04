@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"       
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd" 
+		default-lazy-init="true">
+	<!-- bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="cacheSeconds" value="-1"/>
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/languages/jeecms_front/messages</value>
+				<value>/WEB-INF/languages/jeecms_tpl/messages</value>
+				<value>/WEB-INF/languages/fck/messages</value>
+			</list>
+		</property>
+	</bean -->
+    <!-- spring扫描注解
+	<import resource="classpath:/config/dwcms-servlet-front-action.xml"/>    	
+     -->
+    <context:component-scan base-package="com.doadway"/>
+	<context:annotation-config/>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	<bean id="shareRenderInterceptor" class="com.doadway.common.web.mvc.ShareRenderArgsVariableInterceptor"/>
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="shareRenderInterceptor"/>
+			</list>
+		</property>
+	</bean>	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="webBindingInitializer">
+			<bean class="com.doadway.common.web.mvc.DateConverter"/>
+		</property>
+		<property name="messageConverters">
+			 <list>
+	            <bean id="utf8StringHttpMessageConverter"  class="com.doadway.common.web.mvc.UTF8StringHttpMessageConverter" />
+	            <!-- json转换器 -->
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" >
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>text/html;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+	        </list>
+		</property>
+		
+	</bean>
+	<!-- 
+	
+		<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+			<property name="interceptors">
+				<list>
+					<ref bean="frontContextInterceptor"/>
+					<ref bean="frontLocaleInterceptor"/>
+				</list>
+			</property>
+		</bean>
+		<bean id="frontContextInterceptor" class="com.jeecms.cms.web.FrontContextInterceptor"/>
+		<bean id="frontLocaleInterceptor" class="com.jeecms.cms.web.FrontLocaleInterceptor"/>
+		<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+			<property name="cookieName" value="clientlanguage"/>
+			<property name="cookieMaxAge" value="-1"/>
+		</bean>
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.springframework.web.bind.MissingServletRequestParameterException">/WEB-INF/error/requiredParameter.html</prop>
+				<prop key="org.springframework.beans.TypeMismatchException">/WEB-INF/error/mismatchParameter.html</prop>
+				<prop key="org.springframework.web.bind.ServletRequestBindingException">/WEB-INF/error/bindException.html</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+
+	<!-- velocity 模板配置开始 -->
+	<bean id="defaultViewResolver"
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver"
+		p:order="0">
+		<property name="cache" value="true"/>  
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".html" />
+		<!-- 
+		<property name="toolboxConfigLocation" value="/WEB-INF/classes/config/velocity-toolbox.xml" />
+	    <property name="viewClass" value="com.doadway.common.web.VelocityToolboxViewExt" />
+		 -->
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="requestContextAttribute" value="request"/> 
+		<property name="dateToolAttribute" value="date" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="exposeRequestAttributes" value="true"></property>
+	</bean>
+		
+	<bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">  
+	    <property name="resourceLoaderPath" value="/t/cms/www/dwcom/"/>  
+	    <property name= "velocityProperties">        
+	         <props>        
+	              <prop key="input.encoding">utf-8</prop>        
+	              <prop key="output.encoding">utf-8</prop>            
+	         </props>        
+	    </property>                 
+	 </bean>
+ 	
+</beans>

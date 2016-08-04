@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("请选择您要操作的数据");
+		return;
+	}
+	if(!confirm("您确定删除吗？")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_delete_operating.do";
+	f.submit();
+}
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="log_list_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置: 后台操作日志 - 列表</div>
+	<form class="ropt" action="o_delete_operating_batch.do" method="post">
+		<span>批量删除: </span>
+		<select name="days">
+			<option selected="selected" value="365">一年前日志</option>
+			<option value="90">一季前日志</option>
+			<option value="30">一月前日志</option>
+			<option value="7">一周前日志</option>
+			<option value="0">所有日志</option>
+		</select>
+		<input value="提交" type="submit">
+	</form>
+	<div class="clear"></div>
+</div>
+<form action="v_list_operating.do" method="post" style="padding-top:5px;">
+	用户: <input name="queryUsername" style="width: 100px;" type="text">
+	标题: <input name="queryTitle" style="width: 150px;" type="text">
+	IP: <input name="queryIp" style="width: 150px;" type="text">
+	<input value="查询" type="submit">
+</form>
+<form id="tableForm" method="post">
+<input name="pageNo" value="1" type="hidden">
+<input name="queryUsername" value="" type="hidden">
+<input name="queryTitle" value="" type="hidden">
+<input name="queryIp" value="" type="hidden">
+<table class="pn-ltable" style="" border="0" cellpadding="0" cellspacing="1" width="100%">
+<thead class="pn-lthead"><tr>
+	<th width="20"><input onclick='Pn.checkbox("ids",this.checked)' type="checkbox"></th>
+	<th>ID</th>
+	<th>用户</th>
+	<th>时间</th>
+	<th>IP</th>
+	<th>标题</th>
+	<th>内容</th>
+	<th>操作选项</th></tr></thead>
+<tbody class="pn-ltbody"><tr>
+	<td><input name="ids" value="99" type="checkbox"></td>
+	<td>99</td>
+	<td align="center">admin</td>
+	<td align="center">2013-09-18 23:53:30</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改用户</td>
+	<td>id=1;username=admin</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=99&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="97" type="checkbox"></td>
+	<td>97</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-07 08:23:58</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改登录设置</td>
+	<td></td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=97&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="96" type="checkbox"></td>
+	<td>96</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-07 08:23:48</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改系统设置</td>
+	<td></td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=96&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="95" type="checkbox"></td>
+	<td>95</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-07 08:22:44</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改系统设置</td>
+	<td></td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=95&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="93" type="checkbox"></td>
+	<td>93</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-07 00:01:49</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改登录设置</td>
+	<td></td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=93&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="91" type="checkbox"></td>
+	<td>91</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 23:09:01</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改模板</td>
+	<td>filename=/WEB-INF/t/cms/www/red/member/密码重置页.html</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=91&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="90" type="checkbox"></td>
+	<td>90</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 23:08:17</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改模板</td>
+	<td>filename=/WEB-INF/t/cms/www/red/member/密码重置页.html</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=90&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="89" type="checkbox"></td>
+	<td>89</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 23:03:10</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改模板</td>
+	<td>filename=/WEB-INF/t/cms/www/red/member/找回密码结果页.html</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=89&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="88" type="checkbox"></td>
+	<td>88</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 23:01:51</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改模板</td>
+	<td>filename=/WEB-INF/t/cms/www/red/member/找回密码结果页.html</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=88&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="86" type="checkbox"></td>
+	<td>86</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 22:20:52</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改模板</td>
+	<td>filename=/WEB-INF/t/cms/www/red/member/找回密码结果页.html</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=86&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="85" type="checkbox"></td>
+	<td>85</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 22:11:48</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改模板</td>
+	<td>filename=/WEB-INF/t/cms/www/red/member/找回密码输入页.html</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=85&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="84" type="checkbox"></td>
+	<td>84</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 22:03:36</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改模板</td>
+	<td>filename=/WEB-INF/t/cms/www/red/member/找回密码输入页.html</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=84&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="83" type="checkbox"></td>
+	<td>83</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 21:49:50</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改模板</td>
+	<td>filename=/WEB-INF/t/cms/www/red/csi/会员登录.html</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=83&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="82" type="checkbox"></td>
+	<td>82</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 21:49:09</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改模板</td>
+	<td>filename=/WEB-INF/t/cms/www/red/csi/会员登录.html</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=82&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="80" type="checkbox"></td>
+	<td>80</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 21:46:38</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">增加模板</td>
+	<td>filename=密码重置页</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=80&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="79" type="checkbox"></td>
+	<td>79</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 21:44:29</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">增加模板</td>
+	<td>filename=找回密码输入页</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=79&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="78" type="checkbox"></td>
+	<td>78</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 21:44:10</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">增加模板</td>
+	<td>filename=找回密码结果页</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=78&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="76" type="checkbox"></td>
+	<td>76</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 17:30:37</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">增加友情链接</td>
+	<td>id=2;name=JEEBBS论坛</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=76&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="75" type="checkbox"></td>
+	<td>75</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 17:28:59</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改模板</td>
+	<td>filename=/WEB-INF/t/cms/www/red/include/页脚友情链接栏.html</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=75&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="ids" value="74" type="checkbox"></td>
+	<td>74</td>
+	<td align="center">admin</td>
+	<td align="center">2011-06-06 17:27:45</td>
+	<td align="center">127.0.0.1</td>
+	<td align="center">修改模板</td>
+	<td>filename=/WEB-INF/t/cms/www/red/include/页脚友情链接栏.html</td>
+	<td align="center"><a href="http://localhost:8080/jcms/jeeadmin/jeecms/log/o_delete_operating.do?ids=74&amp;pageNo=1&amp;queryUsername=&amp;queryTitle=&amp;queryIp=" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr></tbody>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="pn-sp" align="center">
+	共 85 条&nbsp;
+	每页<input value="20" style="width: 30px;" onfocus="this.select();" onblur="$.cookie('_cookie_page_size',this.value,{expires:3650});" onkeypress="if(event.keyCode==13){$(this).blur();return false;}" type="text">条&nbsp;
+	<input value="首 页" onclick="_gotoPage('1');" disabled="disabled" type="button">
+	<input value="上一页" onclick="_gotoPage('1');" disabled="disabled" type="button">
+	<input value="下一页" onclick="_gotoPage('2');" type="button">
+	<input value="尾 页" onclick="_gotoPage('5');" type="button">&nbsp;
+	当前 1/5 页 &nbsp;转到第<input id="_goPs" style="width: 50px;" onfocus="this.select();" onkeypress="if(event.keyCode==13){$('#_goPage').click();return false;}" type="text">页
+	<input id="_goPage" value="转" onclick="_gotoPage($('#_goPs').val());" type="button">
+</td></tr></tbody></table>
+<script type="text/javascript">
+function _gotoPage(pageNo) {
+	try{
+		var tableForm = getTableForm();
+		$("input[name=pageNo]").val(pageNo);
+		tableForm.action="v_list_operating.do";
+		tableForm.onsubmit=null;
+		tableForm.submit();
+	} catch(e) {
+		alert('_gotoPage(pageNo)方法出错');
+	}
+}
+</script>
+<div><input value="删除" onclick="optDelete();" type="button"></div>
+</form>
+</div>
+
+</body></html>

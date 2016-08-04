@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('names')<=0) {
+		alert("请选择您要操作的数据");
+		return;
+	}
+	if(!confirm("您确定删除吗？")) {
+		return;
+	}
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+var swfu;
+window.onload=function() {
+	var uploadUrl = "o_swfupload.do";
+	//在firefox、chrome下，上传不能保留登录信息，所以必须加上jsessionid。
+	var jsessionid = $.cookie("JSESSIONID");
+	if(jsessionid) {
+		uploadUrl += ";jsessionid="+jsessionid;
+	}
+	swfu=new SWFUpload({
+		upload_url : uploadUrl,
+		flash_url : "/jcms/thirdparty/swfupload/swfupload.swf",
+		file_size_limit : "100 MB",
+		post_params: {"root" : "/WEB-INF/t/cms/www/red"},
+		file_types : "*.html",
+		file_types_description : "Html Files",
+		file_queue_limit : 0,
+		custom_settings : {
+			progressTarget : "fsUploadProgress",
+			cancelButtonId : "btnCancel"
+		},
+		debug: false,
+		
+		button_image_url : "/jcms/thirdparty/swfupload/button_notext.png",
+		button_placeholder_id : "spanButtonPlaceHolder",
+		button_text: "&nbsp;上传文件",
+		button_width: 61,
+		button_height: 22,
+		
+		file_queued_handler : fileQueued,
+		file_queue_error_handler : fileQueueError,
+		file_dialog_complete_handler : fileDialogComplete,
+		upload_start_handler : uploadStart,
+		upload_progress_handler : uploadProgress,
+		upload_error_handler : uploadError,
+		upload_success_handler : uploadSuccess,
+		upload_complete_handler : uploadComplete,
+		queue_complete_handler : queueComplete2
+	});
+};
+function queueComplete2(numFilesUploaded) {
+	//刷新页面
+	location.href="v_list.do?root=/WEB-INF/t/cms/www/red";
+}
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="templet_file_list_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置: 模板管理 - 列表</div>
+	<form class="ropt">
+	<input name="root" value="/WEB-INF/t/cms/www/red" type="hidden">
+&nbsp; <input value="创建模板" onclick="this.form.action='v_add.do';" type="submit">
+	</form>
+	<div class="clear"></div>
+</div>
+<form method="post" enctype="multipart/form-data">
+<input name="root" value="/WEB-INF/t/cms/www/red" type="hidden">
+<table style="padding-top: 3px;" border="0">
+<tbody><tr>
+	<td>当前目录: /WEB-INF/t/cms/www/red</td>
+	<td align="center" width="70"><object id="SWFUpload_0" type="application/x-shockwave-flash" data="templet_file_list_files/swfupload.swf" class="swfupload" height="22" width="61"><param name="wmode" value="window"><param name="movie" value="/jcms/thirdparty/swfupload/swfupload.swf?preventswfcaching=1381759842438"><param name="quality" value="high"><param name="menu" value="false"><param name="allowScriptAccess" value="always"><param name="flashvars" value="movieName=SWFUpload_0&amp;uploadURL=%2Fjcms%2Fjeeadmin%2Fjeecms%2Ftemplate%2Fo_swfupload.do%3Bjsessionid%3D94E5169DE1ABF8D3017E090425AED4FE&amp;useQueryString=false&amp;requeueOnError=false&amp;httpSuccess=&amp;assumeSuccessTimeout=0&amp;params=root%3D%252FWEB-INF%252Ft%252Fcms%252Fwww%252Fred&amp;filePostName=Filedata&amp;fileTypes=*.html&amp;fileTypesDescription=Html%20Files&amp;fileSizeLimit=100%20MB&amp;fileUploadLimit=0&amp;fileQueueLimit=0&amp;debugEnabled=false&amp;buttonImageURL=%2Fjcms%2Fthirdparty%2Fswfupload%2Fbutton_notext.png&amp;buttonWidth=61&amp;buttonHeight=22&amp;buttonText=%26nbsp%3B%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6&amp;buttonTextTopPadding=0&amp;buttonTextLeftPadding=0&amp;buttonTextStyle=color%3A%20%23000000%3B%20font-size%3A%2016pt%3B&amp;buttonAction=-110&amp;buttonDisabled=false&amp;buttonCursor=-1"></object></td>
+	<td><input id="btnCancel" value="取消" onclick="swfu.cancelQueue();" disabled="disabled" type="button"></td>
+	<td>
+&nbsp; 新建目录: <input name="dirName" size="10" onkeypress="if(event.keyCode==13){$('#dirButton').click();return false;}" type="text">
+		<input id="dirButton" value="新建" onclick="this.form.method='post';this.form.action='o_create_dir.do';" type="submit">
+	</td>
+</tr>
+<tr><td colspan="4"><div id="fsUploadProgress"></div></td></tr>
+</tbody></table>
+</form>
+<form id="tableForm" method="post">
+<input name="root" value="/WEB-INF/t/cms/www/red" type="hidden">
+<table class="pn-ltable" style="" border="0" cellpadding="0" cellspacing="1" width="100%">
+<thead class="pn-lthead"><tr>
+	<th width="20"><input onclick='Pn.checkbox("names",this.checked)' type="checkbox"></th>
+	<th width="20"> </th>
+	<th>文件名</th>
+	<th>大小</th>
+	<th>最后修改时间</th>
+	<th>操作选项</th></tr></thead>
+<tbody class="pn-ltbody"><tr>
+	<td><input name="names" value="/WEB-INF/t/cms/www/red/alone" type="checkbox"></td>
+	<td align="center"><img src="templet_file_list_files/folder.gif"></td>
+	<td>alone</td>
+	<td align="right">1 KB</td>
+	<td align="center">2013-09-18 23:00:13</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/v_rename.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Falone" class="pn-opt">重命名</a> | 		<a disabled="disabled">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/o_delete_single.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Falone" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="names" value="/WEB-INF/t/cms/www/red/channel" type="checkbox"></td>
+	<td align="center"><img src="templet_file_list_files/folder.gif"></td>
+	<td>channel</td>
+	<td align="right">1 KB</td>
+	<td align="center">2013-09-18 23:00:13</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/v_rename.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fchannel" class="pn-opt">重命名</a> | 		<a disabled="disabled">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/o_delete_single.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fchannel" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="names" value="/WEB-INF/t/cms/www/red/common" type="checkbox"></td>
+	<td align="center"><img src="templet_file_list_files/folder.gif"></td>
+	<td>common</td>
+	<td align="right">1 KB</td>
+	<td align="center">2013-09-18 23:00:13</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/v_rename.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fcommon" class="pn-opt">重命名</a> | 		<a disabled="disabled">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/o_delete_single.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fcommon" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="names" value="/WEB-INF/t/cms/www/red/content" type="checkbox"></td>
+	<td align="center"><img src="templet_file_list_files/folder.gif"></td>
+	<td>content</td>
+	<td align="right">1 KB</td>
+	<td align="center">2013-09-18 23:00:13</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/v_rename.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fcontent" class="pn-opt">重命名</a> | 		<a disabled="disabled">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/o_delete_single.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fcontent" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="names" value="/WEB-INF/t/cms/www/red/csi" type="checkbox"></td>
+	<td align="center"><img src="templet_file_list_files/folder.gif"></td>
+	<td>csi</td>
+	<td align="right">1 KB</td>
+	<td align="center">2013-09-18 23:00:13</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/v_rename.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fcsi" class="pn-opt">重命名</a> | 		<a disabled="disabled">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/o_delete_single.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fcsi" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="names" value="/WEB-INF/t/cms/www/red/csi_custom" type="checkbox"></td>
+	<td align="center"><img src="templet_file_list_files/folder.gif"></td>
+	<td>csi_custom</td>
+	<td align="right">1 KB</td>
+	<td align="center">2013-09-18 23:00:13</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/v_rename.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fcsi_custom" class="pn-opt">重命名</a> | 		<a disabled="disabled">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/o_delete_single.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fcsi_custom" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="names" value="/WEB-INF/t/cms/www/red/include" type="checkbox"></td>
+	<td align="center"><img src="templet_file_list_files/folder.gif"></td>
+	<td>include</td>
+	<td align="right">1 KB</td>
+	<td align="center">2013-09-18 23:00:13</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/v_rename.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Finclude" class="pn-opt">重命名</a> | 		<a disabled="disabled">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/o_delete_single.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Finclude" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="names" value="/WEB-INF/t/cms/www/red/index" type="checkbox"></td>
+	<td align="center"><img src="templet_file_list_files/folder.gif"></td>
+	<td>index</td>
+	<td align="right">1 KB</td>
+	<td align="center">2013-09-18 23:00:13</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/v_rename.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Findex" class="pn-opt">重命名</a> | 		<a disabled="disabled">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/o_delete_single.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Findex" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="names" value="/WEB-INF/t/cms/www/red/member" type="checkbox"></td>
+	<td align="center"><img src="templet_file_list_files/folder.gif"></td>
+	<td>member</td>
+	<td align="right">1 KB</td>
+	<td align="center">2013-09-18 23:00:13</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/v_rename.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fmember" class="pn-opt">重命名</a> | 		<a disabled="disabled">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/o_delete_single.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fmember" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="names" value="/WEB-INF/t/cms/www/red/special" type="checkbox"></td>
+	<td align="center"><img src="templet_file_list_files/folder.gif"></td>
+	<td>special</td>
+	<td align="right">1 KB</td>
+	<td align="center">2013-09-18 23:00:13</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/v_rename.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fspecial" class="pn-opt">重命名</a> | 		<a disabled="disabled">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/o_delete_single.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fspecial" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="names" value="/WEB-INF/t/cms/www/red/style_page" type="checkbox"></td>
+	<td align="center"><img src="templet_file_list_files/folder.gif"></td>
+	<td>style_page</td>
+	<td align="right">1 KB</td>
+	<td align="center">2013-09-18 23:00:13</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/v_rename.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fstyle_page" class="pn-opt">重命名</a> | 		<a disabled="disabled">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/o_delete_single.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Fstyle_page" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="names" value="/WEB-INF/t/cms/www/red/tag" type="checkbox"></td>
+	<td align="center"><img src="templet_file_list_files/folder.gif"></td>
+	<td>tag</td>
+	<td align="right">1 KB</td>
+	<td align="center">2013-09-18 23:00:13</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/v_rename.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Ftag" class="pn-opt">重命名</a> | 		<a disabled="disabled">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/o_delete_single.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Ftag" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr>
+<tr>
+	<td><input name="names" value="/WEB-INF/t/cms/www/red/topic" type="checkbox"></td>
+	<td align="center"><img src="templet_file_list_files/folder.gif"></td>
+	<td>topic</td>
+	<td align="right">1 KB</td>
+	<td align="center">2013-09-18 23:00:13</td>
+	<td align="center">		<a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/v_rename.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Ftopic" class="pn-opt">重命名</a> | 		<a disabled="disabled">修改</a> | <a href="http://localhost:8080/jcms/jeeadmin/jeecms/template/o_delete_single.do?root=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred&amp;name=%2FWEB-INF%2Ft%2Fcms%2Fwww%2Fred%2Ftopic" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a></td>
+</tr></tbody>
+</table>
+<div>
+	<input value="删除" onclick="optDelete();" type="button">
+</div>
+</form>
+</div>
+
+</body></html>

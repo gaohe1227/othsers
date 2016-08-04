@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.config.dao.SiteMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.config.pojo.Site" >
+    <id column="site_id" property="siteId" jdbcType="INTEGER" />
+    <result column="config_id" property="configId" jdbcType="INTEGER" />
+    <result column="ftp_upload_id" property="ftpUploadId" jdbcType="INTEGER" />
+    <result column="domain" property="domain" jdbcType="VARCHAR" />
+    <result column="site_path" property="sitePath" jdbcType="VARCHAR" />
+    <result column="site_name" property="siteName" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="protocol" property="protocol" jdbcType="VARCHAR" />
+    <result column="dynamic_suffix" property="dynamicSuffix" jdbcType="VARCHAR" />
+    <result column="static_suffix" property="staticSuffix" jdbcType="VARCHAR" />
+    <result column="static_dir" property="staticDir" jdbcType="VARCHAR" />
+    <result column="is_index_to_root" property="isIndexToRoot" jdbcType="CHAR" />
+    <result column="is_static_index" property="isStaticIndex" jdbcType="CHAR" />
+    <result column="locale_admin" property="localeAdmin" jdbcType="VARCHAR" />
+    <result column="locale_front" property="localeFront" jdbcType="VARCHAR" />
+    <result column="tpl_solution" property="tplSolution" jdbcType="VARCHAR" />
+    <result column="final_step" property="finalStep" jdbcType="TINYINT" />
+    <result column="after_check" property="afterCheck" jdbcType="TINYINT" />
+    <result column="is_relative_path" property="isRelativePath" jdbcType="CHAR" />
+    <result column="is_recycle_on" property="isRecycleOn" jdbcType="CHAR" />
+    <result column="domain_alias" property="domainAlias" jdbcType="VARCHAR" />
+    <result column="domain_redirect" property="domainRedirect" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    site_id, config_id, ftp_upload_id, domain, site_path, site_name, short_name, protocol, 
+    dynamic_suffix, static_suffix, static_dir, is_index_to_root, is_static_index, locale_admin, 
+    locale_front, tpl_solution, final_step, after_check, is_relative_path, is_recycle_on, 
+    domain_alias, domain_redirect
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.config.pojo.SiteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_site
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_site
+    where site_id = #{siteId,jdbcType=INTEGER}
+  </select>
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select 
+ 	Max(site_id)
+    from dc_site
+  </select> 
+    
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_site
+    where site_id = #{siteId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.core.config.pojo.SiteExample" >
+    delete from dc_site
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.config.pojo.Site" >
+    insert into dc_site (site_id, config_id, ftp_upload_id, 
+      domain, site_path, site_name, 
+      short_name, protocol, dynamic_suffix, 
+      static_suffix, static_dir, is_index_to_root, 
+      is_static_index, locale_admin, locale_front, 
+      tpl_solution, final_step, after_check, 
+      is_relative_path, is_recycle_on, domain_alias, 
+      domain_redirect)
+    values (#{siteId,jdbcType=INTEGER}, #{configId,jdbcType=INTEGER}, #{ftpUploadId,jdbcType=INTEGER}, 
+      #{domain,jdbcType=VARCHAR}, #{sitePath,jdbcType=VARCHAR}, #{siteName,jdbcType=VARCHAR}, 
+      #{shortName,jdbcType=VARCHAR}, #{protocol,jdbcType=VARCHAR}, #{dynamicSuffix,jdbcType=VARCHAR}, 
+      #{staticSuffix,jdbcType=VARCHAR}, #{staticDir,jdbcType=VARCHAR}, #{isIndexToRoot,jdbcType=CHAR}, 
+      #{isStaticIndex,jdbcType=CHAR}, #{localeAdmin,jdbcType=VARCHAR}, #{localeFront,jdbcType=VARCHAR}, 
+      #{tplSolution,jdbcType=VARCHAR}, #{finalStep,jdbcType=TINYINT}, #{afterCheck,jdbcType=TINYINT}, 
+      #{isRelativePath,jdbcType=CHAR}, #{isRecycleOn,jdbcType=CHAR}, #{domainAlias,jdbcType=VARCHAR}, 
+      #{domainRedirect,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.config.pojo.Site" >
+    insert into dc_site
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="configId != null" >
+        config_id,
+      </if>
+      <if test="ftpUploadId != null" >
+        ftp_upload_id,
+      </if>
+      <if test="domain != null" >
+        domain,
+      </if>
+      <if test="sitePath != null" >
+        site_path,
+      </if>
+      <if test="siteName != null" >
+        site_name,
+      </if>
+      <if test="shortName != null" >
+        short_name,
+      </if>
+      <if test="protocol != null" >
+        protocol,
+      </if>
+      <if test="dynamicSuffix != null" >
+        dynamic_suffix,
+      </if>
+      <if test="staticSuffix != null" >
+        static_suffix,
+      </if>
+      <if test="staticDir != null" >
+        static_dir,
+      </if>
+      <if test="isIndexToRoot != null" >
+        is_index_to_root,
+      </if>
+      <if test="isStaticIndex != null" >
+        is_static_index,
+      </if>
+      <if test="localeAdmin != null" >
+        locale_admin,
+      </if>
+      <if test="localeFront != null" >
+        locale_front,
+      </if>
+      <if test="tplSolution != null" >
+        tpl_solution,
+      </if>
+      <if test="finalStep != null" >
+        final_step,
+      </if>
+      <if test="afterCheck != null" >
+        after_check,
+      </if>
+      <if test="isRelativePath != null" >
+        is_relative_path,
+      </if>
+      <if test="isRecycleOn != null" >
+        is_recycle_on,
+      </if>
+      <if test="domainAlias != null" >
+        domain_alias,
+      </if>
+      <if test="domainRedirect != null" >
+        domain_redirect,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="siteId != null" >
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="configId != null" >
+        #{configId,jdbcType=INTEGER},
+      </if>
+      <if test="ftpUploadId != null" >
+        #{ftpUploadId,jdbcType=INTEGER},
+      </if>
+      <if test="domain != null" >
+        #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="sitePath != null" >
+        #{sitePath,jdbcType=VARCHAR},
+      </if>
+      <if test="siteName != null" >
+        #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null" >
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="protocol != null" >
+        #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicSuffix != null" >
+        #{dynamicSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="staticSuffix != null" >
+        #{staticSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="staticDir != null" >
+        #{staticDir,jdbcType=VARCHAR},
+      </if>
+      <if test="isIndexToRoot != null" >
+        #{isIndexToRoot,jdbcType=CHAR},
+      </if>
+      <if test="isStaticIndex != null" >
+        #{isStaticIndex,jdbcType=CHAR},
+      </if>
+      <if test="localeAdmin != null" >
+        #{localeAdmin,jdbcType=VARCHAR},
+      </if>
+      <if test="localeFront != null" >
+        #{localeFront,jdbcType=VARCHAR},
+      </if>
+      <if test="tplSolution != null" >
+        #{tplSolution,jdbcType=VARCHAR},
+      </if>
+      <if test="finalStep != null" >
+        #{finalStep,jdbcType=TINYINT},
+      </if>
+      <if test="afterCheck != null" >
+        #{afterCheck,jdbcType=TINYINT},
+      </if>
+      <if test="isRelativePath != null" >
+        #{isRelativePath,jdbcType=CHAR},
+      </if>
+      <if test="isRecycleOn != null" >
+        #{isRecycleOn,jdbcType=CHAR},
+      </if>
+      <if test="domainAlias != null" >
+        #{domainAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="domainRedirect != null" >
+        #{domainRedirect,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.core.config.pojo.SiteExample" resultType="java.lang.Integer" >
+    select count(*) from dc_site
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_site
+    <set >
+      <if test="record.siteId != null" >
+        site_id = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.configId != null" >
+        config_id = #{record.configId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ftpUploadId != null" >
+        ftp_upload_id = #{record.ftpUploadId,jdbcType=INTEGER},
+      </if>
+      <if test="record.domain != null" >
+        domain = #{record.domain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sitePath != null" >
+        site_path = #{record.sitePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteName != null" >
+        site_name = #{record.siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shortName != null" >
+        short_name = #{record.shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.protocol != null" >
+        protocol = #{record.protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dynamicSuffix != null" >
+        dynamic_suffix = #{record.dynamicSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staticSuffix != null" >
+        static_suffix = #{record.staticSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staticDir != null" >
+        static_dir = #{record.staticDir,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isIndexToRoot != null" >
+        is_index_to_root = #{record.isIndexToRoot,jdbcType=CHAR},
+      </if>
+      <if test="record.isStaticIndex != null" >
+        is_static_index = #{record.isStaticIndex,jdbcType=CHAR},
+      </if>
+      <if test="record.localeAdmin != null" >
+        locale_admin = #{record.localeAdmin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.localeFront != null" >
+        locale_front = #{record.localeFront,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tplSolution != null" >
+        tpl_solution = #{record.tplSolution,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finalStep != null" >
+        final_step = #{record.finalStep,jdbcType=TINYINT},
+      </if>
+      <if test="record.afterCheck != null" >
+        after_check = #{record.afterCheck,jdbcType=TINYINT},
+      </if>
+      <if test="record.isRelativePath != null" >
+        is_relative_path = #{record.isRelativePath,jdbcType=CHAR},
+      </if>
+      <if test="record.isRecycleOn != null" >
+        is_recycle_on = #{record.isRecycleOn,jdbcType=CHAR},
+      </if>
+      <if test="record.domainAlias != null" >
+        domain_alias = #{record.domainAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domainRedirect != null" >
+        domain_redirect = #{record.domainRedirect,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_site
+    set site_id = #{record.siteId,jdbcType=INTEGER},
+      config_id = #{record.configId,jdbcType=INTEGER},
+      ftp_upload_id = #{record.ftpUploadId,jdbcType=INTEGER},
+      domain = #{record.domain,jdbcType=VARCHAR},
+      site_path = #{record.sitePath,jdbcType=VARCHAR},
+      site_name = #{record.siteName,jdbcType=VARCHAR},
+      short_name = #{record.shortName,jdbcType=VARCHAR},
+      protocol = #{record.protocol,jdbcType=VARCHAR},
+      dynamic_suffix = #{record.dynamicSuffix,jdbcType=VARCHAR},
+      static_suffix = #{record.staticSuffix,jdbcType=VARCHAR},
+      static_dir = #{record.staticDir,jdbcType=VARCHAR},
+      is_index_to_root = #{record.isIndexToRoot,jdbcType=CHAR},
+      is_static_index = #{record.isStaticIndex,jdbcType=CHAR},
+      locale_admin = #{record.localeAdmin,jdbcType=VARCHAR},
+      locale_front = #{record.localeFront,jdbcType=VARCHAR},
+      tpl_solution = #{record.tplSolution,jdbcType=VARCHAR},
+      final_step = #{record.finalStep,jdbcType=TINYINT},
+      after_check = #{record.afterCheck,jdbcType=TINYINT},
+      is_relative_path = #{record.isRelativePath,jdbcType=CHAR},
+      is_recycle_on = #{record.isRecycleOn,jdbcType=CHAR},
+      domain_alias = #{record.domainAlias,jdbcType=VARCHAR},
+      domain_redirect = #{record.domainRedirect,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.config.pojo.Site" >
+    update dc_site
+    <set >
+      <if test="configId != null" >
+        config_id = #{configId,jdbcType=INTEGER},
+      </if>
+      <if test="ftpUploadId != null" >
+        ftp_upload_id = #{ftpUploadId,jdbcType=INTEGER},
+      </if>
+      <if test="domain != null" >
+        domain = #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="sitePath != null" >
+        site_path = #{sitePath,jdbcType=VARCHAR},
+      </if>
+      <if test="siteName != null" >
+        site_name = #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null" >
+        short_name = #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="protocol != null" >
+        protocol = #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicSuffix != null" >
+        dynamic_suffix = #{dynamicSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="staticSuffix != null" >
+        static_suffix = #{staticSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="staticDir != null" >
+        static_dir = #{staticDir,jdbcType=VARCHAR},
+      </if>
+      <if test="isIndexToRoot != null" >
+        is_index_to_root = #{isIndexToRoot,jdbcType=CHAR},
+      </if>
+      <if test="isStaticIndex != null" >
+        is_static_index = #{isStaticIndex,jdbcType=CHAR},
+      </if>
+      <if test="localeAdmin != null" >
+        locale_admin = #{localeAdmin,jdbcType=VARCHAR},
+      </if>
+      <if test="localeFront != null" >
+        locale_front = #{localeFront,jdbcType=VARCHAR},
+      </if>
+      <if test="tplSolution != null" >
+        tpl_solution = #{tplSolution,jdbcType=VARCHAR},
+      </if>
+      <if test="finalStep != null" >
+        final_step = #{finalStep,jdbcType=TINYINT},
+      </if>
+      <if test="afterCheck != null" >
+        after_check = #{afterCheck,jdbcType=TINYINT},
+      </if>
+      <if test="isRelativePath != null" >
+        is_relative_path = #{isRelativePath,jdbcType=CHAR},
+      </if>
+      <if test="isRecycleOn != null" >
+        is_recycle_on = #{isRecycleOn,jdbcType=CHAR},
+      </if>
+      <if test="domainAlias != null" >
+        domain_alias = #{domainAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="domainRedirect != null" >
+        domain_redirect = #{domainRedirect,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where site_id = #{siteId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.config.pojo.Site" >
+    update dc_site
+    set config_id = #{configId,jdbcType=INTEGER},
+      ftp_upload_id = #{ftpUploadId,jdbcType=INTEGER},
+      domain = #{domain,jdbcType=VARCHAR},
+      site_path = #{sitePath,jdbcType=VARCHAR},
+      site_name = #{siteName,jdbcType=VARCHAR},
+      short_name = #{shortName,jdbcType=VARCHAR},
+      protocol = #{protocol,jdbcType=VARCHAR},
+      dynamic_suffix = #{dynamicSuffix,jdbcType=VARCHAR},
+      static_suffix = #{staticSuffix,jdbcType=VARCHAR},
+      static_dir = #{staticDir,jdbcType=VARCHAR},
+      is_index_to_root = #{isIndexToRoot,jdbcType=CHAR},
+      is_static_index = #{isStaticIndex,jdbcType=CHAR},
+      locale_admin = #{localeAdmin,jdbcType=VARCHAR},
+      locale_front = #{localeFront,jdbcType=VARCHAR},
+      tpl_solution = #{tplSolution,jdbcType=VARCHAR},
+      final_step = #{finalStep,jdbcType=TINYINT},
+      after_check = #{afterCheck,jdbcType=TINYINT},
+      is_relative_path = #{isRelativePath,jdbcType=CHAR},
+      is_recycle_on = #{isRecycleOn,jdbcType=CHAR},
+      domain_alias = #{domainAlias,jdbcType=VARCHAR},
+      domain_redirect = #{domainRedirect,jdbcType=VARCHAR}
+    where site_id = #{siteId,jdbcType=INTEGER}
+  </update>
+</mapper>

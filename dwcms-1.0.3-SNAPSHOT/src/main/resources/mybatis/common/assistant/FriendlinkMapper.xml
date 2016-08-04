@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.assistant.dao.FriendlinkMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.assistant.pojo.Friendlink" >
+    <id column="friendlink_id" property="friendlinkId" jdbcType="INTEGER" />
+    <result column="site_id" property="siteId" jdbcType="INTEGER" />
+    <result column="friendlinkctg_id" property="friendlinkctgId" jdbcType="INTEGER" />
+    <result column="site_name" property="siteName" jdbcType="VARCHAR" />
+    <result column="domain" property="domain" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="views" property="views" jdbcType="INTEGER" />
+    <result column="is_enabled" property="isEnabled" jdbcType="CHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    friendlink_id, site_id, friendlinkctg_id, site_name, domain, logo, email, description, 
+    views, is_enabled, priority
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.assistant.pojo.FriendlinkExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_friendlink
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_friendlink
+    where friendlink_id = #{friendlinkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select 
+ 	Max(friendlink_id)
+    from dc_friendlink
+  </select>   
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_friendlink
+    where friendlink_id = #{friendlinkId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.assistant.pojo.FriendlinkExample" >
+    delete from dc_friendlink
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.assistant.pojo.Friendlink" >
+    insert into dc_friendlink (friendlink_id, site_id, friendlinkctg_id, 
+      site_name, domain, logo, 
+      email, description, views, 
+      is_enabled, priority)
+    values (#{friendlinkId,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, #{friendlinkctgId,jdbcType=INTEGER}, 
+      #{siteName,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{views,jdbcType=INTEGER}, 
+      #{isEnabled,jdbcType=CHAR}, #{priority,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.assistant.pojo.Friendlink" >
+    insert into dc_friendlink
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="friendlinkId != null" >
+        friendlink_id,
+      </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="friendlinkctgId != null" >
+        friendlinkctg_id,
+      </if>
+      <if test="siteName != null" >
+        site_name,
+      </if>
+      <if test="domain != null" >
+        domain,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="views != null" >
+        views,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="friendlinkId != null" >
+        #{friendlinkId,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="friendlinkctgId != null" >
+        #{friendlinkctgId,jdbcType=INTEGER},
+      </if>
+      <if test="siteName != null" >
+        #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="domain != null" >
+        #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="views != null" >
+        #{views,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=CHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.assistant.pojo.FriendlinkExample" resultType="java.lang.Integer" >
+    select count(*) from dc_friendlink
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_friendlink
+    <set >
+      <if test="record.friendlinkId != null" >
+        friendlink_id = #{record.friendlinkId,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteId != null" >
+        site_id = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.friendlinkctgId != null" >
+        friendlinkctg_id = #{record.friendlinkctgId,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteName != null" >
+        site_name = #{record.siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domain != null" >
+        domain = #{record.domain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logo != null" >
+        logo = #{record.logo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.views != null" >
+        views = #{record.views,jdbcType=INTEGER},
+      </if>
+      <if test="record.isEnabled != null" >
+        is_enabled = #{record.isEnabled,jdbcType=CHAR},
+      </if>
+      <if test="record.priority != null" >
+        priority = #{record.priority,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_friendlink
+    set friendlink_id = #{record.friendlinkId,jdbcType=INTEGER},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      friendlinkctg_id = #{record.friendlinkctgId,jdbcType=INTEGER},
+      site_name = #{record.siteName,jdbcType=VARCHAR},
+      domain = #{record.domain,jdbcType=VARCHAR},
+      logo = #{record.logo,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      views = #{record.views,jdbcType=INTEGER},
+      is_enabled = #{record.isEnabled,jdbcType=CHAR},
+      priority = #{record.priority,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.assistant.pojo.Friendlink" >
+    update dc_friendlink
+    <set >
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="friendlinkctgId != null" >
+        friendlinkctg_id = #{friendlinkctgId,jdbcType=INTEGER},
+      </if>
+      <if test="siteName != null" >
+        site_name = #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="domain != null" >
+        domain = #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="views != null" >
+        views = #{views,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=CHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+    </set>
+    where friendlink_id = #{friendlinkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.assistant.pojo.Friendlink" >
+    update dc_friendlink
+    set site_id = #{siteId,jdbcType=INTEGER},
+      friendlinkctg_id = #{friendlinkctgId,jdbcType=INTEGER},
+      site_name = #{siteName,jdbcType=VARCHAR},
+      domain = #{domain,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      views = #{views,jdbcType=INTEGER},
+      is_enabled = #{isEnabled,jdbcType=CHAR},
+      priority = #{priority,jdbcType=INTEGER}
+    where friendlink_id = #{friendlinkId,jdbcType=INTEGER}
+  </update>
+</mapper>

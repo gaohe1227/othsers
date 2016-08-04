@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.channel.dao.ChannelTxtMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.channel.pojo.ChannelTxt" >
+    <id column="channel_id" property="channelId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.doadway.dwcms.core.channel.pojo.ChannelTxt" extends="BaseResultMap" >
+    <result column="txt" property="txt" jdbcType="LONGVARCHAR" />
+    <result column="txt1" property="txt1" jdbcType="LONGVARCHAR" />
+    <result column="txt2" property="txt2" jdbcType="LONGVARCHAR" />
+    <result column="txt3" property="txt3" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    channel_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    txt, txt1, txt2, txt3
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.doadway.dwcms.core.channel.pojo.ChannelTxtExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dc_channel_txt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.channel.pojo.ChannelTxtExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_channel_txt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dc_channel_txt
+    where channel_id = #{channelId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_channel_txt
+    where channel_id = #{channelId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.core.channel.pojo.ChannelTxtExample" >
+    delete from dc_channel_txt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.channel.pojo.ChannelTxt" >
+    insert into dc_channel_txt (channel_id, txt, txt1, 
+      txt2, txt3)
+    values (#{channelId,jdbcType=INTEGER}, #{txt,jdbcType=LONGVARCHAR}, #{txt1,jdbcType=LONGVARCHAR}, 
+      #{txt2,jdbcType=LONGVARCHAR}, #{txt3,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.channel.pojo.ChannelTxt" >
+    insert into dc_channel_txt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="channelId != null" >
+        channel_id,
+      </if>
+      <if test="txt != null" >
+        txt,
+      </if>
+      <if test="txt1 != null" >
+        txt1,
+      </if>
+      <if test="txt2 != null" >
+        txt2,
+      </if>
+      <if test="txt3 != null" >
+        txt3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="channelId != null" >
+        #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="txt != null" >
+        #{txt,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="txt1 != null" >
+        #{txt1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="txt2 != null" >
+        #{txt2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="txt3 != null" >
+        #{txt3,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.core.channel.pojo.ChannelTxtExample" resultType="java.lang.Integer" >
+    select count(*) from dc_channel_txt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_channel_txt
+    <set >
+      <if test="record.channelId != null" >
+        channel_id = #{record.channelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.txt != null" >
+        txt = #{record.txt,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.txt1 != null" >
+        txt1 = #{record.txt1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.txt2 != null" >
+        txt2 = #{record.txt2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.txt3 != null" >
+        txt3 = #{record.txt3,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update dc_channel_txt
+    set channel_id = #{record.channelId,jdbcType=INTEGER},
+      txt = #{record.txt,jdbcType=LONGVARCHAR},
+      txt1 = #{record.txt1,jdbcType=LONGVARCHAR},
+      txt2 = #{record.txt2,jdbcType=LONGVARCHAR},
+      txt3 = #{record.txt3,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_channel_txt
+    set channel_id = #{record.channelId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.channel.pojo.ChannelTxt" >
+    update dc_channel_txt
+    <set >
+      <if test="txt != null" >
+        txt = #{txt,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="txt1 != null" >
+        txt1 = #{txt1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="txt2 != null" >
+        txt2 = #{txt2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="txt3 != null" >
+        txt3 = #{txt3,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where channel_id = #{channelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.doadway.dwcms.core.channel.pojo.ChannelTxt" >
+    update dc_channel_txt
+    set txt = #{txt,jdbcType=LONGVARCHAR},
+      txt1 = #{txt1,jdbcType=LONGVARCHAR},
+      txt2 = #{txt2,jdbcType=LONGVARCHAR},
+      txt3 = #{txt3,jdbcType=LONGVARCHAR}
+    where channel_id = #{channelId,jdbcType=INTEGER}
+  </update>
+</mapper>

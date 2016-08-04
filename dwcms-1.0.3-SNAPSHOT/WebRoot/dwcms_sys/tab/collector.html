@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>添加采集器</title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.STYLE1 {font-size: 12px}
+.STYLE3 {font-size: 12px; font-weight: bold; }
+.STYLE4 {
+	color: #03515d;
+	font-size: 13px;
+}
+-->
+</style>
+
+
+
+</head>
+
+<body>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+   <tr>
+    <td height="30" background="images/tab_05.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="12" height="30"><img src="images/tab_03.gif" width="12" height="30" /></td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="5%"><div align="center"><img src="images/tb.gif" width="16" height="16" /></div></td>
+                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[系统管理]-[添加采集器]</td>
+              </tr>
+            </table></td>
+            <td width="54%"><table border="0" align="right" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="60"><table width="87%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="STYLE1"><div align="center"></div></td>
+                    <td class="STYLE1"><div align="center"></div></td>
+                  </tr>
+                </table></td>
+                <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="STYLE1"><div align="center"></div></td>
+                    <td class="STYLE1"><div align="center"></div></td>
+                  </tr>
+                </table></td>
+                <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="STYLE1"><div align="center"></div></td>
+                    <td class="STYLE1"><div align="center"></div></td>
+                  </tr>
+                </table></td>
+                <td width="52"><table width="88%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="STYLE1"><div align="center"><img src="images/33.gif" alt="返回" width="14" height="14" /></div></td>
+                    <td class="STYLE1"><div align="center" onclick="window.history.go(-1)">返回</div></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+        <td width="16"><img src="images/tab_07.gif" width="16" height="30" /></td>
+      </tr>
+    </table></td>
+  </tr>
+  
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="8" background="images/tab_12.gif">&nbsp;</td>
+        <td>
+    <form id="form1" name="form1" method="post" action="control/insertcollect.jsp">
+    <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce" style="width: 100%; height: 88px;" >
+	<tr>
+   
+        <td width="11%" height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">所属栏目:</div></td>
+		 <td height="20" colspan="3" bgcolor="#FFFFFF" class="STYLE4">     <select name="lanmuId">
+               <option value="${lanmuList.lanmuId }">${lanmuList.name }</option>
+               <c:forEach items="${lanmuList.lanmus}" var="currentLanmu">
+               <option value="${currentLanmu.lanmuId}">${currentLanmu.name }</option>
+               		<c:forEach items="${currentLanmu.lanmus}" var="lanmu">
+               			<option value="${lanmu.lanmuId}">--${lanmu.name }</option>
+               		</c:forEach>
+               </c:forEach>
+             </select></td>
+	</tr>     
+      <tr>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">采集器名字:</div></td>
+		 <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left"><span class="STYLE4">
+<input type="text" name="collectName" />
+		     </span></div></td>
+		  <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">采集器地址:</div></td>
+        <td height="20" bgcolor="#FFFFFF"><div align="left"><span class="STYLE4"><input type="text" name="url" />页面变量用#代替;步长:<input size="5" name="step"/></span></div></td>
+      </tr>
+      <tr>
+   
+        <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">起始页:</div></td>
+		 <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">
+		   <input type="text" name="startPage" />
+		 </div></td>
+		  <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">终止页:</div></td>
+        <td height="20" bgcolor="#FFFFFF"><div align="left"><span class="STYLE4">
+          <input type="text" name="endPage" />
+        </span></div></td>
+      </tr>
+
+      <tr>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">URL起始位置:</div></td>
+		 <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">
+		   <textarea rows="2" cols="25" name="urlStart"></textarea>
+		 </div></td>
+		  <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">URL终止位置:</div></td>
+        <td height="20" bgcolor="#FFFFFF"><div align="left"><div align="left"> 
+		   <textarea rows="2" cols="25" name="urlEnd"></textarea> 
+		 </div></div></td>
+      </tr>  
+
+      <tr>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">内容标题起始位置:</div></td>
+		 <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">
+		   <div align="left"> 
+		   <textarea rows="2" cols="25" name="titleStart"></textarea> 
+		 </div>
+		 </div></td>
+		  <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">内容标题终止位置:</div></td>
+        <td height="20" bgcolor="#FFFFFF"><div align="left"><div align="left"> 
+		   <textarea rows="2" cols="25" name="titleEnd"></textarea> 
+		 </div></div></td>
+      </tr>      
+      <tr>
+        <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">内容起始位置:</div></td>
+		 <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">
+		   <div align="left"> 
+		   <textarea rows="2" cols="25" name="contextStart"></textarea> 
+		 </div>
+		 </div></td>
+		  <td height="20" bgcolor="#FFFFFF" class="STYLE4"><div align="left">内容终止位置:</div></td>
+        <td height="20" bgcolor="#FFFFFF"><div align="left"><div align="left"> 
+		   <textarea rows="2" cols="25" name="contextEnd"></textarea> 
+		 </div></div></td>
+      </tr>  
+      		  
+      <tr>
+   
+        <td height="20" colspan="4" bgcolor="#FFFFFF" class="STYLE4" style=" text-align:center;"><input name="" type="submit" value="保存采集器" /><input name="" type="reset" value="重置" /></td>
+		
+		  </tr>	  		    	  	  	  
+			
+    </table></form>
+		</td>
+        <td width="8" background="images/tab_15.gif">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+  
+  <tr>
+    <td>
+</td>
+  </tr>
+ 
+
+  <tr>
+    <td height="35" background="images/tab_19.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="12" height="35"><img src="images/tab_18.gif" width="12" height="35" /></td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="STYLE4">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table></td>
+        <td width="16"><img src="images/tab_20.gif" width="16" height="35" /></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

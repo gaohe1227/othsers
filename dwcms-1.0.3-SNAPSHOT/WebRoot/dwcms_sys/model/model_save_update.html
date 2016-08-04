@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="model_save_update_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置: 模型管理 - 添加</div>
+	<form class="ropt">
+		<input value="返回列表" onclick="this.form.action='v_list.do';" type="submit">
+	</form>
+	<div class="clear"></div>
+</div>
+<form method="post" action="o_save.do" id="jvForm">
+<table class="pn-ftable" border="0" cellpadding="2" cellspacing="1" width="100%">
+<tbody><tr>
+<td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>模型ID:</td><td colspan="3" class="pn-fcontent" width="88%"><input maxlength="5" name="id" class="required digits" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>模型名称:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="100" name="name" class="required" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>模型路径:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="100" name="path" class="required" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>栏目模板前缀:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="20" name="tplChannelPrefix" class="required" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%">内容模板前缀:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="20" name="tplContentPrefix" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%">栏目标题图:</td><td colspan="1" class="pn-fcontent" width="38%">
+宽: <input name="titleImgWidth" value="139" style="width: 50px;" type="text">
+高: <input name="titleImgHeight" value="139" style="width: 50px;" type="text">
+</td><td class="pn-flabel pn-flabel-h" width="12%">栏目内容图:</td><td colspan="1" class="pn-fcontent" width="38%">
+宽: <input name="contentImgWidth" value="310" style="width: 50px;" type="text">
+高: <input name="contentImgHeight" value="310" style="width: 50px;" type="text">
+</td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>排列顺序:</td><td colspan="1" class="pn-fcontent" width="38%"><input maxlength="9" value="10" name="priority" class="required" style="width: 70px;" type="text"></td><td class="pn-flabel pn-flabel-h" width="12%"><span class="pn-frequired">*</span>是否有内容:</td><td colspan="1" class="pn-fcontent" width="38%"><label><input value="true" checked="checked" name="hasContent" type="radio">是</label> <label><input value="false" name="hasContent" type="radio">否</label></td>
+</tr>
+<tr><td colspan="4" class="pn-fbutton">
+<input value="提交" type="submit"> &nbsp; <input value="重置" type="reset"></td>
+</tr></tbody></table>
+</form>
+</div>
+
+</body></html>

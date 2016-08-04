@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+    <link href="../res/dwcms/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../res/dwcms/css/theme.css" rel="stylesheet" type="text/css">
+
+    <link href="../jquery-easyui-1_3_0/themes/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1_3_0/themes/dark-hive/easyui.css" id="swicth-style">
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1_3_0/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+<body><div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px; display: none;"><iframe style="width: 186px; height: 199px;" src="config_login_files/My97DatePicker.html" border="0" frameborder="0" scrolling="no"></iframe></div>
+<div class="body-box">
+<div class="rhead">
+	<div class="rpos">当前位置:  全局设置 - 登录设置 - 修改</div>
+<form class="ropt">
+	<input value="系统设置" onclick="this.form.action='config_systeam.html';" type="submit">
+	<input value="登录设置" onclick="this.form.action='config_login.html';" type="submit">
+	<input value="会员设置" onclick="this.form.action='config_member.html';" type="submit">
+	<!-- <input value="水印设置" onclick="this.form.action='v_mark_edit.do';" type="submit"> -->
+</form>	<div class="clear"></div>
+</div>
+<form method="post" action="o_login_update.do" id="jvForm">
+<table class="pn-ftable" border="0" cellpadding="2" cellspacing="1" width="100%">
+<tbody><tr>
+
+<td class="pn-flabel pn-flabel-h" width="15%"><span class="pn-frequired">*</span>登录错误次数:</td><td colspan="1" class="pn-fcontent" width="35%"><input maxlength="5" value="3" name="errorTimes" class="required digits" style="width: 70px;" type="text"> <span class="pn-fhelp">达到错误次数后显示验证码</span></td><td class="pn-flabel pn-flabel-h" width="15%"><span class="pn-frequired">*</span>登录错误时间:</td><td colspan="1" class="pn-fcontent" width="35%"><input maxlength="5" value="30" name="errorInterval" class="required digits" style="width: 70px;" type="text"> <span class="pn-fhelp">(分钟)。超过时间重计次数</span></td></tr>
+<tr>
+<td class="pn-flabel pn-flabel-h" width="15%"><span class="pn-frequired">*</span>邮件服务器:</td><td colspan="1" class="pn-fcontent" width="35%"><input maxlength="100" value="smtp.163.com" name="host" class="required" type="text"></td><td class="pn-flabel pn-flabel-h" width="15%">邮件端口:</td><td colspan="1" class="pn-fcontent" width="35%"><input maxlength="5" name="port" class="digits" type="text"> <span class="pn-fhelp">留空则为默认端口</span></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="15%"><span class="pn-frequired">*</span>邮件用户名:</td><td colspan="1" class="pn-fcontent" width="35%"><input maxlength="100" value="jeecms@163.com" name="username" class="required" type="text"></td><td class="pn-flabel pn-flabel-h" width="15%"><span class="pn-frequired">*</span>邮件密码:</td><td colspan="1" class="pn-fcontent" width="35%"><input maxlength="100" value="1" name="password" class="required" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="15%">邮件编码:</td><td colspan="1" class="pn-fcontent" width="35%"><input maxlength="20" name="encoding" type="text"></td><td class="pn-flabel pn-flabel-h" width="15%">发件人:</td><td colspan="1" class="pn-fcontent" width="35%"><input maxlength="100" name="personal" type="text"></td></tr>
+<tr>
+<td class="pn-flabel pn-flabel-h" width="15%"><span class="pn-frequired">*</span>找回密码标题:</td><td colspan="3" class="pn-fcontent" width="85%"><input maxlength="255" value="JEECMS会员密码找回信息" name="subject" class="required" style="width: 220px;" type="text"></td></tr>
+<tr><td class="pn-flabel pn-flabel-h" width="15%"><span class="pn-frequired">*</span>找回密码内容:</td><td colspan="3" class="pn-fcontent" width="85%"><textarea cols="50" rows="5" name="text" class="required" maxlength="255">感谢您使用JEECMS系统会员密码找回功能，请记住以下找回信息：
+用户ID：${uid}
+用户名：${username}
+您的新密码为：${resetPwd}
+请访问如下链接新密码才能生效：
+http://localhost/member/password_reset.jspx?uid=${uid}&amp;key=${resetKey}
+</textarea>
+<div class="pn-fhelp">用户ID：${uid}，用户名：${username}，重置KEY：${resetKey}，重置密码：${resetPwd}</div></td></tr>
+<tr>
+<td colspan="4" class="pn-fbutton">
+<input value="提交" type="submit"> &nbsp; <input value="重置" type="reset"></td>
+</tr></tbody></table>
+</form>
+</div>
+
+</body></html>

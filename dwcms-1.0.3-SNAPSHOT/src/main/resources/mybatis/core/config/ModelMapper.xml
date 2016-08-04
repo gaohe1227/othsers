@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.config.dao.ModelMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.config.pojo.Model" >
+    <id column="model_id" property="modelId" jdbcType="INTEGER" />
+    <result column="model_name" property="modelName" jdbcType="VARCHAR" />
+    <result column="model_path" property="modelPath" jdbcType="VARCHAR" />
+    <result column="tpl_channel_prefix" property="tplChannelPrefix" jdbcType="VARCHAR" />
+    <result column="tpl_content_prefix" property="tplContentPrefix" jdbcType="VARCHAR" />
+    <result column="title_img_width" property="titleImgWidth" jdbcType="INTEGER" />
+    <result column="title_img_height" property="titleImgHeight" jdbcType="INTEGER" />
+    <result column="content_img_width" property="contentImgWidth" jdbcType="INTEGER" />
+    <result column="content_img_height" property="contentImgHeight" jdbcType="INTEGER" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="has_content" property="hasContent" jdbcType="BIT" />
+    <result column="is_disabled" property="isDisabled" jdbcType="BIT" />
+    <result column="is_def" property="isDef" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    model_id, model_name, model_path, tpl_channel_prefix, tpl_content_prefix, title_img_width, 
+    title_img_height, content_img_width, content_img_height, priority, has_content, is_disabled, 
+    is_def
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.config.pojo.ModelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_model
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_model
+    where model_id = #{modelId,jdbcType=INTEGER}
+  </select>
+  <select id="selectMaxId" resultType="java.lang.Integer">
+    select 
+ 	Max(model_id)
+    from dc_model
+  </select>   
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dc_model
+    where model_id = #{modelId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.doadway.dwcms.core.config.pojo.ModelExample" >
+    delete from dc_model
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.config.pojo.Model" >
+    insert into dc_model (model_id, model_name, model_path, 
+      tpl_channel_prefix, tpl_content_prefix, title_img_width, 
+      title_img_height, content_img_width, content_img_height, 
+      priority, has_content, is_disabled, 
+      is_def)
+    values (#{modelId,jdbcType=INTEGER}, #{modelName,jdbcType=VARCHAR}, #{modelPath,jdbcType=VARCHAR}, 
+      #{tplChannelPrefix,jdbcType=VARCHAR}, #{tplContentPrefix,jdbcType=VARCHAR}, #{titleImgWidth,jdbcType=INTEGER}, 
+      #{titleImgHeight,jdbcType=INTEGER}, #{contentImgWidth,jdbcType=INTEGER}, #{contentImgHeight,jdbcType=INTEGER}, 
+      #{priority,jdbcType=INTEGER}, #{hasContent,jdbcType=BIT}, #{isDisabled,jdbcType=BIT}, 
+      #{isDef,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.config.pojo.Model" >
+    insert into dc_model
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="modelId != null" >
+        model_id,
+      </if>
+      <if test="modelName != null" >
+        model_name,
+      </if>
+      <if test="modelPath != null" >
+        model_path,
+      </if>
+      <if test="tplChannelPrefix != null" >
+        tpl_channel_prefix,
+      </if>
+      <if test="tplContentPrefix != null" >
+        tpl_content_prefix,
+      </if>
+      <if test="titleImgWidth != null" >
+        title_img_width,
+      </if>
+      <if test="titleImgHeight != null" >
+        title_img_height,
+      </if>
+      <if test="contentImgWidth != null" >
+        content_img_width,
+      </if>
+      <if test="contentImgHeight != null" >
+        content_img_height,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="hasContent != null" >
+        has_content,
+      </if>
+      <if test="isDisabled != null" >
+        is_disabled,
+      </if>
+      <if test="isDef != null" >
+        is_def,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="modelId != null" >
+        #{modelId,jdbcType=INTEGER},
+      </if>
+      <if test="modelName != null" >
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelPath != null" >
+        #{modelPath,jdbcType=VARCHAR},
+      </if>
+      <if test="tplChannelPrefix != null" >
+        #{tplChannelPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="tplContentPrefix != null" >
+        #{tplContentPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="titleImgWidth != null" >
+        #{titleImgWidth,jdbcType=INTEGER},
+      </if>
+      <if test="titleImgHeight != null" >
+        #{titleImgHeight,jdbcType=INTEGER},
+      </if>
+      <if test="contentImgWidth != null" >
+        #{contentImgWidth,jdbcType=INTEGER},
+      </if>
+      <if test="contentImgHeight != null" >
+        #{contentImgHeight,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="hasContent != null" >
+        #{hasContent,jdbcType=BIT},
+      </if>
+      <if test="isDisabled != null" >
+        #{isDisabled,jdbcType=BIT},
+      </if>
+      <if test="isDef != null" >
+        #{isDef,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.doadway.dwcms.core.config.pojo.ModelExample" resultType="java.lang.Integer" >
+    select count(*) from dc_model
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dc_model
+    <set >
+      <if test="record.modelId != null" >
+        model_id = #{record.modelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.modelName != null" >
+        model_name = #{record.modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelPath != null" >
+        model_path = #{record.modelPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tplChannelPrefix != null" >
+        tpl_channel_prefix = #{record.tplChannelPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tplContentPrefix != null" >
+        tpl_content_prefix = #{record.tplContentPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleImgWidth != null" >
+        title_img_width = #{record.titleImgWidth,jdbcType=INTEGER},
+      </if>
+      <if test="record.titleImgHeight != null" >
+        title_img_height = #{record.titleImgHeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.contentImgWidth != null" >
+        content_img_width = #{record.contentImgWidth,jdbcType=INTEGER},
+      </if>
+      <if test="record.contentImgHeight != null" >
+        content_img_height = #{record.contentImgHeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.priority != null" >
+        priority = #{record.priority,jdbcType=INTEGER},
+      </if>
+      <if test="record.hasContent != null" >
+        has_content = #{record.hasContent,jdbcType=BIT},
+      </if>
+      <if test="record.isDisabled != null" >
+        is_disabled = #{record.isDisabled,jdbcType=BIT},
+      </if>
+      <if test="record.isDef != null" >
+        is_def = #{record.isDef,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dc_model
+    set model_id = #{record.modelId,jdbcType=INTEGER},
+      model_name = #{record.modelName,jdbcType=VARCHAR},
+      model_path = #{record.modelPath,jdbcType=VARCHAR},
+      tpl_channel_prefix = #{record.tplChannelPrefix,jdbcType=VARCHAR},
+      tpl_content_prefix = #{record.tplContentPrefix,jdbcType=VARCHAR},
+      title_img_width = #{record.titleImgWidth,jdbcType=INTEGER},
+      title_img_height = #{record.titleImgHeight,jdbcType=INTEGER},
+      content_img_width = #{record.contentImgWidth,jdbcType=INTEGER},
+      content_img_height = #{record.contentImgHeight,jdbcType=INTEGER},
+      priority = #{record.priority,jdbcType=INTEGER},
+      has_content = #{record.hasContent,jdbcType=BIT},
+      is_disabled = #{record.isDisabled,jdbcType=BIT},
+      is_def = #{record.isDef,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.config.pojo.Model" >
+    update dc_model
+    <set >
+      <if test="modelName != null" >
+        model_name = #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelPath != null" >
+        model_path = #{modelPath,jdbcType=VARCHAR},
+      </if>
+      <if test="tplChannelPrefix != null" >
+        tpl_channel_prefix = #{tplChannelPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="tplContentPrefix != null" >
+        tpl_content_prefix = #{tplContentPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="titleImgWidth != null" >
+        title_img_width = #{titleImgWidth,jdbcType=INTEGER},
+      </if>
+      <if test="titleImgHeight != null" >
+        title_img_height = #{titleImgHeight,jdbcType=INTEGER},
+      </if>
+      <if test="contentImgWidth != null" >
+        content_img_width = #{contentImgWidth,jdbcType=INTEGER},
+      </if>
+      <if test="contentImgHeight != null" >
+        content_img_height = #{contentImgHeight,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="hasContent != null" >
+        has_content = #{hasContent,jdbcType=BIT},
+      </if>
+      <if test="isDisabled != null" >
+        is_disabled = #{isDisabled,jdbcType=BIT},
+      </if>
+      <if test="isDef != null" >
+        is_def = #{isDef,jdbcType=BIT},
+      </if>
+    </set>
+    where model_id = #{modelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.config.pojo.Model" >
+    update dc_model
+    set model_name = #{modelName,jdbcType=VARCHAR},
+      model_path = #{modelPath,jdbcType=VARCHAR},
+      tpl_channel_prefix = #{tplChannelPrefix,jdbcType=VARCHAR},
+      tpl_content_prefix = #{tplContentPrefix,jdbcType=VARCHAR},
+      title_img_width = #{titleImgWidth,jdbcType=INTEGER},
+      title_img_height = #{titleImgHeight,jdbcType=INTEGER},
+      content_img_width = #{contentImgWidth,jdbcType=INTEGER},
+      content_img_height = #{contentImgHeight,jdbcType=INTEGER},
+      priority = #{priority,jdbcType=INTEGER},
+      has_content = #{hasContent,jdbcType=BIT},
+      is_disabled = #{isDisabled,jdbcType=BIT},
+      is_def = #{isDef,jdbcType=BIT}
+    where model_id = #{modelId,jdbcType=INTEGER}
+  </update>
+</mapper>

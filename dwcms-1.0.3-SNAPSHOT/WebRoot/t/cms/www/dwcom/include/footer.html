@@ -1,0 +1,90 @@
+#set($ctx = $request.getContextPath()) 		
+		<!-- META -->
+		<title>多维矩阵-企业网络信息化专家</title>
+		<meta charset="utf-8" />	
+		<meta name="description" content=" 多维矩阵  ... " />
+		<meta name="keywords"    content=" 微电影 微广播 微推广工具开发   ... " />	
+	<!-- STYLESHEETS -->
+	<!-- 
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/style.css" />
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/nivo-slider.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/prettyPhoto.css" />
+		<link rel="stylesheet" href="${ctx}/r/cms/www/dwcom/css/jquery.validity.css" />
+	 -->
+		
+		<!-- SCRIPTS -->
+		<!-- 
+		<script src="${ctx}/r/cms/www/dwcom/js/jquery-1.5.1.min.js" type="text/javascript"></script>
+		<script src="${ctx}/r/cms/www/dwcom/js/jquery.nivo.slider.pack.js" type="text/javascript"></script>
+		<script src="${ctx}/r/cms/www/dwcom/js/jquery.prettyPhoto.js" type="text/javascript"></script>
+		<script src="${ctx}/r/cms/www/dwcom/js/jquery.validity.js" type="text/javascript"></script>
+		<script src="${ctx}/r/cms/www/dwcom/js/Bitstream_Vera_Sans_400.font.js" type="text/javascript"></script>				
+		<script src="${ctx}/r/cms/www/dwcom/js/script.js" type="text/javascript"></script>	
+		<script type="text/javascript">
+			$(window).load(function() {
+				$('#slider').nivoSlider();
+			});
+		</script>   		
+		<script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-23137036-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>			
+		 -->
+		<!-- FOOTER -->
+		<div id="footer" class="container">
+			<div class="fixed">
+				<div class="col-4">
+					<h3 class="title">合作伙伴</h3>
+					<ul class="thunder">
+						#foreach( $partner in $partnerlink )
+						<li><a href="$partner.domain">$partner.siteName</a>-$partner.description</li>
+						#end							
+						<!-- li><a href="#">中国移动</a>-移动让生活更美好</li>
+						<li><a href="#">中国联通</a>-移动让生活更美好</li>
+						<li><a href="#">中国电信</a>-移动让生活更美好</li>
+						<li><a href="#">联想集团</a>-移动让生活更美好</li>
+						<li><a href="#">微软中国</a>-移动让生活更美好</li-->
+					</ul>
+				</div>	
+				<div class="col-4">
+					<h3 class="title">链接分享</h3>
+					<p>如果您觉得本站对您有所帮助，请分享给您的好友！</p>
+					<ul class="social">
+					
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_bdhome" data-cmd="bdhome" title="分享到百度新首页"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>					
+
+					</ul>
+				</div>			
+				<div class="col-4 last">
+					<h3 class="title">联系我们</h3>
+					<p>地址:亦庄经济开发区南海家园5里6号楼1单元101</p>				
+					<ul class="contacts">
+						<li class="phone">+86 010-52466853</li>
+						<li class="email">doadway@doadway.com</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="bottom fixed">
+				<p>Copyright &copy; 2011 <a href="http://www.doadway.com">北京多维矩阵科技有限公司</a> | <a href="#">网站导航</a> | <a href="#">法律信息</a> | 
+				<a href="#">
+					<script type="text/javascript">
+					var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+					document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F3d2610edce19482c2196acc1dca195a6' type='text/javascript'%3E%3C/script%3E"));
+					</script>
+				</a>
+				</p>			
+			</div>
+			
+		</div>	<!-- end FOOTER -->
+

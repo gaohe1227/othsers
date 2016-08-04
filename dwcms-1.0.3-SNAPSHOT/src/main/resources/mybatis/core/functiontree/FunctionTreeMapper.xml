@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doadway.dwcms.core.functiontree.dao.FunctionTreeMapper" >
+  <resultMap id="BaseResultMap" type="com.doadway.dwcms.core.functiontree.pojo.FunctionTree" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="VIEW_TYPE" property="viewType" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="DESCRIPT" property="descript" jdbcType="VARCHAR" />
+    <result column="USE_TYPE" property="useType" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="ICON" property="icon" jdbcType="VARCHAR" />
+    <result column="LEVEL" property="level" jdbcType="INTEGER" />
+    <result column="CURRENT_INDEX" property="currentIndex" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CODE, PARENT_ID, VIEW_TYPE, NAME, DESCRIPT, USE_TYPE, CONTENT, ICON, LEVEL, CURRENT_INDEX
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.dwcms.core.functiontree.pojo.FunctionTreeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dc_function_tree
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dc_function_tree
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectFunctionTreeByPage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_function_tree
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dc_function_tree
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.doadway.dwcms.core.functiontree.pojo.FunctionTree" >
+    insert into dc_function_tree (ID, CODE, PARENT_ID, 
+      VIEW_TYPE, NAME, DESCRIPT, 
+      USE_TYPE, CONTENT, ICON, 
+      LEVEL, CURRENT_INDEX)
+    values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, 
+      #{viewType,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{descript,jdbcType=VARCHAR}, 
+      #{useType,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{currentIndex,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doadway.dwcms.core.functiontree.pojo.FunctionTree" >
+    insert into dc_function_tree
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="viewType != null" >
+        VIEW_TYPE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="descript != null" >
+        DESCRIPT,
+      </if>
+      <if test="useType != null" >
+        USE_TYPE,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="icon != null" >
+        ICON,
+      </if>
+      <if test="level != null" >
+        LEVEL,
+      </if>
+      <if test="currentIndex != null" >
+        CURRENT_INDEX,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="viewType != null" >
+        #{viewType,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="descript != null" >
+        #{descript,jdbcType=VARCHAR},
+      </if>
+      <if test="useType != null" >
+        #{useType,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="currentIndex != null" >
+        #{currentIndex,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.dwcms.core.functiontree.pojo.FunctionTree" >
+    update dc_function_tree
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="viewType != null" >
+        VIEW_TYPE = #{viewType,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="descript != null" >
+        DESCRIPT = #{descript,jdbcType=VARCHAR},
+      </if>
+      <if test="useType != null" >
+        USE_TYPE = #{useType,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        ICON = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        LEVEL = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="currentIndex != null" >
+        CURRENT_INDEX = #{currentIndex,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.doadway.dwcms.core.functiontree.pojo.FunctionTree" >
+    update dc_function_tree
+    set CODE = #{code,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      VIEW_TYPE = #{viewType,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=VARCHAR},
+      DESCRIPT = #{descript,jdbcType=VARCHAR},
+      USE_TYPE = #{useType,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      ICON = #{icon,jdbcType=VARCHAR},
+      LEVEL = #{level,jdbcType=INTEGER},
+      CURRENT_INDEX = #{currentIndex,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
